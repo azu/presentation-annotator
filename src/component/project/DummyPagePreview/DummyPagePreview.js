@@ -2,30 +2,31 @@
 "use strict";
 const React = require("react");
 const PDFController = require("pdf.js-controller");
-export default class PDFPagePreview extends React.Component {
+export default class DummyPagePreview extends React.Component {
     componentDidMount() {
         const container = this.refs.PDFContainer;
         const controller = new PDFController({
             container: container,
-            pageNumber: this.props.pageNumber,
             // path to dir of pdfjs-dist
             pdfjsDistDir: "./resources/pdfjs-dist/"
         });
         const PDFURL = this.props.pdfURL;
         controller.loadDocument(PDFURL)
+            .then(() => {
+                const totalPageNum = controller.pdfDoc.numPages;
+                console.log(totalPageNum);
+            })
             .catch(function (error) {
                 console.error(error);
             });
     }
 
     render() {
-        return <div className="PDFPagePreview">
-            <div className="PDFPagePreview-container" ref="PDFContainer"></div>
+        return <div className="DummyPagePreview">
+            <div className="DummyPagePreview-container" ref="PDFContainer"></div>
         </div>
     }
 }
-PDFPagePreview.propTypes = {
-    pdfURL: React.PropTypes.string.isRequired,
-    // page image url
-    pageNumber: React.PropTypes.number.isRequired
+DummyPagePreview.propTypes = {
+    pdfURL: React.PropTypes.string.isRequired
 };

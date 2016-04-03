@@ -1,0 +1,22 @@
+:root {
+    --NewDocumentForm_font-size: 30px;
+    --NewDocumentForm_leftRadio: 80%;
+    --NewDocumentForm_rightRadio: 20%;
+}
+
+.NewDocumentForm {
+    font-size: var(--NewDocumentForm_font-size);
+}
+
+.NewDocumentForm-inputURL {
+    font-size: var(--NewDocumentForm_font-size);
+    width: var(--NewDocumentForm_leftRadio, 80%);
+}
+
+.NewDocumentForm-submitButton {
+    width: var(--NewDocumentForm_rightRadio, 20%);
+    font-size: var(--NewDocumentForm_font-size);
+    background-color: #248;
+    color: #fff;
+    border-style: none;
+}

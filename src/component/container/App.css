@@ -4,10 +4,7 @@
 }
 
 .App {
-    width: 100%;
+    width: var(--PageContainer-width);
     height: 100%;
-}
-
-.PageList > * {
     margin: 0 auto;
 }

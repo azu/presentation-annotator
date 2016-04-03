@@ -1,14 +1,39 @@
 // LICENSE : MIT
 "use strict";
 const React = require("react");
-import PageContainer from "./PageContainer/PageContainer";
+import AppContextRepository from "../../AppContextRepository";
+import NewDocumentUseCase from "../../js/usecase/NewDocumentUseCase";
+// Container
+import DocumentFormContainer from "./DocumentFormContainer/DocumentFormContainer";
+import PageListContainer from "./PageListContainer/PageListContainer";
 export default class App extends React.Component {
+    constructor(...args) {
+        super(...args);
+        this.state = this.replaceForState();
+    }
+
+    replaceForState() {
+        const documentStateStore = this.props.documentStateStore;
+        return Object.assign({}, documentStateStore.getState());
+    }
+
+    componentDidMount() {
+        const context = AppContextRepository.context;
+        // when change store, update component
+        context.onChange(() => {
+            this.setState(this.replaceForState());
+        });
+        context.execute(new NewDocumentUseCase());
+    }
+
     render() {
+        const document = this.state.document;
         return <div className="App">
-            <div className="PageList">
-                <PageContainer pageNumber={1} isActive={true}/>
-                <PageContainer pageNumber={2}/>
-            </div>
+            <DocumentFormContainer />
+            <PageListContainer document={document}/>
         </div>
     }
 }
+App.propTypes = {
+    documentStateStore: React.PropTypes.any
+};
