@@ -1,5 +1,14 @@
+:root {
+    /* Export Interface
+    --PageContainer-width
+    */
+    --PageContainer-itemSizeWidth: calc(var(--PageContainer-width) / 2);
+    --PageContainer-itemSizeHeight: 300px;
+}
+
 .PageContainer {
-    height: 300px
+    height: var(--PageContainer-itemSizeHeight);
+    width: calc(var(--PageContainer-width));
 }
 
 .PageContainer-inner {
@@ -7,5 +16,6 @@
 }
 
 .PageContainer-item {
-    height: 100%;
+    width: var(--PageContainer-itemSizeWidth);
+    height: var(--PageContainer-itemSizeHeight);
 }

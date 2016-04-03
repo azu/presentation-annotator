@@ -1,0 +1,19 @@
+.PDFPagePreview {
+    position: relative;
+    height: 100%;
+}
+
+.PDFPagePreview-container {
+    height: 100%;
+}
+
+/* overwrite */
+.pdf-slide-progress {
+    display: none !important;
+}
+
+.pdf-canvas {
+    height: auto !important;
+    max-width: 100%;
+    max-height: 100%;
+}

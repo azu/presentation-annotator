@@ -2,7 +2,7 @@
 "use strict";
 const React = require("react");
 const suitClassNames = require("suitcss-classnames");
-import Image from "../../uikit/Image/Image";
+import PDFPagePreview from "../PDFPagePreview/PDFPagePreview";
 export default class PagePreview extends React.Component {
     render() {
         const className = suitClassNames({
@@ -12,12 +12,13 @@ export default class PagePreview extends React.Component {
             }
         });
         return <div className={className}>
-            <Image className="PagePreview-image" src={this.props.imageSrc}/>
+            <PDFPagePreview pdfURL={this.props.pdfURL} pageNumber={this.props.pageNumber}/>
         </div>
     }
 }
 PagePreview.propTypes = {
     isActive: React.PropTypes.bool,
+    pdfURL: React.PropTypes.string.isRequired,
     // page image url
-    imageSrc: React.PropTypes.string.isRequired
+    pageNumber: React.PropTypes.number.isRequired
 };

@@ -9,7 +9,10 @@ export default class PageContainer extends React.Component {
         return <div className="PageContainer">
             <Grid className="PageContainer-inner">
                 <GridCell col="6of12" className="PageContainer-item">
-                    <PagePreview imageSrc="./resources/example/0001.jpg" isActive={this.props.isActive}/>
+                    <PagePreview
+                        pdfURL="./resources/example/jser.info.pdf"
+                        pageNumber={this.props.pageNumber}
+                        isActive={this.props.isActive}/>
                 </GridCell>
                 <GridCell col="6of12" className="PageContainer-item">
                     <PageEditor isActive={this.props.isActive}/>
