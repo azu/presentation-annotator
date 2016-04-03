@@ -10,7 +10,7 @@ export default class CompleteLoadingDocumentUseCase {
      * @param {ContextInUseCase} context
      */
     execute(context) {
-        const currentDocument = DocumentRepository.document;
+        const currentDocument = DocumentRepository.findLatest();
         if (!currentDocument) {
             throw new Error("currentDocument is not found");
         }

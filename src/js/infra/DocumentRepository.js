@@ -13,7 +13,7 @@ export class DocumentRepository {
     /**
      * @returns {Document}
      */
-    get document() {
+    findLatest() {
         return this._currentDocument;
     }
 

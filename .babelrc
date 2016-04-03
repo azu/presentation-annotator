@@ -5,5 +5,12 @@
   ],
   "plugins": [
     "transform-runtime"
-  ]
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "babel-plugin-espower"
+      ]
+    }
+  }
 }
