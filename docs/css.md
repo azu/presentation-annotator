@@ -1,8 +1,12 @@
 ## CSS
 
-## States
+## Naming Convention
 
-- Use `Component.is-state` 
+Apply [SUIT CSS](http://suitcss.github.io/ "SUIT CSS") convention.
+
+## Not use desentant states class
+
+- Always Use `Component.is-state` 
 - Not use `.is-state ChildComponent`
 
 
@@ -76,7 +80,7 @@ export default class PageEditor extends React.Component {
 PageEditor.propTypes = {isActive: React.PropTypes.bool};
 ```
 
-## Varibale
+## Constant Variable
 
 Constants variable is defined `css/var`.
 

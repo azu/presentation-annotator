@@ -1,12 +1,8 @@
-# docs
+# Document
 
-## CSS Naming Convention
+## Term and Role.
 
-Apply [SUIT CSS](http://suitcss.github.io/ "SUIT CSS") convention.
-
------
-
-## contaienr
+### contaienr
 
 Position of JavaScript:
 
@@ -17,26 +13,31 @@ Position of CSS:
 - Layout Component
 
 
-### Allow
+#### Allow
 
 - Know `component/<ComponentName>`
 - Put layout css
 - Use active CSS like `margin`, `width`, `position:fixed`, `z-index`, `!important`
 
-### Disallow
+#### Disallow
 
 - touch parent container
 
-## component
+### component
 
 Contain `.js` and `.css` in a `<ComponentName>` directory.
 
-### Allow
+#### Allow
 
 - Should know inner of the component
 
-### Disallow
+#### Disallow
 
 - Know other component
 - Use active CSS like `margin`, `width`, `position:fixed`, `z-index`, `!important`
 
+------
+
+## CSS
+
+See [css.md](./css.md)
