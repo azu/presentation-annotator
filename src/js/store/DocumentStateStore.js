@@ -2,7 +2,11 @@
 "use strict";
 import StateStore from "../flux/StateStore";
 import NewDocumentUseCase from "../usecase/NewDocumentUseCase"
+import CompleteLoadingDocumentUseCase from "../usecase/CompleteLoadingDocumentUseCase"
 import Document from "../domain/Document/Document"
+/*
+ StateStore has change condition
+ */
 export default class CurrentVideoStore extends StateStore {
     constructor() {
         super();
@@ -18,5 +22,11 @@ export default class CurrentVideoStore extends StateStore {
     [NewDocumentUseCase.name](document) {
         this.document = document;
         this.emitChange();
+    }
+
+    [CompleteLoadingDocumentUseCase.name](totalPageNumber) {
+        if (this.document.getTotalPageNumber !== totalPageNumber) {
+            this.emitChange();
+        }
     }
 }

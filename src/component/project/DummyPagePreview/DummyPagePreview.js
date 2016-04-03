@@ -2,6 +2,8 @@
 "use strict";
 const React = require("react");
 const PDFController = require("pdf.js-controller");
+import AppContextRepository from "../../../AppContextRepository";
+import CompleteLoadingDocumentUseCase from "../../../js/usecase/CompleteLoadingDocumentUseCase";
 export default class DummyPagePreview extends React.Component {
     componentDidMount() {
         const container = this.refs.PDFContainer;
@@ -13,8 +15,8 @@ export default class DummyPagePreview extends React.Component {
         const PDFURL = this.props.pdfURL;
         controller.loadDocument(PDFURL)
             .then(() => {
-                const totalPageNum = controller.pdfDoc.numPages;
-                console.log(totalPageNum);
+                const totalPageNumber = controller.pdfDoc.numPages;
+                AppContextRepository.context.execute(new CompleteLoadingDocumentUseCase({totalPageNumber}));
             })
             .catch(function (error) {
                 console.error(error);

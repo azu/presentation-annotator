@@ -10,6 +10,9 @@ export class DocumentRepository {
         this._currentDocument = null;
     }
 
+    /**
+     * @returns {Document}
+     */
     get document() {
         return this._currentDocument;
     }
