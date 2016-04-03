@@ -1,0 +1,11 @@
+.PageContainer {
+    height: 300px
+}
+
+.PageContainer-inner {
+    height: 100%;
+}
+
+.PageContainer-item {
+    height: 100%;
+}

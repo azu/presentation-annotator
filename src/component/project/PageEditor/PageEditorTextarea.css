@@ -1,0 +1,3 @@
+.PageEditorTextarea.is-active {
+    font-size: var(--PageEditorTextareaIsActive-font-size, large);
+}
