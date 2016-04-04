@@ -1,5 +1,6 @@
 // LICENSE : MIT
 "use strict";
+import DocumentService from "../domain/Document/DocumentService";
 export default class ShowExportDialogUseCase {
     constructor({documentRepository}) {
         /**
@@ -11,7 +12,7 @@ export default class ShowExportDialogUseCase {
     execute() {
         return dispatch => {
             const document = this.documentRepository.findLatest();
-            const output = JSON.stringify(document.pages, null, 4);
+            const output = DocumentService.stringify(document);
             dispatch(ShowExportDialogUseCase.name, output);
         }
     }
