@@ -7,9 +7,11 @@ import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
 describe("NewDocumentUseCase", function () {
     context("execute", function () {
         it("should dispatch with document", function (done) {
+            const pdfURL = "test.pdf";
             const documentRepository = new DocumentRepository();
             documentRepository.addDocument = (document) => {
                 assert(document instanceof Document);
+                assert.equal(document.pdfURL, pdfURL);
             };
             const dispatch = (key, document) => {
                 assert.equal(key, NewDocumentUseCase.name);
@@ -17,7 +19,7 @@ describe("NewDocumentUseCase", function () {
                 done();
             };
             const useCase = new NewDocumentUseCase({documentRepository});
-            useCase.execute(context)(dispatch);
+            useCase.execute(pdfURL)(dispatch);
         });
     });
 });

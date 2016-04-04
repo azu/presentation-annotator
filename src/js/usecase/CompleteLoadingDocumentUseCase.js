@@ -1,13 +1,18 @@
 // LICENSE : MIT
 "use strict";
 export default class CompleteLoadingDocumentUseCase {
-    constructor({DocumentRepository}) {
-        this.DocumentRepository = DocumentRepository;
+    /**
+     * initialized with DI-able object.
+     * Not directly use from View/Component
+     * Call via UseCaseController
+     */
+    constructor({documentRepository}) {
+        this.documentRepository = documentRepository;
     }
 
     execute(totalPageNumber) {
         return dispatch => {
-            const currentDocument = this.DocumentRepository.findLatest();
+            const currentDocument = this.documentRepository.findLatest();
             if (!currentDocument) {
                 throw new Error("currentDocument is not found");
             }
