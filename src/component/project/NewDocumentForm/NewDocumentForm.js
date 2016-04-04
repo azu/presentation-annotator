@@ -3,18 +3,28 @@
 const React = require("react");
 import AppContextRepository from "../../../AppContextRepository";
 import DocumentUseCaseController from "../../../js/UseCaseController/DocumentUseCaseController";
+// domain
+import Document from "../../../js/domain/Document/Document";
 export default class NewDocumentForm extends React.Component {
     render() {
         const openNewDocument = (event) => {
             event.preventDefault();
             const pdfURL = this.refs.inputURL.value;
-            if (pdfURL) {
-                AppContextRepository.context.execute(DocumentUseCaseController.NewDocumentUseCase(pdfURL));
+            if (!pdfURL) {
+                return;
             }
+            AppContextRepository.context.execute(DocumentUseCaseController.NewDocumentUseCase(pdfURL));
         };
+        const document = this.props.document;
         return <form className="NewDocumentForm" onSubmit={openNewDocument}>
-            <input className="NewDocumentForm-inputURL" type="text" placeholder="pdf url" ref="inputURL"/>
+            <input className="NewDocumentForm-inputURL" type="text"
+                   placeholder="Please input PDF URL"
+                   defaultValue={document.pdfURL}
+                   ref="inputURL"/>
             <input className="NewDocumentForm-submitButton" type="submit" onSubmit={openNewDocument}/>
         </form>
     }
 }
+NewDocumentForm.propTypes = {
+    document: React.PropTypes.instanceOf(Document)
+};

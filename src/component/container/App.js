@@ -23,13 +23,14 @@ export default class App extends React.Component {
         context.onChange(() => {
             this.setState(this.replaceForState());
         });
-        context.execute(DocumentUseCaseController.NewDocumentUseCase());
+        const defaultPdfURL = "./resources/example/jser.info.pdf";
+        context.execute(DocumentUseCaseController.NewDocumentUseCase(defaultPdfURL));
     }
 
     render() {
         const document = this.state.document;
         return <div className="App">
-            <DocumentFormContainer />
+            <DocumentFormContainer document={document}/>
             <PageListContainer document={document}/>
         </div>
     }

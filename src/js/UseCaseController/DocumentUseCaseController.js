@@ -1,16 +1,20 @@
 // LICENSE : MIT
 "use strict";
-import DocumentRepository from "../infra/DocumentRepository";
+import documentRepository from "../infra/DocumentRepository";
 import CompleteLoadingDocumentUseCase from "../usecase/CompleteLoadingDocumentUseCase";
 import NewDocumentUseCase from "../usecase/NewDocumentUseCase";
 export default class DocumentUseCaseController {
     static CompleteLoadingDocumentUseCase(totalPageNumber) {
-        var useCase = new CompleteLoadingDocumentUseCase({DocumentRepository});
+        var useCase = new CompleteLoadingDocumentUseCase({documentRepository});
         return useCase.execute(totalPageNumber);
     }
 
+    /**
+     * @param {string} pdfURL
+     * @returns {function()}
+     */
     static NewDocumentUseCase(pdfURL) {
-        var useCase = new NewDocumentUseCase({DocumentRepository});
+        var useCase = new NewDocumentUseCase({documentRepository});
         return useCase.execute(pdfURL);
     }
 }

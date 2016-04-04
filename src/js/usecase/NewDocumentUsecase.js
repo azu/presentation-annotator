@@ -1,18 +1,25 @@
 // LICENSE : MIT
 "use strict";
-import DocumentRepository from "../infra/DocumentRepository";
 import Document from "../domain/Document/Document";
 export default class NewDocumentUseCase {
-    constructor({pdfURL} = {}) {
-        this.pdfURL = pdfURL;
+    /**
+     * initialized with DI-able object.
+     * Not directly use from View/Component
+     * Call via UseCaseController
+     */
+    constructor({documentRepository}) {
+        this.documentRepository = documentRepository;
     }
 
     /**
-     * @param {ContextInUseCase} context
+     * @param {string} pdfURL
+     * @returns {function()}
      */
-    execute(context) {
-        const document = new Document({pdfURL: this.pdfURL});
-        DocumentRepository.addDocument(document);
-        context.dispatch(this.constructor.name, document);
+    execute(pdfURL) {
+        return dispatch => {
+            const document = new Document({pdfURL});
+            this.documentRepository.addDocument(document);
+            dispatch(this.constructor.name, document);
+        };
     }
 }

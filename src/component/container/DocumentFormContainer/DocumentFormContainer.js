@@ -6,7 +6,7 @@ export default class DocumentFormContainer extends React.Component {
     render() {
         return <div className="DocumentFormContainer">
             <div className="DocumentFormContainer-inner">
-                <NewDocumentForm />
+                <NewDocumentForm {...this.props}/>
             </div>
         </div>
     }
