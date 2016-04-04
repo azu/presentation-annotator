@@ -6,6 +6,7 @@ import DocumentUseCaseController from "../../js/UseCaseController/DocumentUseCas
 // Container
 import DocumentFormContainer from "./DocumentFormContainer/DocumentFormContainer";
 import PageListContainer from "./PageListContainer/PageListContainer";
+import ExportContainer from "./ExportContainer/ExportContainer";
 export default class App extends React.Component {
     constructor(...args) {
         super(...args);
@@ -13,8 +14,8 @@ export default class App extends React.Component {
     }
 
     replaceForState() {
-        const documentStateStore = this.props.documentStateStore;
-        return Object.assign({}, documentStateStore.getState());
+        const {exportStateStore, documentStateStore} = this.props;
+        return Object.assign({}, documentStateStore.getState(), exportStateStore.getState());
     }
 
     componentDidMount() {
@@ -30,6 +31,7 @@ export default class App extends React.Component {
     render() {
         const document = this.state.document;
         return <div className="App">
+            <ExportContainer output={this.state.output} isShowing={this.state.isShowing}/>
             <DocumentFormContainer document={document}/>
             <PageListContainer document={document}/>
         </div>

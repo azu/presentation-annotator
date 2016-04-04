@@ -6,18 +6,23 @@ import App from "./component/container/App";
 import AppContextRepository from "./AppContextRepository";
 // store
 import DocumentStateStore from "./js/store/DocumentStateStore";
+import ExportStateStore from "./js/store/ExportStateStore";
 // context
 import AppContext  from "./js/flux/Conext";
 import Dispatcher from "./js/flux/Dispatcher";
 // instances
 const documentStateStore = new DocumentStateStore();
+const exportStateStore = new ExportStateStore();
 const dispatcher = new Dispatcher();
 // dispatcherとstoresを紐つけるContext
 const appContext = new AppContext({
     dispatcher,
-    stores: [documentStateStore]
+    stores: [documentStateStore, exportStateStore]
 });
 // Singleton
 AppContextRepository.context = appContext;
 // entry point
-ReactDOM.render(<App documentStateStore={documentStateStore}/>, document.getElementById("js-app"));
+ReactDOM.render(<App
+    exportStateStore={exportStateStore}
+    documentStateStore={documentStateStore}
+/>, document.getElementById("js-app"));
