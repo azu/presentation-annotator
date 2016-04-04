@@ -25,10 +25,9 @@ export default class Context extends EventEmitter {
     /**
      * execute UseCase instance.
      * UseCase is a executable object. it means that has `execute` method.
-     * @param userCase
+     * @param useCaseExecution
      */
-    execute(userCase) {
-        const executeOnUseCase = userCase.execute.bind(userCase);
+    execute(useCaseExecution) {
         // debug
         let isCalledAtLeastOne = false;
         const removeDispatchEvent = this.dispatcher.onDispatch(() => {
@@ -36,13 +35,8 @@ export default class Context extends EventEmitter {
         });
         // execute and finish =>
         const dispatch = this.dispatcher.dispatch.bind(this.dispatcher);
-        /**
-         * @typedef {Object} ContextInUseCase
-         * @property {Function} dispatch
-         */
-        const context = {dispatch};
-        Promise.resolve(executeOnUseCase(context)).then(() => {
-            assert.ok(isCalledAtLeastOne, "should emit at least one action in the UseCase: " + userCase.constructor.name);
+        Promise.resolve(useCaseExecution(dispatch)).then(() => {
+            assert.ok(isCalledAtLeastOne, "should emit at least one action in the UseCase: " + useCaseExecution.toString());
             removeDispatchEvent();
         }).catch(error => {
             console.error(error);

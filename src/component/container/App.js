@@ -2,7 +2,7 @@
 "use strict";
 const React = require("react");
 import AppContextRepository from "../../AppContextRepository";
-import NewDocumentUseCase from "../../js/usecase/NewDocumentUseCase";
+import DocumentUseCaseController from "../../js/UseCaseController/DocumentUseCaseController";
 // Container
 import DocumentFormContainer from "./DocumentFormContainer/DocumentFormContainer";
 import PageListContainer from "./PageListContainer/PageListContainer";
@@ -23,7 +23,7 @@ export default class App extends React.Component {
         context.onChange(() => {
             this.setState(this.replaceForState());
         });
-        context.execute(new NewDocumentUseCase());
+        context.execute(DocumentUseCaseController.NewDocumentUseCase());
     }
 
     render() {

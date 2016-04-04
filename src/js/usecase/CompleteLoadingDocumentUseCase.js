@@ -1,20 +1,18 @@
 // LICENSE : MIT
 "use strict";
-import DocumentRepository from "../infra/DocumentRepository";
 export default class CompleteLoadingDocumentUseCase {
-    constructor({totalPageNumber} = {}) {
-        this.totalPageNumber = totalPageNumber;
+    constructor({DocumentRepository}) {
+        this.DocumentRepository = DocumentRepository;
     }
 
-    /**
-     * @param {ContextInUseCase} context
-     */
-    execute(context) {
-        const currentDocument = DocumentRepository.findLatest();
-        if (!currentDocument) {
-            throw new Error("currentDocument is not found");
-        }
-        currentDocument.updateTotalPageNumber(this.totalPageNumber);
-        context.dispatch(this.constructor.name, this.totalPageNumber);
+    execute(totalPageNumber) {
+        return dispatch => {
+            const currentDocument = this.DocumentRepository.findLatest();
+            if (!currentDocument) {
+                throw new Error("currentDocument is not found");
+            }
+            currentDocument.updateTotalPageNumber(totalPageNumber);
+            dispatch(this.constructor.name, totalPageNumber);
+        };
     }
 }
