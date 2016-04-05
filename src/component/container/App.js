@@ -15,7 +15,9 @@ export default class App extends React.Component {
 
     replaceForState() {
         const {exportStateStore, documentStateStore} = this.props;
-        return Object.assign({}, documentStateStore.getState(), exportStateStore.getState());
+        return Object.assign({},
+            documentStateStore.getState(),
+            exportStateStore.getState());
     }
 
     componentDidMount() {
@@ -29,9 +31,9 @@ export default class App extends React.Component {
     }
 
     render() {
-        const document = this.state.document;
+        const {document, exporting} = this.state;
         return <div className="App">
-            <ExportContainer output={this.state.output} isShowing={this.state.isShowing}/>
+            <ExportContainer output={exporting.output} isShowing={exporting.isShowing}/>
             <DocumentFormContainer document={document}/>
             <PageListContainer document={document}/>
         </div>

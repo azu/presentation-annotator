@@ -14,8 +14,10 @@ export default class ExportStateStore extends StateStore {
 
     getState() {
         return {
-            isShowing: this.isShowing,
-            output: this.output
+            exporting: {
+                isShowing: this.isShowing,
+                output: this.output
+            }
         }
     }
 
