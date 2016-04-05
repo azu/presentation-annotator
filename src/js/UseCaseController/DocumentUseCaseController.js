@@ -1,8 +1,8 @@
 // LICENSE : MIT
 "use strict";
 import documentRepository from "../infra/DocumentRepository";
-import CompleteLoadingDocumentUseCase from "../usecase/CompleteLoadingDocumentUseCase";
-import NewDocumentUseCase from "../usecase/NewDocumentUseCase";
+import CompleteLoadingDocumentUseCase from "../UseCase/CompleteLoadingDocumentUseCase";
+import NewDocumentUseCase from "../UseCase/NewDocumentUseCase";
 export default class DocumentUseCaseController {
     static CompleteLoadingDocumentUseCase(totalPageNumber) {
         var useCase = new CompleteLoadingDocumentUseCase({documentRepository});

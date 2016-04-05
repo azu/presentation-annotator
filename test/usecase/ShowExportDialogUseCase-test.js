@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 const assert = require("power-assert");
-import ShowExportDialogUseCase from "../../src/js/usecase/ShowExportDialogUseCase";
+import ShowExportDialogUseCase from "../../src/js/UseCase/ShowExportDialogUseCase";
 import Document from "../../src/js/domain/Document/Document";
 import DocumentService from "../../src/js/domain/Document/DocumentService";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
