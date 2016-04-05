@@ -1,5 +1,6 @@
 // LICENSE : MIT
 "use strict";
+const assert = require("assert");
 import DocumentPage from "./DocumentPage";
 import Range from "lodash.range";
 let DocumentID = 1;
@@ -31,5 +32,11 @@ export default class Document {
             return new DocumentPage({pageNumber: index + 1});
         });
         this.isLoaded = true;
+    }
+
+    updateNodeAtPage(note, pageNumber) {
+        const page = this.pages[pageNumber];
+        assert(page, "page should exist");
+        page.note = note;
     }
 }
