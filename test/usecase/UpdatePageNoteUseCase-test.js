@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 const assert = require("power-assert");
-import UpdatePageNoteUseCase from "../../src/js/UseCase/UpdatePageNoteUseCase";
+import UpdatePageNoteUseCase from "../../src/js/UseCase/UpdatePageNote/UpdatePageNoteUseCase";
 import Document from "../../src/js/domain/Document/Document";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
 describe("UpdatePageNoteUseCase", function () {
@@ -16,7 +16,7 @@ describe("UpdatePageNoteUseCase", function () {
         const dispatch = (key, value) => {
             assert.deepEqual(key, UpdatePageNoteUseCase.name);
             assert.deepEqual(value, input);
-            assert.equal(document.pages[input.pageNumber].note, input.note);
+            assert.equal(document.pages[input.pageNumber - 1].note, input.note);
             done();
         };
         const useCase = new UpdatePageNoteUseCase({documentRepository});
@@ -32,14 +32,12 @@ describe("UpdatePageNoteUseCase", function () {
             documentRepository.findLatest = () => {
                 return document;
             };
-            const dispatch = (key, value) => {
-                assert(key === "Error");
-                assert(value instanceof Error);
-                assert(document.pages[input.pageNumber].note !== input.note);
-                done();
-            };
             const useCase = new UpdatePageNoteUseCase({documentRepository});
-            useCase.execute(input)(dispatch);
+            try {
+                useCase.execute(input)(dispatch);
+            } catch (error) {
+                assert(error instanceof Error);
+            }
         });
     })
 });

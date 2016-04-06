@@ -2,7 +2,7 @@
 "use strict";
 const React = require("react");
 import AppContextRepository from "../../AppContextRepository";
-import DocumentUseCaseController from "../../js/UseCaseController/DocumentUseCaseController";
+import NewDocumentFcatory from "../../js/UseCase/NewDocument/NewDocumentFcatory";
 // Container
 import DocumentFormContainer from "./DocumentFormContainer/DocumentFormContainer";
 import PageListContainer from "./PageListContainer/PageListContainer";
@@ -27,7 +27,7 @@ export default class App extends React.Component {
             this.setState(this.replaceForState());
         });
         const defaultPdfURL = "./resources/example/jser.info.pdf";
-        context.execute(DocumentUseCaseController.NewDocumentUseCase(defaultPdfURL));
+        context.execute(NewDocumentFcatory.create(defaultPdfURL));
     }
 
     render() {

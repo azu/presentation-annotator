@@ -1,6 +1,6 @@
 // LICENSE : MIT
 "use strict";
-import DocumentService from "../domain/Document/DocumentService";
+import DocumentService from "../../domain/Document/DocumentService";
 export default class ShowExportDialogUseCase {
     constructor({documentRepository}) {
         /**

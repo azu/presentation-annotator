@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 const assert = require("power-assert");
-import NewDocumentUseCase from "../../src/js/UseCase/NewDocumentUseCase";
+import NewDocumentUseCase from "../../src/js/UseCase/NewDocument/NewDocumentUseCase";
 import Document from "../../src/js/domain/Document/Document";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
 describe("NewDocumentUseCase", function () {

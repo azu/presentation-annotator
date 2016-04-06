@@ -3,11 +3,11 @@
 const React = require("react");
 import HoverBlock from "../../uikit/HoverBlock/HoverBlock";
 import AppContextRepository from "../../../AppContextRepository";
-import ExportUseCaseController from "../../../js/UseCaseController/ExportUseCaseController";
+import ShowExportDialogFactory from "../../../js/UseCase/ShowExportDialog/ShowExportDialogFactory";
 export default class ExportToolbar extends React.Component {
     render() {
         const ShowExportBox = () => {
-            AppContextRepository.context.execute(ExportUseCaseController.ShowExportDialogUseCase());
+            AppContextRepository.context.execute(ShowExportDialogFactory.create());
         };
         return <HoverBlock className="ExportToolbar">
             <ul className="ExportToolbar-list">
