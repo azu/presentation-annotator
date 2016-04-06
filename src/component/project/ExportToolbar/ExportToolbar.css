@@ -1,3 +1,8 @@
+.ExportToolbar {
+    width: 50px;
+    min-height: 50px;
+}
+
 .ExportToolbar-exportButton {
     background-color: #4CAF50;
     border: none;
@@ -6,4 +11,13 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
+}
+
+.ExportToolbar-list {
+    margin: 0;
+    padding: 0;
+}
+
+.ExportToolbar-listItem {
+    list-style: none;
 }
