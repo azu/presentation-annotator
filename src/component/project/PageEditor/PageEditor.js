@@ -12,8 +12,11 @@ export default class PageEditor extends React.Component {
             }
         });
         return <div className={className}>
-            <PageEditorTextarea isActive={this.props.isActive}/>
+            <PageEditorTextarea {...this.props}/>
         </div>;
     }
-}
-PageEditor.propTypes = {isActive: React.PropTypes.bool};
+};
+PageEditorTextarea.propTypes = {
+    pageNumber: React.PropTypes.number.isRequired,
+    isActive: React.PropTypes.bool
+};

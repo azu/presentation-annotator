@@ -12,9 +12,16 @@ export default class ExportContainer extends React.Component {
                 showing: isShowing
             }
         });
+        const preClassName = suitClassNames({
+            component: "ExportContainer",
+            descendant: "pre",
+            states: {
+                showing: isShowing
+            }
+        });
         return <div className={className}>
 <ExportToolbar />
-<pre>
+<pre className={preClassName}>
 {this.props.output}
 </pre>
         </div>

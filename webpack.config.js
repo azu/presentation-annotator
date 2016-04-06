@@ -1,10 +1,11 @@
 const path = require("path");
 const webpack = require("webpack");
+
 module.exports = {
     entry: [
         "./src/index.js"
     ],
-    devtool: process.env.WEBPACK_DEVTOOL || "source-map",
+    devtool: process.env.WEBPACK_DEVTOOL || "eval",
     output: {
         path: path.join(__dirname, "public", "build"),
         filename: "bundle.js"

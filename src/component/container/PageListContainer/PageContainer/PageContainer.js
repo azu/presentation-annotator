@@ -19,7 +19,9 @@ export default class PageContainer extends React.Component {
                         isActive={this.props.isActive}/>
                 </GridCell>
                 <GridCell col="6of12" className="PageContainer-item">
-                    <PageEditor isActive={this.props.isActive}/>
+                    <PageEditor isActive={this.props.isActive}
+                                pageNumber={page.pageNumber}
+                    />
                 </GridCell>
             </Grid>
         </div>
