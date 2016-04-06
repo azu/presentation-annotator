@@ -1,7 +1,11 @@
 // LICENSE : MIT
 "use strict";
+import documentRepository from "../infra/DocumentRepository";
 import Document from "../domain/Document/Document";
 export default class NewDocumentUseCase {
+    static create() {
+        return new this({documentRepository});
+    }
     /**
      * initialized with DI-able object.
      * Not directly use from View/Component

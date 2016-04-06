@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 import {EventEmitter}from "events";
-import * as assert from "assert";
+const assert = require("assert");
 const CONTEXT_ON_CHANGE = "CONTEXT_ON_CHANGE";
 export default class Context extends EventEmitter {
     constructor({dispatcher, stores}) {
@@ -25,18 +25,22 @@ export default class Context extends EventEmitter {
     /**
      * execute UseCase instance.
      * UseCase is a executable object. it means that has `execute` method.
-     * @param useCaseExecution
+     * @param UseCase
      */
-    execute(useCaseExecution) {
+    execute(UseCase, ...args) {
         // debug
         let isCalledAtLeastOne = false;
         const removeDispatchEvent = this.dispatcher.onDispatch(() => {
             isCalledAtLeastOne = true
         });
+        assert(typeof UseCase === "function");
+        assert(typeof UseCase.create === "function");
+        const useCase = UseCase.create();
         // execute and finish =>
         const dispatch = this.dispatcher.dispatch.bind(this.dispatcher);
-        Promise.resolve(useCaseExecution(dispatch)).then(() => {
-            assert.ok(isCalledAtLeastOne, "should emit at least one action in the UseCase: " + useCaseExecution.toString());
+        const execution = useCase.execute(...args);
+        Promise.resolve(execution(dispatch)).then((result) => {
+            assert.ok(isCalledAtLeastOne, "should emit at least one action in the UseCase: " + UseCase.name);
             removeDispatchEvent();
         }).catch(error => {
             console.error(error);
