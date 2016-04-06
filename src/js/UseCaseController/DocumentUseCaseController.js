@@ -3,9 +3,10 @@
 import documentRepository from "../infra/DocumentRepository";
 import CompleteLoadingDocumentUseCase from "../UseCase/CompleteLoadingDocumentUseCase";
 import NewDocumentUseCase from "../UseCase/NewDocumentUseCase";
+import UpdatePageNoteUseCase from "../UseCase/UpdatePageNoteUseCase";
 export default class DocumentUseCaseController {
     static CompleteLoadingDocumentUseCase(totalPageNumber) {
-        var useCase = new CompleteLoadingDocumentUseCase({documentRepository});
+        const useCase = new CompleteLoadingDocumentUseCase({documentRepository});
         return useCase.execute(totalPageNumber);
     }
 
@@ -14,7 +15,17 @@ export default class DocumentUseCaseController {
      * @returns {function()}
      */
     static NewDocumentUseCase(pdfURL) {
-        var useCase = new NewDocumentUseCase({documentRepository});
+        const useCase = new NewDocumentUseCase({documentRepository});
         return useCase.execute(pdfURL);
+    }
+
+    /**
+     * @param note
+     * @param pageNumber
+     * @returns {function()}
+     */
+    static UpdatePageNoteUseCase({note, pageNumber}) {
+        const useCase = new UpdatePageNoteUseCase({documentRepository});
+        return useCase.execute({note, pageNumber})
     }
 }

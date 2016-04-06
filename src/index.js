@@ -10,6 +10,7 @@ import ExportStateStore from "./js/store/ExportStateStore";
 // context
 import AppContext  from "./js/flux/Conext";
 import Dispatcher from "./js/flux/Dispatcher";
+import ContextLogger from "./js/util/ContextLogger";
 // instances
 const documentStateStore = new DocumentStateStore();
 const exportStateStore = new ExportStateStore();
@@ -18,6 +19,13 @@ const dispatcher = new Dispatcher();
 const appContext = new AppContext({
     dispatcher,
     stores: [documentStateStore, exportStateStore]
+});
+// LOG
+dispatcher.onDispatch((key, ...args) => {
+    ContextLogger.logDispatch(key, ...args);
+});
+appContext.onChange(() => {
+    ContextLogger.logOnChange(appContext.stores);
 });
 // Singleton
 AppContextRepository.context = appContext;
