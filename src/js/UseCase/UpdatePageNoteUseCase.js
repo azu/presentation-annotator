@@ -1,6 +1,11 @@
 // LICENSE : MIT
 "use strict";
+import documentRepository from "../infra/DocumentRepository";
 export default class UpdatePageNoteUseCase {
+    static create() {
+        return new this({documentRepository});
+    }
+
     constructor({documentRepository}) {
         this.documentRepository = documentRepository;
     }

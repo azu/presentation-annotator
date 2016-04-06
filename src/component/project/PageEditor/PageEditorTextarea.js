@@ -3,7 +3,7 @@
 const React = require("react");
 const suitClassNames = require("suitcss-classnames");
 import AppContextRepository from "../../../AppContextRepository";
-import DocumentUseCaseController from "../../../js/UseCaseController/DocumentUseCaseController";
+import UpdatePageNoteUseCase from "../../../js/UseCase/UpdatePageNoteUseCase";
 export default class PageEditorTextarea extends React.Component {
     render() {
         const savePageContent = (event) => {
@@ -12,7 +12,7 @@ export default class PageEditorTextarea extends React.Component {
                 note: content,
                 pageNumber: this.props.pageNumber
             };
-            AppContextRepository.context.execute(DocumentUseCaseController.UpdatePageNoteUseCase(page));
+            AppContextRepository.context.execute(UpdatePageNoteUseCase, page);
         };
         const className = suitClassNames({
             component: "PageEditorTextarea",

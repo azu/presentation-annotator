@@ -37,7 +37,7 @@ export default class Document {
 
     updateNodeAtPage(note, pageNumber) {
         const page = this.pages[pageNumber - 1];
-        assert(page, "page should exist");
+        assert(page !== undefined, "page should exist");
         page.note = note;
     }
 }

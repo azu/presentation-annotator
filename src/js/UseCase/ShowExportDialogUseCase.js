@@ -1,7 +1,12 @@
 // LICENSE : MIT
 "use strict";
+import documentRepository from "../infra/DocumentRepository";
 import DocumentService from "../domain/Document/DocumentService";
 export default class ShowExportDialogUseCase {
+    static create() {
+        return new this({documentRepository});
+    }
+
     constructor({documentRepository}) {
         /**
          * @type {DocumentRepository}
