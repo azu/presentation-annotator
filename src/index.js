@@ -10,6 +10,7 @@ import ExportStateStore from "./js/store/ExportStateStore";
 // context
 import AppContext  from "./js/flux/Conext";
 import Dispatcher, {DISPATCH_ACTION_BEFORE, DISPATCH_ACTION_AFTER} from "./js/flux/Dispatcher";
+import DomainEventBus from "./js/domain/DomainEventBus";
 import ContextLogger from "./js/util/ContextLogger";
 // instances
 const documentStateStore = new DocumentStateStore();
