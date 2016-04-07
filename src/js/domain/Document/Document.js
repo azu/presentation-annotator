@@ -10,6 +10,7 @@ let DocumentID = 1;
  */
 export default class Document extends DomainModel {
     constructor({pdfURL} = {}) {
+        super();
         this.id = `Document${DocumentID++}`;
         this.pages = [];
         this.isLoaded = false;

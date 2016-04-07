@@ -2,6 +2,8 @@
 "use strict";
 import {EventEmitter} from "events";
 const STATE_CHANGE_EVENT = "STATE_CHANGE_EVENT";
+import DomainEventBus from "./DomainEventBus";
+let incrementID = 0;
 export default class DomainModel extends EventEmitter {
     /**
      * subscribe change event.
@@ -20,5 +22,10 @@ export default class DomainModel extends EventEmitter {
     emitChange() {
         this.emit(STATE_CHANGE_EVENT);
         //TODO(azu): emit Domain Event => receive Domain Event on Store
+        const entityName = this.constructor.name;
+        DomainEventBus.emit(entityName, {
+            id: entityName + (incrementID++),
+            timestamp: Date.now()
+        });
     }
 };

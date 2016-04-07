@@ -30,10 +30,15 @@ export default class App extends React.Component {
 
     render() {
         // See Each Store
-        const {document, exporting, formDocument} = this.state;
+        const {document, exporting} = this.state;
+        if (!document) {
+            return <div className="App">
+                <DocumentFormContainer document={document}/>
+            </div>
+        }
         return <div className="App">
             <ExportContainer output={exporting.output} isShowing={exporting.isShowing}/>
-            <DocumentFormContainer document={formDocument}/>
+            <DocumentFormContainer document={document}/>
             <PageListContainer document={document}/>
         </div>
     }

@@ -16,10 +16,11 @@ export default class NewDocumentForm extends React.Component {
             AppContextRepository.context.execute(NewDocumentFcatory.create(pdfURL));
         };
         const document = this.props.document;
+        const pdfURL = document ? document.pdfURL : "";
         return <form className="NewDocumentForm" onSubmit={openNewDocument}>
             <input className="NewDocumentForm-inputURL" type="text"
                    placeholder="Please input PDF URL"
-                   defaultValue={document.pdfURL}
+                   defaultValue={pdfURL}
                    ref="inputURL"/>
             <input className="NewDocumentForm-submitButton" type="submit" onSubmit={openNewDocument}/>
         </form>
