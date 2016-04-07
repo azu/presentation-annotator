@@ -1,5 +1,6 @@
 # store
 
-store is an part of presenter.
+**State* store is an part of presenter.
+It is known as ViewModel.
 
-store is not 
+store is not permanent storage.
