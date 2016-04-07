@@ -19,5 +19,6 @@ export default class DomainModel extends EventEmitter {
      */
     emitChange() {
         this.emit(STATE_CHANGE_EVENT);
+        //TODO(azu): emit Domain Event => receive Domain Event on Store
     }
 };

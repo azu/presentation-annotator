@@ -2,7 +2,6 @@
 "use strict";
 import StateStore from "../flux/StateStore";
 import NewDocumentUseCase from "../UseCase/NewDocument/NewDocumentUseCase"
-import CompleteLoadingDocumentUseCase from "../usecase/CompleteLoadingDocument/CompleteLoadingDocumentUseCase"
 import Document from "../domain/Document/Document"
 export default class DocumentFormStateStore extends StateStore {
     constructor() {

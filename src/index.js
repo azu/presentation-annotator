@@ -13,12 +13,11 @@ import AppContext  from "./js/flux/Conext";
 import Dispatcher, {DISPATCH_ACTION_BEFORE, DISPATCH_ACTION_AFTER} from "./js/flux/Dispatcher";
 import ContextLogger from "./js/util/ContextLogger";
 // domain
-import DocumentRepository from "./js/infra/DocumentRepository";
+import documentRepository from "./js/infra/DocumentRepository";
 import DocumentEventConfiguration from "./js/domain/DocumentEventConfiguration";
-
-const documentRepository = DocumentRepository;
-const eventConfiguration = new DocumentEventConfiguration(documentRepository);
+import DomainEventBus from "./js/DomainEventBus";
 // TODO(azu): use repository and observe add;
+const eventBus = new DomainEventBus();
 // instances
 const documentStateStore = new DocumentStateStore();
 const exportStateStore = new ExportStateStore();
