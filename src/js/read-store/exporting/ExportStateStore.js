@@ -6,7 +6,7 @@ import ShowExportDialogUseCase from "../../UseCase/ShowExportDialog/ShowExportDi
  StateStore has change condition
  */
 export default class ExportStateStore extends StateStore {
-    constructor({domainEventBus, documentRepository}) {
+    constructor({documentRepository}) {
         super();
         this.isShowing = false;
         this.output = "";

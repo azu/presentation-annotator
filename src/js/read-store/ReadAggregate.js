@@ -1,6 +1,5 @@
 // LICENSE : MIT
 "use strict";
-import domainEventBus from "../domain/DomainEventBus";
 import documentRepository from "../infra/DocumentRepository";
 import DocumentStateStore from "./document/DocumentStateStore";
 import ExportStateStore from "./exporting/ExportStateStore";
@@ -11,8 +10,8 @@ export default class ReadAggregate {
          * @type {StateStore[]}
          */
         this.stores = [
-            new DocumentStateStore({domainEventBus, documentRepository}),
-            new ExportStateStore({domainEventBus, documentRepository})
+            new DocumentStateStore({documentRepository}),
+            new ExportStateStore({documentRepository})
         ];
     }
 

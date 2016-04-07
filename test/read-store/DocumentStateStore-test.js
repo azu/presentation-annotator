@@ -1,19 +1,25 @@
 // LICENSE : MIT
 "use strict";
 const assert = require("power-assert");
+import DomainEventEmitter from "../../src/js/domain/DomainEventEmitter";
 import Document from "../../src/js/domain/Document/Document";
-import {DomainEventBus} from "../../src/js/domain/DomainEventBus";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
 import DocumentStateStore from "../../src/js/read-store/document/DocumentStateStore";
 describe("DocumentStateStore", function () {
     context("when create new document", function () {
         it("emit change and return new document", function () {
+            // stub document
+            const stubEvents = new DomainEventEmitter();
             const document = new Document();
-            const domainEventBus = new DomainEventBus();
+            document.eventAggregator.eventEmitter = stubEvents;
+            // add document to repository
             const documentRepository = new DocumentRepository();
-            document.domainEventBus = domainEventBus;// mock
             documentRepository.add(document);
-            const store = new DocumentStateStore({domainEventBus, documentRepository});
+            // create store
+            const store = new DocumentStateStore({documentRepository});
+            stubEvents.subscribe(payload => {
+                assert.equal(payload.type, Document.name);
+            });
             store.onChange(()=> {
                 const expectedState = {
                     document: document
