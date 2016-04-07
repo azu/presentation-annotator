@@ -29,6 +29,7 @@ export default class App extends React.Component {
     }
 
     render() {
+        // See Each Store
         const {document, exporting, formDocument} = this.state;
         return <div className="App">
             <ExportContainer output={exporting.output} isShowing={exporting.isShowing}/>

@@ -55,7 +55,7 @@ export default class Context extends EventEmitter {
         });
         assert.ok(isCalledAtLeastOne, "should call at least one." + eventKey + " is not registered in anyone stores.");
         // if change any store, emit context on change event
-        if (this._isChangedStore) {
+           if (this._isChangedStore) {
             this.emit(CONTEXT_ON_CHANGE);
         }
         this._isChangedStore = false;
