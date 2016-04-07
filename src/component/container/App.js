@@ -2,7 +2,7 @@
 "use strict";
 const React = require("react");
 import AppContextRepository from "../../AppContextRepository";
-import DocumentUseCaseController from "../../js/UseCaseController/DocumentUseCaseController";
+import NewDocumentFcatory from "../../js/UseCase/NewDocument/NewDocumentFcatory";
 // Container
 import DocumentFormContainer from "./DocumentFormContainer/DocumentFormContainer";
 import PageListContainer from "./PageListContainer/PageListContainer";
@@ -14,10 +14,8 @@ export default class App extends React.Component {
     }
 
     replaceForState() {
-        const {exportStateStore, documentStateStore} = this.props;
-        return Object.assign({},
-            documentStateStore.getState(),
-            exportStateStore.getState());
+        const stores = this.props.stores;
+        return Object.assign({}, ...stores.map(store => store.getState()));
     }
 
     componentDidMount() {
@@ -27,14 +25,15 @@ export default class App extends React.Component {
             this.setState(this.replaceForState());
         });
         const defaultPdfURL = "./resources/example/jser.info.pdf";
-        context.execute(DocumentUseCaseController.NewDocumentUseCase(defaultPdfURL));
+        context.execute(NewDocumentFcatory.create(defaultPdfURL));
     }
 
     render() {
-        const {document, exporting} = this.state;
+        // See Each Store
+        const {document, exporting, formDocument} = this.state;
         return <div className="App">
             <ExportContainer output={exporting.output} isShowing={exporting.isShowing}/>
-            <DocumentFormContainer document={document}/>
+            <DocumentFormContainer document={formDocument}/>
             <PageListContainer document={document}/>
         </div>
     }

@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 import StateStore from "../flux/StateStore";
-import ShowExportDialogUseCase from "../usecase/ShowExportDialogUseCase"
+import ShowExportDialogUseCase from "../UseCase/ShowExportDialog/ShowExportDialogUseCase"
 /*
  StateStore has change condition
  */

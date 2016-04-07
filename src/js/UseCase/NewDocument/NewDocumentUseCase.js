@@ -1,6 +1,6 @@
 // LICENSE : MIT
 "use strict";
-import Document from "../domain/Document/Document";
+import Document from "../../domain/Document/Document";
 export default class NewDocumentUseCase {
     /**
      * initialized with DI-able object.
