@@ -13,16 +13,16 @@ export class DocumentRepository {
     /**
      * @returns {Document}
      */
-    findLatest() {
+    findFirst() {
         return this._currentDocument;
     }
 
-    addDocument(document) {
+    add(document) {
         this._documents.push(document);
         this._currentDocument = document;
     }
 
-    removeDocument(id) {
+    remove(id) {
         const documentForRemove = this._documents.filter(document => {
             return document.id === id;
         });

@@ -12,6 +12,13 @@ import PageListStateStore from "./js/store/PageListStateStore";
 import AppContext  from "./js/flux/Conext";
 import Dispatcher, {DISPATCH_ACTION_BEFORE, DISPATCH_ACTION_AFTER} from "./js/flux/Dispatcher";
 import ContextLogger from "./js/util/ContextLogger";
+// domain
+import DocumentRepository from "./js/infra/DocumentRepository";
+import DocumentEventConfiguration from "./js/domain/DocumentEventConfiguration";
+
+const documentRepository = DocumentRepository;
+const eventConfiguration = new DocumentEventConfiguration(documentRepository);
+// TODO(azu): use repository and observe add;
 // instances
 const documentStateStore = new DocumentStateStore();
 const exportStateStore = new ExportStateStore();

@@ -12,7 +12,7 @@ export default class CompleteLoadingDocumentUseCase {
 
     execute(totalPageNumber) {
         return dispatch => {
-            const currentDocument = this.documentRepository.findLatest();
+            const currentDocument = this.documentRepository.findFirst();
             if (!currentDocument) {
                 throw new Error("currentDocument is not found");
             }

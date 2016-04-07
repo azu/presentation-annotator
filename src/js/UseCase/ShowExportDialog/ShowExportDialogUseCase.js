@@ -11,7 +11,7 @@ export default class ShowExportDialogUseCase {
 
     execute() {
         return dispatch => {
-            const document = this.documentRepository.findLatest();
+            const document = this.documentRepository.findFirst();
             const output = DocumentService.stringify(document);
             dispatch(ShowExportDialogUseCase.name, output);
         }
