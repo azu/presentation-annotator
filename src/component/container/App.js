@@ -14,26 +14,37 @@ export default class App extends React.Component {
     }
 
     replaceForState() {
-        const stores = this.props.stores;
-        return Object.assign({}, ...stores.map(store => store.getState()));
+        /**
+         * @type {ReadAggregate}
+         */
+        const readAggregate = this.props.readAggregate;
+        return readAggregate.getState();
     }
 
     componentDidMount() {
         const context = AppContextRepository.context;
         // when change store, update component
-        context.onChange(() => {
-            this.setState(this.replaceForState());
-        });
+        const onChangeHandler = () => {
+            return requestAnimationFrame(() => {
+                this.setState(this.replaceForState());
+            })
+        };
+        context.onChange(onChangeHandler);
         const defaultPdfURL = "./resources/example/jser.info.pdf";
         context.execute(NewDocumentFcatory.create(defaultPdfURL));
     }
 
     render() {
         // See Each Store
-        const {document, exporting, formDocument} = this.state;
+        const {document, exporting} = this.state;
+        if (!document) {
+            return <div className="App">
+                <DocumentFormContainer document={document}/>
+            </div>
+        }
         return <div className="App">
             <ExportContainer output={exporting.output} isShowing={exporting.isShowing}/>
-            <DocumentFormContainer document={formDocument}/>
+            <DocumentFormContainer document={document}/>
             <PageListContainer document={document}/>
         </div>
     }

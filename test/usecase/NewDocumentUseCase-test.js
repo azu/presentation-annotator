@@ -9,7 +9,7 @@ describe("NewDocumentUseCase", function () {
         it("should dispatch with document", function (done) {
             const pdfURL = "test.pdf";
             const documentRepository = new DocumentRepository();
-            documentRepository.addDocument = (document) => {
+            documentRepository.add = (document) => {
                 assert(document instanceof Document);
                 assert.equal(document.pdfURL, pdfURL);
             };

@@ -10,7 +10,7 @@ describe("UpdatePageNoteUseCase", function () {
         const document = new Document();
         document.updateTotalPageNumber(10);
         const input = {note: "description of page", pageNumber: 1};
-        documentRepository.findLatest = () => {
+        documentRepository.findFirst = () => {
             return document;
         };
         const dispatch = (key, value) => {
@@ -29,7 +29,7 @@ describe("UpdatePageNoteUseCase", function () {
             document.updateTotalPageNumber(10);
             const outOfRange = 20;
             const input = {note: "description of page", pageNumber: outOfRange};
-            documentRepository.findLatest = () => {
+            documentRepository.findFirst = () => {
                 return document;
             };
             const useCase = new UpdatePageNoteUseCase({documentRepository});

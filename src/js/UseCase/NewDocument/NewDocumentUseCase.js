@@ -18,7 +18,7 @@ export default class NewDocumentUseCase {
     execute(pdfURL) {
         return dispatch => {
             const document = new Document({pdfURL});
-            this.documentRepository.addDocument(document);
+            this.documentRepository.add(document);
             dispatch(this.constructor.name, document);
         };
     }

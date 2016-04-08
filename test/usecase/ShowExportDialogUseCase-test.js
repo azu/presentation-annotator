@@ -11,7 +11,7 @@ describe("ShowExportDialogUseCase", function () {
             const documentRepository = new DocumentRepository();
             const document = new Document();
             const expectedOutput = DocumentService.stringify(document);
-            documentRepository.findLatest = () => {
+            documentRepository.findFirst = () => {
                 return document;
             };
             const dispatch = (key, output) => {

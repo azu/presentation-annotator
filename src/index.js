@@ -5,23 +5,18 @@ import ReactDOM from "react-dom";
 import App from "./component/container/App";
 import AppContextRepository from "./AppContextRepository";
 // store
-import DocumentStateStore from "./js/store/DocumentFormStateStore";
-import ExportStateStore from "./js/store/ExportStateStore";
-import PageListStateStore from "./js/store/PageListStateStore";
+import ReadAggregate from "./js/read-store/ReadAggregate";
 // context
 import AppContext  from "./js/flux/Conext";
 import Dispatcher, {DISPATCH_ACTION_BEFORE, DISPATCH_ACTION_AFTER} from "./js/flux/Dispatcher";
 import ContextLogger from "./js/util/ContextLogger";
 // instances
-const documentStateStore = new DocumentStateStore();
-const exportStateStore = new ExportStateStore();
-const pageListStateStore = new PageListStateStore();
+const readAggregate = new ReadAggregate();
 const dispatcher = new Dispatcher();
 // context connect dispatch with stores
-const stores = [documentStateStore, exportStateStore, pageListStateStore];
 const appContext = new AppContext({
     dispatcher,
-    stores: stores
+    stores: readAggregate.stores
 });
 // LOG
 const logMap = {};
@@ -46,4 +41,4 @@ dispatcher.on(DISPATCH_ACTION_AFTER, (key) => {
 // Singleton
 AppContextRepository.context = appContext;
 // entry point
-ReactDOM.render(<App stores={stores}/>, document.getElementById("js-app"));
+ReactDOM.render(<App stores={readAggregate}/>, document.getElementById("js-app"));

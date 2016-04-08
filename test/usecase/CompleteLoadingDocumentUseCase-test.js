@@ -11,7 +11,7 @@ describe("CompleteLoadingDocumentUseCase", function () {
             const existedTotalNumber = 10;
             const expectedTotalNumber = 20;
             const documentRepository = new DocumentRepository();
-            documentRepository.findLatest = () => {
+            documentRepository.findFirst = () => {
                 const document = new Document({
                     pdfURL: expectedPdfURL
                 });
@@ -31,7 +31,7 @@ describe("CompleteLoadingDocumentUseCase", function () {
         it("should dispatch with document", function (done) {
             const expectedTotalNumber = 10;
             const documentRepository = new DocumentRepository();
-            documentRepository.findLatest = () => {
+            documentRepository.findFirst = () => {
                 return new Document();
             };
             const dispatch = (key, totalNumber) => {

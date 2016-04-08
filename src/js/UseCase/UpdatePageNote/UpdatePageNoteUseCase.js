@@ -12,7 +12,7 @@ export default class UpdatePageNoteUseCase {
      */
     execute({note, pageNumber}) {
         return dispatch => {
-            const document = this.documentRepository.findLatest();
+            const document = this.documentRepository.findFirst();
             document.updateNodeAtPage(note, pageNumber);
             dispatch(UpdatePageNoteUseCase.name, {note, pageNumber});
         };

@@ -1,12 +1,12 @@
 // LICENSE : MIT
 "use strict";
-import StateStore from "../flux/StateStore";
-import ShowExportDialogUseCase from "../UseCase/ShowExportDialog/ShowExportDialogUseCase"
+import StateStore from "../../flux/StateStore";
+import ShowExportDialogUseCase from "../../UseCase/ShowExportDialog/ShowExportDialogUseCase"
 /*
  StateStore has change condition
  */
 export default class ExportStateStore extends StateStore {
-    constructor() {
+    constructor({documentRepository}) {
         super();
         this.isShowing = false;
         this.output = "";
