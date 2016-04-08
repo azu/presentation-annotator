@@ -21,12 +21,24 @@ describe("DocumentStateStore", function () {
                 assert.equal(payload.type, Document.name);
             });
             store.onChange(()=> {
-                const expectedState = {
-                    document: document
-                };
-                assert.deepEqual(store.getState(), expectedState);
+                assert.deepEqual(store.getState().document, document);
             });
             document.emitChange();
         });
-    })
+    });
+    context("when mark a page", function () {
+        it("return markedPageNumbers", function () {
+            // stub document
+            const document = new Document();
+            document.updateTotalPageNumber(10);
+            const markedPageNumber = 5;
+            document.markAtPage(markedPageNumber);
+            // add document to repository
+            const documentRepository = new DocumentRepository();
+            documentRepository.add(document);
+            // create store
+            const store = new DocumentStateStore({documentRepository});
+            assert.deepEqual(store.getState().markedPageNumbers, [markedPageNumber]);
+        });
+    });
 });
