@@ -12,7 +12,16 @@ export default class Document extends DomainModel {
     constructor({pdfURL} = {}) {
         super();
         this.id = `Document${DocumentID++}`;
+        /**
+         * @type {DocumentPage[]}
+         * @private
+         */
         this.pages = [];
+        /**
+         * @type {number[]}
+         * @private
+         */
+        this.markedPages = [];
         this.isLoaded = false;
         this.pdfURL = pdfURL;
     }
@@ -23,6 +32,22 @@ export default class Document extends DomainModel {
 
     getTotalPageNumber() {
         return this.pages.length;
+    }
+
+    /**
+     * @param pageNumber
+     * @returns {DocumentPage}
+     */
+    getPage(pageNumber) {
+        const page = this.pages[pageNumber - 1];
+        assert(page, "page should exist");
+        return page;
+    }
+
+    isMarkedAtPage(pageNumber) {
+        const page = this.getPage(pageNumber);
+        return this.markedPages.indexOf(page) !== -1;
+
     }
 
     /**
@@ -39,9 +64,17 @@ export default class Document extends DomainModel {
     }
 
     updateNodeAtPage(note, pageNumber) {
-        const page = this.pages[pageNumber - 1];
-        assert(page, "page should exist");
+        const page = this.getPage(pageNumber);
         page.note = note;
+        this.emitChange();
+    }
+
+    markAtPage(pageNumber) {
+        if (this.isMarkedAtPage(pageNumber)) {
+            return;
+        }
+        const page = this.getPage(pageNumber);
+        this.markedPages.push(page);
         this.emitChange();
     }
 }
