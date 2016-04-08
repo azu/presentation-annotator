@@ -3,6 +3,8 @@
 const React = require("react");
 const suitClassNames = require("suitcss-classnames");
 import PDFPagePreview from "../PDFPagePreview/PDFPagePreview";
+import MarkClickedPageFactory from "../../../js/UseCase/MarkClickedPage/MarkClickedPageFactory";
+import AppContextRepository from "../../../AppContextRepository";
 export default class PagePreview extends React.Component {
     render() {
         const className = suitClassNames({
@@ -11,7 +13,11 @@ export default class PagePreview extends React.Component {
                 active: this.props.isActive
             }
         });
-        return <div className={className}>
+        const markPage = () => {
+            const pageNumber = this.props.pageNumber;
+            AppContextRepository.context.execute(MarkClickedPageFactory.create(pageNumber));
+        };
+        return <div className={className} onClick={markPage}>
             <PDFPagePreview pdfURL={this.props.pdfURL} pageNumber={this.props.pageNumber}/>
         </div>
     }
