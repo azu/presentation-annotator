@@ -41,4 +41,4 @@ dispatcher.on(DISPATCH_ACTION_AFTER, (key) => {
 // Singleton
 AppContextRepository.context = appContext;
 // entry point
-ReactDOM.render(<App stores={readAggregate}/>, document.getElementById("js-app"));
+ReactDOM.render(<App readAggregate={readAggregate}/>, document.getElementById("js-app"));
