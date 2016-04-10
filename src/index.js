@@ -7,8 +7,8 @@ import AppContextRepository from "./AppContextRepository";
 // store
 import ReadAggregate from "./js/read-store/ReadAggregate";
 // context
-import AppContext  from "./js/flux/Conext";
-import Dispatcher, {DISPATCH_ACTION_BEFORE, DISPATCH_ACTION_AFTER} from "./js/flux/Dispatcher";
+import AppContext  from "./js/framework/Conext";
+import Dispatcher, {DISPATCH_ACTION_BEFORE, DISPATCH_ACTION_AFTER} from "./js/framework/Dispatcher";
 import ContextLogger from "./js/util/ContextLogger";
 // instances
 const readAggregate = new ReadAggregate();
@@ -16,7 +16,7 @@ const dispatcher = new Dispatcher();
 // context connect dispatch with stores
 const appContext = new AppContext({
     dispatcher,
-    stores: readAggregate.stores
+    states: readAggregate.states
 });
 // LOG
 const logMap = {};
@@ -29,7 +29,7 @@ dispatcher.onDispatch((key, ...args) => {
     ContextLogger.logDispatch(key, ...args);
 });
 appContext.onChange(() => {
-    ContextLogger.logOnChange(appContext.stores);
+    ContextLogger.logOnChange(appContext.states);
 });
 dispatcher.on(DISPATCH_ACTION_AFTER, (key) => {
     const startTimeStamp = logMap[key];

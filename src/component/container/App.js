@@ -2,7 +2,7 @@
 "use strict";
 const React = require("react");
 import AppContextRepository from "../../AppContextRepository";
-import NewDocumentFcatory from "../../js/UseCase/NewDocument/NewDocumentFcatory";
+import {NewDocumentFactory} from "../../js/UseCase/NewDocumentUseCase";
 // Container
 import DocumentFormContainer from "./DocumentFormContainer/DocumentFormContainer";
 import PageListContainer from "./PageListContainer/PageListContainer";
@@ -25,13 +25,14 @@ export default class App extends React.Component {
         const context = AppContextRepository.context;
         // when change store, update component
         const onChangeHandler = () => {
+            console.log("onChangeHandler");
             return requestAnimationFrame(() => {
                 this.setState(this.replaceForState());
             })
         };
         context.onChange(onChangeHandler);
         const defaultPdfURL = "./resources/example/jser.info.pdf";
-        context.execute(NewDocumentFcatory.create(defaultPdfURL));
+        context.useCase(NewDocumentFactory.create()).execute(defaultPdfURL);
     }
 
     render() {

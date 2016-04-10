@@ -1,10 +1,22 @@
 // LICENSE : MIT
 "use strict";
-import {EventEmitter} from "events";
+const EventEmitter = require("events");
 export const DISPATCH_ACTION = "__DISPATCH_ACTION__";
 export const DISPATCH_ACTION_BEFORE = "__DISPATCH_ACTION_BEFORE__";
 export const DISPATCH_ACTION_AFTER = "__DISPATCH_ACTION_AFTER__";
 export default class Dispatcher extends EventEmitter {
+    /**
+     * has event of type at least one
+     * @param type
+     * @returns {boolean}
+     */
+    hasEvent(type) {
+        const listenerCount = (typeof this.listenerCount !== "undefined")
+            ? this.listenerCount.bind(this) // Node 4.x >=
+            : EventEmitter.listenerCount.bind(EventEmitter, this);// Node 0.12
+        return listenerCount(type) > 0;
+    }
+
     /**
      * add onAction handler and return unbind function
      * @param {Function} cb

@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 const assert = require("power-assert");
-import MarkClickedPageUseCase from "../../src/js/UseCase/MarkClickedPage/MarkClickedPageUseCase";
+import {MarkClickedPageUseCase} from "../../src/js/UseCase/MarkClickedPageUseCase";
 import Document from "../../src/js/domain/Document/Document";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
 describe("MarkClickedPageUseCase", function () {
@@ -28,7 +28,7 @@ describe("MarkClickedPageUseCase", function () {
                 done();
             };
             const useCase = new MarkClickedPageUseCase({documentRepository});
-            useCase.execute(markPageNumber)(dispatch);
+            useCase.execute(markPageNumber);
         });
     });
 });

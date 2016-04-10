@@ -2,7 +2,7 @@
 "use strict";
 const React = require("react");
 import AppContextRepository from "../../../AppContextRepository";
-import NewDocumentFcatory from "../../../js/UseCase/NewDocument/NewDocumentFcatory";
+import {NewDocumentFactory} from "../../../js/UseCase/NewDocumentUseCase";
 // domain
 import Document from "../../../js/domain/Document/Document";
 export default class NewDocumentForm extends React.Component {
@@ -13,7 +13,8 @@ export default class NewDocumentForm extends React.Component {
             if (!pdfURL) {
                 return;
             }
-            AppContextRepository.context.execute(NewDocumentFcatory.create(pdfURL));
+            const context = AppContextRepository.context;
+            context.useCase(NewDocumentFactory.create()).execute(pdfURL);
         };
         const document = this.props.document;
         const pdfURL = document ? document.pdfURL : "";

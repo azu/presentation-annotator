@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 const assert = require("power-assert");
-import NewDocumentUseCase from "../../src/js/UseCase/NewDocument/NewDocumentUseCase";
+import NewDocumentUseCase from "../../src/js/UseCase/NewDocumentUseCase";
 import Document from "../../src/js/domain/Document/Document";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
 describe("NewDocumentUseCase", function () {
@@ -9,7 +9,7 @@ describe("NewDocumentUseCase", function () {
         it("should dispatch with document", function (done) {
             const pdfURL = "test.pdf";
             const documentRepository = new DocumentRepository();
-            documentRepository.add = (document) => {
+            documentRepository.save = (document) => {
                 assert(document instanceof Document);
                 assert.equal(document.pdfURL, pdfURL);
             };
