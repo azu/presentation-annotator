@@ -36,7 +36,7 @@ export default class App extends React.Component {
 
     render() {
         // See Each Store
-        const {document, exporting} = this.state;
+        const {document, markedPageNumbers, exporting} = this.state;
         if (!document) {
             return <div className="App">
                 <DocumentFormContainer document={document}/>
@@ -45,7 +45,7 @@ export default class App extends React.Component {
         return <div className="App">
             <ExportContainer output={exporting.output} isShowing={exporting.isShowing}/>
             <DocumentFormContainer document={document}/>
-            <PageListContainer document={document}/>
+            <PageListContainer document={document} markedPageNumbers={markedPageNumbers}/>
         </div>
     }
 }

@@ -4,6 +4,10 @@ import StateStore from "../../flux/StateStore";
 import Document from "../../domain/Document/Document";
 import NewDocumentUseCase from "../../UseCase/NewDocument/NewDocumentUseCase";
 import eventAggregator from "../../domain/DomainEventAggregator";
+const initialState ={
+    document: null,
+    markedPageNumbers:[]
+};
 export default class DocumentFormStateStore extends StateStore {
     constructor({documentRepository}) {
         super();
@@ -14,8 +18,16 @@ export default class DocumentFormStateStore extends StateStore {
     }
 
     getState() {
+        const document = this.documentRepository.findFirst();
+        if (!document) {
+            return initialState;
+        }
+        const markedPageNumbers = document.getAllPages().filter(page => {
+            return document.isMarkedAtPage(page.pageNumber);
+        }).map(page => page.pageNumber);
         return {
-            document: this.documentRepository.findFirst()
+            document,
+            markedPageNumbers
         }
     }
 
