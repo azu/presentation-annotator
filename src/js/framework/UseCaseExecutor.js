@@ -14,8 +14,10 @@ export default class UseCaseExecutor {
         assert(typeof useCase.execute === "function", `UseCase instance should have #execute function: ${useCaseName}`);
         this.useCaseName = useCaseName;
         this.useCase = useCase;
-        this.useCase._dispatcher = dispatcher;
-        this.useCase.dispatch = dispatcher.dispatch.bind(dispatcher);
+        // delegate userCase#onDispatch to central dispatcher
+        this.useCase.onDispatch((key, ...args) => {
+            dispatcher.dispatch(key, ...args);
+        });
     }
 
     /**

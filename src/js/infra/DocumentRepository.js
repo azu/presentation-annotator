@@ -6,11 +6,13 @@ import MemoryDB from "./adpter/MemoryDB";
 import Document from "../domain/Document/Document";
 import DocumentFactory from "../domain/Document/DocumentFcatory";
 const shallowClone = (model) => {
+    return model;
+    // deserialize => serialize ?
     const cloneObject = JSON.parse(JSON.stringify(model));
     return DocumentFactory.create(cloneObject);
 };
 export class DocumentRepository extends EventEmitter {
-    constructor(database) {
+    constructor(database = new MemoryDB()) {
         super();
         /**
          * @type {MemoryDB}
@@ -66,4 +68,4 @@ export class DocumentRepository extends EventEmitter {
     }
 }
 // singleton
-export default new DocumentRepository(new MemoryDB());
+export default new DocumentRepository();

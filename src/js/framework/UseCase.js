@@ -1,9 +1,11 @@
 // LICENSE : MIT
 "use strict";
 const assert = require("assert");
+const EventEmitter = require("events");
 import {WILL_EXECUTE_USECASE, DID_EXECUTE_USECASE} from "./Dispatcher";
-export default class UseCase {
+export default class UseCase extends EventEmitter {
     constructor() {
+        super();
         /**
          * @type {string} UseCase name
          */
@@ -15,15 +17,6 @@ export default class UseCase {
             throw new Error("should be overwrite by framework. it is unreached code.");
         };
         /**
-         * dispatch event key with args.
-         * @param {string} key
-         * @param args
-         */
-        this.dispatch = function (key, ...args) {
-            throw new Error("should be overwrite by framework. It is unreached code.");
-        };
-
-        /**
          * @type {string}
          */
         this.useCaseName = this.constructor.name;
@@ -33,17 +26,36 @@ export default class UseCase {
         throw new Error(`should be overwrite ${this.constructor.name}#execute()`);
     }
 
+    /**
+     * dispatch event key with args.
+     * @param {string} key
+     * @param args
+     */
+    dispatch(key, ...args) {
+        this.emit("INTERNAL_DISPATCH", {
+            type: key,
+            args
+        });
+    }
+
+    onDispatch(handler) {
+        // delegate dispatch
+        this.on("INTERNAL_DISPATCH", ({type, args}) => {
+            handler(type, args);
+        });
+    }
+
     willExecute() {
-        this._dispatcher.emit(WILL_EXECUTE_USECASE, this);
-        this._dispatcher.emit(`${this.useCaseName}:will`);
+        this.dispatch(WILL_EXECUTE_USECASE, this);
+        this.dispatch(`${this.useCaseName}:will`);
     }
 
     didExecute() {
-        this._dispatcher.emit(`${this.useCaseName}:did`);
-        this._dispatcher.emit(DID_EXECUTE_USECASE, this);
+        this.dispatch(`${this.useCaseName}:did`);
+        this.dispatch(DID_EXECUTE_USECASE, this);
     }
 
     throwError(error) {
-        this._dispatcher.emit(`${this.useCaseName}:error`);
+        this.dispatch(`${this.useCaseName}:error`);
     }
 }

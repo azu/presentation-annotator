@@ -24,7 +24,7 @@ export class CompleteLoadingDocumentUseCase extends UseCase {
     execute(totalPageNumber) {
         const currentDocument = this.documentRepository.lastUsed();
         if (!currentDocument) {
-            throw new Error("currentDocument is not found");
+            return new Error("currentDocument is not found");
         }
         currentDocument.updateTotalPageNumber(totalPageNumber);
         this.documentRepository.save(currentDocument);

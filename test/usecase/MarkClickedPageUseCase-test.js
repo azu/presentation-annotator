@@ -6,29 +6,25 @@ import Document from "../../src/js/domain/Document/Document";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
 describe("MarkClickedPageUseCase", function () {
     context("when exist document filled total page", function () {
-        it("should overwrite", function (done) {
+        it("should mark at page", function () {
+            // Given
             const expectedPdfURL = "test.pdf";
             const existedTotalNumber = 10;
             const markPageNumber = 10;
             const documentRepository = new DocumentRepository();
             const document = new Document({
-                pdfURL: expectedPdfURL
+                pdfURL: expectedPdfURL,
+                totalPageNumber: existedTotalNumber
             });
-            document.updateTotalPageNumber(existedTotalNumber);
-            documentRepository.findFirst = () => {
-                return document;
-            };
-            // after change
-            document.onChange(() => {
-                assert(document.isMarkedAtPage(markPageNumber));
+            documentRepository.save(document);
+            // Then
+            documentRepository.onChange(() => {
+                const targetDocument = documentRepository.lastUsed();
+                assert(targetDocument.isMarkedAtPage(markPageNumber));
             });
-            const dispatch = (key, pageNumber) => {
-                assert.equal(key, MarkClickedPageUseCase.name);
-                assert.equal(pageNumber, pageNumber);
-                done();
-            };
+            // When
             const useCase = new MarkClickedPageUseCase({documentRepository});
-            useCase.execute(markPageNumber);
+            return useCase.execute(markPageNumber);
         });
     });
 });

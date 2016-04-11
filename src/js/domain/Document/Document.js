@@ -9,7 +9,7 @@ let DocumentID = 1;
  * Document Entity
  */
 export default class Document extends DomainModel {
-    constructor({pdfURL} = {}) {
+    constructor({pdfURL, totalPageNumber} = {}) {
         super();
         this.id = `Document${DocumentID++}`;
         /**
@@ -22,6 +22,9 @@ export default class Document extends DomainModel {
          * @private
          */
         this.markedPages = [];
+        if (totalPageNumber > 0) {
+            this.updateTotalPageNumber(totalPageNumber);
+        }
         this.isLoaded = false;
         this.pdfURL = pdfURL;
     }
@@ -47,7 +50,6 @@ export default class Document extends DomainModel {
     isMarkedAtPage(pageNumber) {
         const page = this.getPage(pageNumber);
         return this.markedPages.indexOf(page) !== -1;
-
     }
 
     /**
