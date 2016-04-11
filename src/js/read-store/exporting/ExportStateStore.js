@@ -10,13 +10,11 @@ export default class ExportStateStore extends State {
         super();
         this.isShowing = false;
         this.output = "";
-        setTimeout(() => {
-            this.onExecute(ShowExportDialogUseCase, (output) => {
-                this.output = output;
-                this.isShowing = true;
-                this.emitChange();
-            });
-        }, 100);
+        this.on(ShowExportDialogUseCase.name, (output) => {
+            this.output = output;
+            this.isShowing = true;
+            this.emitChange();
+        });
     }
 
     getState() {

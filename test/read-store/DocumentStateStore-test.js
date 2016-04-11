@@ -1,7 +1,6 @@
 // LICENSE : MIT
 "use strict";
 const assert = require("power-assert");
-import DomainEventEmitter from "../../src/js/domain/DomainEventEmitter";
 import Document from "../../src/js/domain/Document/Document";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
 import DocumentStateStore from "../../src/js/read-store/document/DocumentStateStore";

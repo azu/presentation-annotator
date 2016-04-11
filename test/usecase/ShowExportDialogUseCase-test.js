@@ -7,9 +7,11 @@ import DocumentService from "../../src/js/domain/Document/DocumentService";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
 import DomainEventEmitter from "../../src/js/framework/domain/DomainEventEmitter";
 import DomainEventAggregator from "../../src/js/framework/domain/DomainEventAggregator";
+import ExportStateStore from "../../src/js/read-store/exporting/ExportStateStore";
+import eventDelegate from "../utils/EventDelegate"
 describe("ShowExportDialogUseCase", function () {
-    context("execute", function () {
-        it("should dispatch with output", function () {
+    context("when execute", function () {
+        it("UseCase dispatch with output", function () {
             // mock event emitter
             const domainEventEmitter = new DomainEventEmitter();
             DomainEventAggregator.setEventEmitterForTesting(domainEventEmitter);
@@ -21,6 +23,25 @@ describe("ShowExportDialogUseCase", function () {
             useCase.onDispatch((key, output) => {
                 assert(ShowExportDialogUseCase.name);
                 assert.equal(expectedOutput, output);
+            });
+            return useCase.execute();
+        });
+        it("State receive dispatched output", function () {
+            // Given
+            const domainEventEmitter = new DomainEventEmitter();
+            DomainEventAggregator.setEventEmitterForTesting(domainEventEmitter);
+            const documentRepository = new DocumentRepository();
+            const document = new Document();
+            const expectedOutput = DocumentService.stringify(document);
+            documentRepository.save(document);
+            // when
+            const store = new ExportStateStore({documentRepository});
+            const useCase = new ShowExportDialogUseCase({documentRepository});
+            // TODO: testing function
+            eventDelegate(useCase, store);
+            store.onChange(() => {
+                const state = store.getState();
+                assert.strictEqual(state.exporting.output, expectedOutput);
             });
             return useCase.execute();
         });
