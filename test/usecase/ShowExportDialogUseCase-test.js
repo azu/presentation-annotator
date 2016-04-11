@@ -13,12 +13,15 @@ describe("ShowExportDialogUseCase", function () {
             // mock event emitter
             const domainEventEmitter = new DomainEventEmitter();
             DomainEventAggregator.setEventEmitterForTesting(domainEventEmitter);
-
             const documentRepository = new DocumentRepository();
             const document = new Document();
             const expectedOutput = DocumentService.stringify(document);
             documentRepository.save(document);
             const useCase = new ShowExportDialogUseCase({documentRepository});
+            useCase.onDispatch((key, output) => {
+                assert(ShowExportDialogUseCase.name);
+                assert.equal(expectedOutput, output);
+            });
             return useCase.execute();
         });
     });

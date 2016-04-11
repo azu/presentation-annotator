@@ -41,7 +41,7 @@ export default class UseCase extends EventEmitter {
     onDispatch(handler) {
         // delegate dispatch
         this.on("INTERNAL_DISPATCH", ({type, args}) => {
-            handler(type, args);
+            handler(type, ...args);
         });
     }
 
