@@ -2,8 +2,6 @@
 "use strict";
 const EventEmitter = require("events");
 export const ON_DISPATCH = "__DISPATCH_ACTION__";
-export const DISPATCH_ACTION_BEFORE = "__DISPATCH_ACTION_BEFORE__";
-export const DISPATCH_ACTION_AFTER = "__DISPATCH_ACTION_AFTER__";
 export const WILL_EXECUTE_USECASE = "DISPATCH_WILL_EXECUTE_USECASE";
 export const DID_EXECUTE_USECASE = "DISPATCH_DID_EXECUTE_USECASE";
 export default class Dispatcher extends EventEmitter {
