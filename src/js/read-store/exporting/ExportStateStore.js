@@ -10,7 +10,7 @@ export default class ExportStateStore extends State {
         super();
         this.isShowing = false;
         this.output = "";
-        this.on(ShowExportDialogUseCase.name, (output) => {
+        this.onDispatch(ShowExportDialogUseCase.name, (output) => {
             this.output = output;
             this.isShowing = true;
             this.emitChange();

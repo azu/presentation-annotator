@@ -1,6 +1,7 @@
 // LICENSE : MIT
 "use strict";
-import {EventEmitter} from "events";
+const assert = require("assert");
+const EventEmitter = require("events");
 import UseCase from "./UseCase";
 const STATE_CHANGE_EVENT = "STATE_CHANGE_EVENT";
 export default class State extends EventEmitter {
@@ -25,23 +26,38 @@ export default class State extends EventEmitter {
         this.queue = Promise.resolve();
     }
 
-    // Communication with UseCase
+    /**
+     * A UseCase `dispatch` {@link key} with {@link args} and receive the {@link key} with {@link args}
+     * @example
+     *
+     * abcUseCase
+     *  .dispatch("ABC", 42)
+     *
+     * abcState
+     *  .onDispatch("ABC", (value) => {
+     *      console.log(value); // 42
+     *  });
+     *
+     * @param {string} key key is specified event key. it is defined in A UseCase
+     * @param {function(...args)} handler
+     */
+    onDispatch(key, handler) {
+        assert(typeof key === "string");
+        assert(typeof handler === "function");
+        this.on(key, handler);
+    }
+
     /**
      * invoke {@link handler} before will execute the {@link useCase}
-     * @param {UseCase} UseCase
+     * @param {UseCase} useCase
      * @param {Function} handler
      * @returns {Function} return un-listen function
      */
-    onWillExecute(UseCase, handler) {
-        return this._dispatcher.on(`${UseCase.name}:will`, handler);
+    onWillExecute(useCase, handler) {
+        assert(useCase instanceof UseCase, "useCase should be instance of UseCase: " + useCase);
+        return this._dispatcher.on(`${useCase.name}:will`, handler);
     }
 
-    // TODO: more?
-    onExecute(UseCase, handler) {
-        this.queue = this.queue.then(() => {
-            this._dispatcher.on(`${UseCase.name}`, handler)
-        });
-    }
 
     /**
      * invoke {@link handler} after did execute the {@link useCase}

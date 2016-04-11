@@ -7,17 +7,11 @@ export default class UseCase extends EventEmitter {
     constructor() {
         super();
         /**
-         * @type {string} UseCase name
+         * @type {string} default: UseCase name
          */
         this.name = this.displayName || this.constructor.name;
         /**
-         * @private
-         */
-        this._dispatcher = function () {
-            throw new Error("should be overwrite by framework. it is unreached code.");
-        };
-        /**
-         * @type {string}
+         * @type {string} UseCase name
          */
         this.useCaseName = this.constructor.name;
     }
