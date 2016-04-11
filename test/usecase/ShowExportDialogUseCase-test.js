@@ -26,7 +26,7 @@ describe("ShowExportDialogUseCase", function () {
             });
             return useCase.execute();
         });
-        it("State receive dispatched output", function () {
+        it("State receive dispatched output", function (done) {
             // Given
             const domainEventEmitter = new DomainEventEmitter();
             DomainEventAggregator.setEventEmitterForTesting(domainEventEmitter);
@@ -37,11 +37,11 @@ describe("ShowExportDialogUseCase", function () {
             // when
             const store = new ExportStateStore({documentRepository});
             const useCase = new ShowExportDialogUseCase({documentRepository});
-            // TODO: testing function
             eventDelegate(useCase, store);
             store.onChange(() => {
                 const state = store.getState();
                 assert.strictEqual(state.exporting.output, expectedOutput);
+                done();
             });
             return useCase.execute();
         });
