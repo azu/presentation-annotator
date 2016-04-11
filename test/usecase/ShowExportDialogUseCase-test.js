@@ -34,8 +34,8 @@ describe("ShowExportDialogUseCase", function () {
             const document = new Document();
             const expectedOutput = DocumentService.stringify(document);
             documentRepository.save(document);
-            // when
             const store = new ExportStateStore({documentRepository});
+            // then
             const useCase = new ShowExportDialogUseCase({documentRepository});
             eventDelegate(useCase, store);
             store.onChange(() => {
@@ -43,6 +43,7 @@ describe("ShowExportDialogUseCase", function () {
                 assert.strictEqual(state.exporting.output, expectedOutput);
                 done();
             });
+            // when
             return useCase.execute();
         });
     });
