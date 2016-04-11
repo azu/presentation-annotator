@@ -5,8 +5,8 @@ const REPOSITORY_CHANGE = "REPOSITORY_CHANGE";
 import MemoryDB from "./adpter/MemoryDB";
 import Document from "../domain/Document/Document";
 import DocumentFactory from "../domain/Document/DocumentFcatory";
-const shallowClone = (todoList) => {
-    const cloneObject = JSON.parse(JSON.stringify(todoList));
+const shallowClone = (model) => {
+    const cloneObject = JSON.parse(JSON.stringify(model));
     return DocumentFactory.create(cloneObject);
 };
 export class DocumentRepository extends EventEmitter {
@@ -37,9 +37,8 @@ export class DocumentRepository extends EventEmitter {
      * @returns {Document|undefined}
      */
     lastUsed() {
-        console.log(`${Document.name}.lastUsed`);
         const document = this._database.get(`${Document.name}.lastUsed`);
-        if(!document) {
+        if (!document) {
             return;
         }
         return this._get(document.id);
@@ -49,7 +48,6 @@ export class DocumentRepository extends EventEmitter {
      * @param {Document} document
      */
     save(document) {
-        console.log("SAVE");
         this._database.set(`${Document.name}.lastUsed`, document);
         this._database.set(`${Document.name}.${document.id}`, document);
         this.emit(REPOSITORY_CHANGE);

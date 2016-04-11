@@ -8,7 +8,7 @@ import AppContextRepository from "./AppContextRepository";
 import ReadAggregate from "./js/read-store/ReadAggregate";
 // context
 import AppContext  from "./js/framework/Conext";
-import Dispatcher, {DISPATCH_ACTION_BEFORE, DISPATCH_ACTION_AFTER} from "./js/framework/Dispatcher";
+import Dispatcher from "./js/framework/Dispatcher";
 import ContextLogger from "./js/util/ContextLogger";
 // instances
 const readAggregate = new ReadAggregate();
@@ -20,10 +20,10 @@ const appContext = new AppContext({
 });
 // LOG
 const logMap = {};
-dispatcher.on(DISPATCH_ACTION_BEFORE, (key) => {
+dispatcher.onWillExecuteEachUseCase(useCase => {
     const startTimeStamp = performance.now();
-    console.group(key, startTimeStamp);
-    logMap[key] = startTimeStamp;
+    console.group(useCase.name, startTimeStamp);
+    logMap[useCase.name] = startTimeStamp;
 });
 dispatcher.onDispatch((key, ...args) => {
     ContextLogger.logDispatch(key, ...args);
@@ -31,11 +31,11 @@ dispatcher.onDispatch((key, ...args) => {
 appContext.onChange(() => {
     ContextLogger.logOnChange(appContext.states);
 });
-dispatcher.on(DISPATCH_ACTION_AFTER, (key) => {
-    const startTimeStamp = logMap[key];
+dispatcher.onDidExecuteEachUseCase(useCase => {
+    const startTimeStamp = logMap[useCase.name];
     const takenTime = performance.now() - startTimeStamp;
     console.info("Take time(ms): " + takenTime);
-    console.groupEnd();
+    console.groupEnd(useCase.name);
 });
 
 // Singleton

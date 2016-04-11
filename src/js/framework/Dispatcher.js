@@ -1,9 +1,11 @@
 // LICENSE : MIT
 "use strict";
 const EventEmitter = require("events");
-export const DISPATCH_ACTION = "__DISPATCH_ACTION__";
+export const ON_DISPATCH = "__DISPATCH_ACTION__";
 export const DISPATCH_ACTION_BEFORE = "__DISPATCH_ACTION_BEFORE__";
 export const DISPATCH_ACTION_AFTER = "__DISPATCH_ACTION_AFTER__";
+export const WILL_EXECUTE_USECASE = "DISPATCH_WILL_EXECUTE_USECASE";
+export const DID_EXECUTE_USECASE = "DISPATCH_DID_EXECUTE_USECASE";
 export default class Dispatcher extends EventEmitter {
     /**
      * has event of type at least one
@@ -17,14 +19,27 @@ export default class Dispatcher extends EventEmitter {
         return listenerCount(type) > 0;
     }
 
+    // Public global hook point
+    /**
+     * @param {function(useCase: UseCase)} handler
+     */
+    onWillExecuteEachUseCase(handler) {
+        this.on(WILL_EXECUTE_USECASE, handler);
+    }
+
+    onDidExecuteEachUseCase(handler) {
+        this.on(DID_EXECUTE_USECASE, handler);
+    }
+
+
     /**
      * add onAction handler and return unbind function
      * @param {Function} cb
      * @returns {Function} return unbind function
      */
     onDispatch(cb) {
-        this.on(DISPATCH_ACTION, cb);
-        return this.removeListener.bind(this, DISPATCH_ACTION, cb);
+        this.on(ON_DISPATCH, cb);
+        return this.removeListener.bind(this, ON_DISPATCH, cb);
     }
 
     /**
@@ -32,8 +47,6 @@ export default class Dispatcher extends EventEmitter {
      * StoreGroups receive this action and reduce state.
      */
     dispatch(eventKey, ...args) {
-        this.emit(DISPATCH_ACTION_BEFORE, eventKey, ...args);
-        this.emit(DISPATCH_ACTION, eventKey, ...args);
-        this.emit(DISPATCH_ACTION_AFTER, eventKey, ...args);
+        this.emit(ON_DISPATCH, eventKey, ...args);
     }
 }

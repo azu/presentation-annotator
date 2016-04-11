@@ -25,7 +25,6 @@ export default class App extends React.Component {
         const context = AppContextRepository.context;
         // when change store, update component
         const onChangeHandler = () => {
-            console.log("onChangeHandler");
             return requestAnimationFrame(() => {
                 this.setState(this.replaceForState());
             })

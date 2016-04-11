@@ -1,8 +1,13 @@
 // LICENSE : MIT
 "use strict";
 const assert = require("assert");
+import {WILL_EXECUTE_USECASE, DID_EXECUTE_USECASE} from "./Dispatcher";
 export default class UseCase {
     constructor() {
+        /**
+         * @type {string} UseCase name
+         */
+        this.name = this.displayName || this.constructor.name;
         /**
          * @private
          */
@@ -29,11 +34,13 @@ export default class UseCase {
     }
 
     willExecute() {
+        this._dispatcher.emit(WILL_EXECUTE_USECASE, this);
         this._dispatcher.emit(`${this.useCaseName}:will`);
     }
 
     didExecute() {
         this._dispatcher.emit(`${this.useCaseName}:did`);
+        this._dispatcher.emit(DID_EXECUTE_USECASE, this);
     }
 
     throwError(error) {

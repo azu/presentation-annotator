@@ -7,6 +7,16 @@ export default class State extends EventEmitter {
     constructor() {
         super();
         /**
+         * @type {string} State name
+         */
+        this.name = this.displayName || this.constructor.name;
+
+        /**
+         * isChanging flag that is on when emit change
+         * @type {boolean}
+         */
+        this.isChinging = false;
+        /**
          * @private
          */
         this._dispatcher = function () {
@@ -72,6 +82,8 @@ export default class State extends EventEmitter {
      * emit change event to subscribers
      */
     emitChange() {
+        this.isChinging = true;
         this.emit(STATE_CHANGE_EVENT);
+        this.isChinging = false;
     }
 };

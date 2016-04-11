@@ -4,13 +4,21 @@ export default class ContextLogger {
     static logDispatch(key, ...args) {
         console.info(`Dispatch:${key}`, ...args);
     }
-    static logOnChange(stores) {
-        stores.forEach(store => {
-            if(typeof store.getState !== "function"){
+
+    /**
+     * @param {State[]} states
+     */
+    static logOnChange(states) {
+        states.forEach(state => {
+            if (!state.isChinging) {
                 return;
             }
-            console.info(`Store:${store.constructor.name} is Changed`);
-            console.info(store.getState());
+            if (typeof state.getState !== "function") {
+                return;
+            }
+            console.groupCollapsed(`Store:${state.name} is Changed`);
+            console.info(state.getState());
+            console.groupEnd()
         })
     }
 }

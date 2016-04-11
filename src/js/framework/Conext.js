@@ -10,10 +10,18 @@ export default class Context extends EventEmitter {
         super();
         // state change flag
         this._isChangedStore = false;
+        // central dispatcher
         this._dispatcher = dispatcher;
         this.states = states;
-        this._registerDispatcher(dispatcher);
         this.states.forEach(state => this._registerState(state));
+    }
+
+    /**
+     * return registered array of state
+     * @returns {State[]}
+     */
+    getStates() {
+        return this.states;
     }
 
     /**
@@ -36,22 +44,6 @@ export default class Context extends EventEmitter {
         return new UseCaseExecutor(useCase, this._dispatcher);
     }
 
-    // overwrite point for extension
-    // 何かデバッグの時に上書きしやすいような仕組みがあるといいとか
-    contextOnDispatch(eventKey, ...args) {
-        assert(this._dispatcher.hasEvent(eventKey), `Not found registered handler for "${eventKey}". You should register handler at least one`);
-        // if change any store, emit context on change event
-        console.log("contextOnDispatch");
-        if (this._isChangedStore) {
-            this.emit(CONTEXT_ON_CHANGE);
-        }
-        this._isChangedStore = false;
-    }
-
-    _registerDispatcher(dispatcher) {
-        dispatcher.onDispatch(this.contextOnDispatch.bind(this));
-    }
-
     /**
      * @param {State} state
      */
@@ -59,10 +51,15 @@ export default class Context extends EventEmitter {
         // overwrite private dispatcher for communication with UseCase
         state._dispatcher = this._dispatcher;
         // dirty flag
+        let _isChangedStore = false;
         // this flag is collected on `contextOnDispatch`
         state.onChange(() => {
-            this._isChangedStore = true;
+            if (_isChangedStore) {
+                return;
+            }
+            _isChangedStore = true;
             this.emit(CONTEXT_ON_CHANGE);
+            _isChangedStore = false;
         });
     }
 
