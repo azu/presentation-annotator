@@ -5,16 +5,12 @@ import ShowExportDialogUseCase from "../../src/js/UseCase/ShowExportDialogUseCas
 import Document from "../../src/js/domain/Document/Document";
 import DocumentService from "../../src/js/domain/Document/DocumentService";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
-import DomainEventEmitter from "../../src/js/framework/domain/DomainEventEmitter";
-import DomainEventAggregator from "../../src/js/framework/domain/DomainEventAggregator";
 import ExportStateStore from "../../src/js/read-store/exporting/ExportStateStore";
 import eventDelegate from "../utils/EventDelegate"
 describe("ShowExportDialogUseCase", function () {
     context("when execute", function () {
         it("UseCase dispatch with output", function () {
             // mock event emitter
-            const domainEventEmitter = new DomainEventEmitter();
-            DomainEventAggregator.setEventEmitterForTesting(domainEventEmitter);
             const documentRepository = new DocumentRepository();
             const document = new Document();
             const expectedOutput = DocumentService.stringify(document);
@@ -28,8 +24,6 @@ describe("ShowExportDialogUseCase", function () {
         });
         it("State receive dispatched output", function (done) {
             // Given
-            const domainEventEmitter = new DomainEventEmitter();
-            DomainEventAggregator.setEventEmitterForTesting(domainEventEmitter);
             const documentRepository = new DocumentRepository();
             const document = new Document();
             const expectedOutput = DocumentService.stringify(document);

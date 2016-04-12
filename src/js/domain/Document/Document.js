@@ -62,13 +62,11 @@ export default class Document extends DomainModel {
             return new DocumentPage({pageNumber: index + 1});
         });
         this.isLoaded = true;
-        this.emitChange();
     }
 
     updateNodeAtPage(note, pageNumber) {
         const page = this.getPage(pageNumber);
         page.note = note;
-        this.emitChange();
     }
 
     markAtPage(pageNumber) {
@@ -77,6 +75,5 @@ export default class Document extends DomainModel {
         }
         const page = this.getPage(pageNumber);
         this.markedPages.push(page);
-        this.emitChange();
     }
 }
