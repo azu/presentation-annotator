@@ -27,6 +27,14 @@ export default class Store extends CoreEventEmitter {
     }
 
     /**
+     * return state object
+     * @return {Object}
+     */
+    getState() {
+        throw new Error("should be implemented Store#getState(): Object");
+    }
+
+    /**
      * A UseCase `dispatch` {@link key} with {@link args} and receive the {@link key} with {@link args}
      * @example
      *

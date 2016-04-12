@@ -16,7 +16,7 @@ const dispatcher = new Dispatcher();
 // context connect dispatch with stores
 const appContext = new AppContext({
     dispatcher,
-    states: readAggregate.states
+    stores: readAggregate.states
 });
 // LOG
 const logMap = {};
