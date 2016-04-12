@@ -23,7 +23,7 @@ export default class StoreGroup extends CoreEventEmitter {
      */
     constructor(stores) {
         super();
-        validateStore(stores);
+        stores.forEach(validateStore);
         // dirty flag
         this._isChangedStore = false;
         this._onChangeQueue = Promise.resolve();
@@ -56,6 +56,12 @@ export default class StoreGroup extends CoreEventEmitter {
             // `requestEmitChange()` is for pushing `emitChange()` to queue.
             this._onChangeQueue = this._onChangeQueue.then(() => {
                 this.requestEmitChange();
+                // FIXME: Dirty flag
+                store.isChanging = false;
+            }).catch(function onChangeQueueError(error) {
+                setTimeout(() => {
+                    throw error;
+                }, 0);
             });
         });
         this._releaseHandlers.push(releaseHandler);

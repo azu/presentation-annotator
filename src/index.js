@@ -16,20 +16,20 @@ const dispatcher = new Dispatcher();
 // context connect dispatch with stores
 const appContext = new AppContext({
     dispatcher,
-    stores: readAggregate.states
+    stores: readAggregate.stores
 });
 // LOG
 const logMap = {};
 dispatcher.onWillExecuteEachUseCase(useCase => {
     const startTimeStamp = performance.now();
-    console.group(useCase.name, startTimeStamp);
+    console.groupCollapsed(useCase.name, startTimeStamp);
     logMap[useCase.name] = startTimeStamp;
 });
 dispatcher.onDispatch((key, ...args) => {
     ContextLogger.logDispatch(key, ...args);
 });
 appContext.onChange(() => {
-    ContextLogger.logOnChange(appContext.states);
+    ContextLogger.logOnChange(appContext.stores);
 });
 dispatcher.onDidExecuteEachUseCase(useCase => {
     const startTimeStamp = logMap[useCase.name];
@@ -37,8 +37,7 @@ dispatcher.onDidExecuteEachUseCase(useCase => {
     console.info("Take time(ms): " + takenTime);
     console.groupEnd(useCase.name);
 });
-
 // Singleton
 AppContextRepository.context = appContext;
 // entry point
-ReactDOM.render(<App readAggregate={readAggregate}/>, document.getElementById("js-app"));
+ReactDOM.render(<App appContext={appContext}/>, document.getElementById("js-app"));

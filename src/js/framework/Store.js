@@ -16,7 +16,7 @@ export default class Store extends CoreEventEmitter {
          * isChanging flag that is on when emit change
          * @type {boolean}
          */
-        this.isChinging = false;
+        this.isChanging = false;
         /**
          * @private
          */
@@ -108,8 +108,7 @@ export default class Store extends CoreEventEmitter {
      * emit change event to subscribers
      */
     emitChange() {
-        this.isChinging = true;
+        this.isChanging = true;
         this.emit(STATE_CHANGE_EVENT);
-        this.isChinging = false;
     }
 };

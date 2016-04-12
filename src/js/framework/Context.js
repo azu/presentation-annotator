@@ -15,6 +15,10 @@ export default class Context extends CoreEventEmitter {
         super();
         // central dispatcher
         this._dispatcher = dispatcher;
+        /**
+         * @type {Store[]}
+         */
+        this.stores = stores;
         this.storeGroup = new StoreGroup(stores);
         // Note: StoreGroup thin out change events of stores.
         // When Multiple stores are change at same time, call change handler at once.
@@ -27,7 +31,7 @@ export default class Context extends CoreEventEmitter {
      * return state value of StoreGroup.
      * @returns {*} states object of stores
      */
-    getStates() {
+    getState() {
         return this.storeGroup.getState();
     }
 

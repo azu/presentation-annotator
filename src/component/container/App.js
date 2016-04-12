@@ -10,15 +10,7 @@ import ExportContainer from "./ExportContainer/ExportContainer";
 export default class App extends React.Component {
     constructor(...args) {
         super(...args);
-        this.state = this.replaceForState();
-    }
-
-    replaceForState() {
-        /**
-         * @type {ReadAggregate}
-         */
-        const readAggregate = this.props.readAggregate;
-        return readAggregate.getState();
+        this.state = AppContextRepository.context.getState();
     }
 
     componentDidMount() {
@@ -26,7 +18,7 @@ export default class App extends React.Component {
         // when change store, update component
         const onChangeHandler = () => {
             return requestAnimationFrame(() => {
-                this.setState(this.replaceForState());
+                this.setState(context.getState());
             })
         };
         context.onChange(onChangeHandler);

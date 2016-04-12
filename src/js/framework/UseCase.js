@@ -40,13 +40,17 @@ export default class UseCase extends CoreEventEmitter {
     }
 
     willExecute() {
-        this.dispatch(WILL_EXECUTE_USECASE, this);
+        // emit event for System
+        this.emit(WILL_EXECUTE_USECASE, this);
+        // emit event for Store
         this.dispatch(`${this.useCaseName}:will`);
     }
 
     didExecute() {
+        // emit event for System
         this.dispatch(`${this.useCaseName}:did`);
-        this.dispatch(DID_EXECUTE_USECASE, this);
+        // emit event for Store
+        this.emit(DID_EXECUTE_USECASE, this);
     }
 
     throwError(error) {

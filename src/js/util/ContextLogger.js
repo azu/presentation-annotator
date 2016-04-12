@@ -6,14 +6,11 @@ export default class ContextLogger {
     }
 
     /**
-     * @param {Store[]} states
+     * @param {Store[]} stores
      */
-    static logOnChange(states) {
-        states.forEach(state => {
-            if (!state.isChinging) {
-                return;
-            }
-            if (typeof state.getState !== "function") {
+    static logOnChange(stores) {
+        stores.forEach(state => {
+            if (!state.isChanging) {
                 return;
             }
             console.groupCollapsed(`Store:${state.name} is Changed`);

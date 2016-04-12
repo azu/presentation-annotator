@@ -1,6 +1,7 @@
 // LICENSE : MIT
 "use strict";
 const assert = require("assert");
+import {WILL_EXECUTE_USECASE, DID_EXECUTE_USECASE} from "./Dispatcher";
 import UseCase from "./UseCase";
 export default class UseCaseExecutor {
     /**
@@ -14,6 +15,14 @@ export default class UseCaseExecutor {
         assert(typeof useCase.execute === "function", `UseCase instance should have #execute function: ${useCaseName}`);
         this.useCaseName = useCaseName;
         this.useCase = useCase;
+        // UseCase => UseCaseExecutor => Dispatcher
+        // delegate System event to dispatch
+        this.useCase.on(WILL_EXECUTE_USECASE, (useCase) => {
+            dispatcher.emit(WILL_EXECUTE_USECASE, useCase);
+        });
+        this.useCase.on(DID_EXECUTE_USECASE, (useCase) => {
+            dispatcher.emit(DID_EXECUTE_USECASE, useCase);
+        });
         // delegate userCase#onDispatch to central dispatcher
         this.useCase.onDispatch((key, ...args) => {
             dispatcher.dispatch(key, ...args);
