@@ -28,7 +28,7 @@ describe("Context", function () {
                 dispatcher,
                 stores: stores
             });
-            const states = appContext.getStates();
+            const states = appContext.getState();
             assert.deepEqual(states, expectedMergedObject);
         });
     });
