@@ -1,15 +1,13 @@
 // LICENSE : MIT
 "use strict";
-const EventEmitter = require("events");
 const assert = require("assert");
+import CoreEventEmitter from "./CoreEventEmitter";
 import UseCase from "./UseCase";
 import UseCaseExecutor  from "./UseCaseExecutor";
 const CONTEXT_ON_CHANGE = "CONTEXT_ON_CHANGE";
-export default class Context extends EventEmitter {
+export default class Context extends CoreEventEmitter {
     constructor({dispatcher, states}) {
         super();
-        // state change flag
-        this._isChangedStore = false;
         // central dispatcher
         this._dispatcher = dispatcher;
         this.states = states;
@@ -18,7 +16,7 @@ export default class Context extends EventEmitter {
 
     /**
      * return registered array of state
-     * @returns {State[]}
+     * @returns {Store[]}
      */
     getStates() {
         return this.states;
@@ -45,7 +43,7 @@ export default class Context extends EventEmitter {
     }
 
     /**
-     * @param {State} state
+     * @param {Store} state
      */
     _registerState(state) {
         // overwrite private dispatcher for communication with UseCase

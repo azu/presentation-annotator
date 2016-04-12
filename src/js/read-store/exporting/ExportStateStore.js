@@ -1,11 +1,11 @@
 // LICENSE : MIT
 "use strict";
-import State from "../../framework/State";
+import Store from "../../framework/Store";
 import ShowExportDialogUseCase from "../../UseCase/ShowExportDialogUseCase"
 /*
  StateStore has change condition
  */
-export default class ExportStateStore extends State {
+export default class ExportStateStore extends Store {
     constructor({documentRepository}) {
         super();
         this.isShowing = false;

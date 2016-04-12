@@ -7,7 +7,7 @@ import AppContextRepository from "./AppContextRepository";
 // store
 import ReadAggregate from "./js/read-store/ReadAggregate";
 // context
-import AppContext  from "./js/framework/Conext";
+import AppContext  from "./js/framework/Context";
 import Dispatcher from "./js/framework/Dispatcher";
 import ContextLogger from "./js/util/ContextLogger";
 // instances

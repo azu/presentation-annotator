@@ -1,9 +1,9 @@
 // LICENSE : MIT
 "use strict";
 const assert = require("assert");
-const EventEmitter = require("events");
+import CoreEventEmitter from "./CoreEventEmitter";
 import {WILL_EXECUTE_USECASE, DID_EXECUTE_USECASE} from "./Dispatcher";
-export default class UseCase extends EventEmitter {
+export default class UseCase extends CoreEventEmitter {
     constructor() {
         super();
         /**

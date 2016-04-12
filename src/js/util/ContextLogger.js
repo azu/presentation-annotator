@@ -6,7 +6,7 @@ export default class ContextLogger {
     }
 
     /**
-     * @param {State[]} states
+     * @param {Store[]} states
      */
     static logOnChange(states) {
         states.forEach(state => {

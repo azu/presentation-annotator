@@ -1,14 +1,14 @@
 // LICENSE : MIT
 "use strict";
 const assert = require("assert");
-const EventEmitter = require("events");
+import CoreEventEmitter from "./CoreEventEmitter";
 import UseCase from "./UseCase";
 const STATE_CHANGE_EVENT = "STATE_CHANGE_EVENT";
-export default class State extends EventEmitter {
+export default class Store extends CoreEventEmitter {
     constructor() {
         super();
         /**
-         * @type {string} State name
+         * @type {string} Store name
          */
         this.name = this.displayName || this.constructor.name;
 
@@ -33,7 +33,7 @@ export default class State extends EventEmitter {
      * abcUseCase
      *  .dispatch("ABC", 42)
      *
-     * abcState
+     * abcStore
      *  .onDispatch("ABC", (value) => {
      *      console.log(value); // 42
      *  });
@@ -61,25 +61,27 @@ export default class State extends EventEmitter {
 
     /**
      * invoke {@link handler} after did execute the {@link useCase}
-     * @param {UseCase} UseCase
+     * @param {UseCase} useCase
      * @param {Function} handler
      * @returns {Function} return un-listen function
      */
-    onDidExecute(UseCase, handler) {
+    onDidExecute(useCase, handler) {
+        assert(useCase instanceof useCase, "useCase should be instance of UseCase: " + useCase)
         this.queue = this.queue.then(() => {
-            this._dispatcher.on(`${UseCase.name}:did`, handler)
+            this._dispatcher.on(`${useCase.name}:did`, handler)
         });
     }
 
     /**
      * invoke {@link handler} if the {@link UseCase} throw error.
-     * @param {UseCase} UseCase
+     * @param {UseCase} useCase
      * @param {Function} handler
      * @returns {Function} return un-listen function
      */
-    onError(UseCase, handler) {
+    onError(useCase, handler) {
+        assert(useCase instanceof useCase, "useCase should be instance of UseCase: " + useCase)
         this.queue = this.queue.then(() => {
-            this._dispatcher.on(`${UseCase.name}:error`, handler)
+            this._dispatcher.on(`${useCase.name}:error`, handler)
         });
     }
 

@@ -1,11 +1,11 @@
 // LICENSE : MIT
 "use strict";
-import State from "../../framework/State";
+import Store from "../../framework/Store";
 const initialState = {
     document: null,
     markedPageNumbers: []
 };
-export default class DocumentFormStateStore extends State {
+export default class DocumentFormStateStore extends Store {
     constructor({documentRepository}) {
         super();
         this.documentRepository = documentRepository;
