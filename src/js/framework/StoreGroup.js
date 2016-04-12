@@ -57,6 +57,7 @@ export default class StoreGroup extends CoreEventEmitter {
             this._onChangeQueue = this._onChangeQueue.then(() => {
                 this.requestEmitChange();
                 // FIXME: Dirty flag
+                // isChanging was true => store emit Change => isChanging to be false.
                 store.isChanging = false;
             }).catch(function onChangeQueueError(error) {
                 setTimeout(() => {
