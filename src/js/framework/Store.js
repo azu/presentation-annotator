@@ -13,11 +13,6 @@ export default class Store extends CoreEventEmitter {
         this.name = this.displayName || this.constructor.name;
 
         /**
-         * isChanging flag that is on when emit change
-         * @type {boolean}
-         */
-        this.isChanging = false;
-        /**
          * @private
          */
         this._dispatcher = function () {
@@ -108,7 +103,6 @@ export default class Store extends CoreEventEmitter {
      * emit change event to subscribers
      */
     emitChange() {
-        this.isChanging = true;
         this.emit(STATE_CHANGE_EVENT);
     }
 };

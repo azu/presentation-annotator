@@ -24,10 +24,21 @@ export default class StoreGroup extends CoreEventEmitter {
     constructor(stores) {
         super();
         stores.forEach(validateStore);
-        // dirty flag
-        this._isChangedStore = false;
         this._onChangeQueue = Promise.resolve();
+        /**
+         * callable release handlers
+         * @type {Function[]}
+         * @private
+         */
         this._releaseHandlers = [];
+
+        /**
+         * array of store that emit change in now!
+         * this array is weak-able set.
+         * @type {Store[]}
+         * @private
+         */
+        this._currentChangingStores = [];
         /**
          * @type {Store[]}
          */
@@ -52,13 +63,13 @@ export default class StoreGroup extends CoreEventEmitter {
     registerStore(store) {
         // if anyone store is changed, will call `emitChange()`.
         const releaseHandler = store.onChange(() => {
-            this._isChangedStore = true;
-            // `requestEmitChange()` is for pushing `emitChange()` to queue.
+            this._isAnyOneStoreChanged = true;
+            // add change store list in now
+            // it is released by `StoreGroup#emitChange`
+            this._currentChangingStores.push(store);
             this._onChangeQueue = this._onChangeQueue.then(() => {
+                // `requestEmitChange()` is for pushing `emitChange()` to queue.
                 this.requestEmitChange();
-                // FIXME: Dirty flag
-                // isChanging was true => store emit Change => isChanging to be false.
-                store.isChanging = false;
             }).catch(function onChangeQueueError(error) {
                 setTimeout(() => {
                     throw error;
@@ -75,15 +86,18 @@ export default class StoreGroup extends CoreEventEmitter {
      * - if `this._isChangedStore === true`, then {@link emitChange}().
      */
     requestEmitChange() {
-        if (!this._isChangedStore) {
+        if (!this._isAnyOneStoreChanged) {
             return;
         }
         this.emitChange();
-        this._isChangedStore = false; // reset changed state
+        this._isAnyOneStoreChanged = false; // reset changed state
     }
 
     emitChange() {
-        this.emit(CHANGE_STORE_GROUP);
+        // transfer ownership of changingStores to other
+        this.emit(CHANGE_STORE_GROUP, this._currentChangingStores.slice());
+        // release ownership  of changingStores from StoreGroup
+        this._currentChangingStores.length = 0;
     }
 
     onChange(handler) {

@@ -22,8 +22,8 @@ export default class Context extends CoreEventEmitter {
         this.storeGroup = new StoreGroup(stores);
         // Note: StoreGroup thin out change events of stores.
         // When Multiple stores are change at same time, call change handler at once.
-        this.storeGroup.onChange(() => {
-            this.emit(CONTEXT_ON_CHANGE);
+        this.storeGroup.onChange(changingStores => {
+            this.emit(CONTEXT_ON_CHANGE, changingStores);
         });
     }
 
@@ -37,7 +37,7 @@ export default class Context extends CoreEventEmitter {
 
     /**
      * if anyone store is changed, then call onChangeHandler
-     * @param {Function} onChangeHandler
+     * @param {function(changingStores: Store[])} onChangeHandler
      */
     onChange(onChangeHandler) {
         this.on(CONTEXT_ON_CHANGE, onChangeHandler);
