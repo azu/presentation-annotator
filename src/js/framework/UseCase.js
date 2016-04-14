@@ -2,7 +2,7 @@
 "use strict";
 const assert = require("assert");
 import CoreEventEmitter from "./CoreEventEmitter";
-import {WILL_EXECUTE_USECASE, DID_EXECUTE_USECASE} from "./Dispatcher";
+import {ON_WILL_EXECUTE_EACH_USECASE, ON_DID_EXECUTE_EACH_USECASE} from "./Dispatcher";
 export default class UseCase extends CoreEventEmitter {
     constructor() {
         super();
@@ -32,28 +32,21 @@ export default class UseCase extends CoreEventEmitter {
         });
     }
 
+    /**
+     * throw error event
+     * you can use it instead of `throw new Error()`
+     * this error event is caught by dispatcher.
+     * @param {Error} error
+     */
+    throwError(error) {
+        this.dispatch(`${this.useCaseName}:error`);
+    }
+
+
     onDispatch(handler) {
         // delegate dispatch
         this.on("INTERNAL_DISPATCH", ({type, args}) => {
             handler(type, ...args);
         });
-    }
-
-    willExecute() {
-        // emit event for System
-        this.emit(WILL_EXECUTE_USECASE, this);
-        // emit event for Store
-        this.dispatch(`${this.useCaseName}:will`);
-    }
-
-    didExecute() {
-        // emit event for System
-        this.dispatch(`${this.useCaseName}:did`);
-        // emit event for Store
-        this.emit(DID_EXECUTE_USECASE, this);
-    }
-
-    throwError(error) {
-        this.dispatch(`${this.useCaseName}:error`);
     }
 }

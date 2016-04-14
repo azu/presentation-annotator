@@ -1,32 +1,48 @@
 // LICENSE : MIT
 "use strict";
 const assert = require("assert");
-import {WILL_EXECUTE_USECASE, DID_EXECUTE_USECASE} from "./Dispatcher";
+import Dispatcher, {ON_WILL_EXECUTE_EACH_USECASE, ON_DID_EXECUTE_EACH_USECASE} from "./Dispatcher";
 import UseCase from "./UseCase";
 export default class UseCaseExecutor {
     /**
      * @param {UseCase} useCase
-     * @param {*} dispatcher
+     * @param {Dispatcher} dispatcher
      */
     constructor(useCase, dispatcher) {
         // execute and finish =>
         const useCaseName = useCase.constructor.name;
         assert(typeof useCaseName !== "undefined" && typeof useCaseName === "string", "UseCase instance should have constructor.name " + useCase);
         assert(typeof useCase.execute === "function", `UseCase instance should have #execute function: ${useCaseName}`);
+        /**
+         * @type {string} useCase name
+         */
         this.useCaseName = useCaseName;
+        /**
+         * @type {UseCase} executable useCase
+         */
         this.useCase = useCase;
-        // UseCase => UseCaseExecutor => Dispatcher
-        // delegate System event to dispatch
-        this.useCase.on(WILL_EXECUTE_USECASE, (useCase) => {
-            dispatcher.emit(WILL_EXECUTE_USECASE, useCase);
-        });
-        this.useCase.on(DID_EXECUTE_USECASE, (useCase) => {
-            dispatcher.emit(DID_EXECUTE_USECASE, useCase);
-        });
+        /**
+         * @type {Dispatcher}
+         */
+        this.dispatcher = dispatcher;
         // delegate userCase#onDispatch to central dispatcher
         this.useCase.onDispatch((key, ...args) => {
-            dispatcher.dispatch(key, ...args);
+            this.dispatcher.dispatch(key, ...args);
         });
+    }
+
+    willExecute() {
+        // emit event for System
+        this.dispatcher.dispatch(ON_WILL_EXECUTE_EACH_USECASE, this.useCase);
+        // emit event for Store
+        this.dispatcher.dispatch(`${this.useCaseName}:will`);
+    }
+
+    didExecute() {
+        // emit event for System
+        this.dispatcher.dispatch(`${this.useCaseName}:did`);
+        // emit event for Store
+        this.dispatcher.dispatch(ON_DID_EXECUTE_EACH_USECASE, this.useCase);
     }
 
     /**
@@ -35,9 +51,9 @@ export default class UseCaseExecutor {
      * @param args
      */
     execute(...args) {
-        this.useCase.willExecute();
+        this.willExecute();
         return Promise.resolve(this.useCase.execute(...args)).then(() => {
-            this.useCase.didExecute();
+            this.didExecute();
         }).catch(error => {
             this.useCase.throwError(error);
             return Promise.reject(error);
