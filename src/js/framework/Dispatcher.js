@@ -18,6 +18,12 @@ export const ON_DID_EXECUTE_EACH_USECASE = "ON_DID_EXECUTE_EACH_USECASE";
  * dispatch
  *
  * Almost event pass the (on)dispatch.
+ *
+ * ## FAQ
+ *
+ * Q. Why use payload object instead emit(key, ...args).
+ * A. It is for optimization and limitation.
+ * If apply emit style, we cast ...args for passing other dispatcher at everytime.
  */
 export default class Dispatcher extends EventEmitter {
     /**
