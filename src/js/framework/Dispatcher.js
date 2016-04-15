@@ -79,7 +79,7 @@ export default class Dispatcher extends EventEmitter {
         this.emit(ON_WILL_EXECUTE_EACH_USECASE, useCase);
 
     }
-
+    
     dispatchDidExecuteUseCase(useCase) {
         this.emit(ON_DID_EXECUTE_EACH_USECASE, useCase);
     }

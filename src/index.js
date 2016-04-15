@@ -10,6 +10,7 @@ import ReadAggregate from "./js/read-store/ReadAggregate";
 import AppContext  from "./js/framework/Context";
 import Dispatcher from "./js/framework/Dispatcher";
 import ContextLogger from "./js/util/ContextLogger";
+import UseCaseLocator from "./js/UseCase/UseCaseLocator";
 // instances
 const readAggregate = new ReadAggregate();
 const dispatcher = new Dispatcher();

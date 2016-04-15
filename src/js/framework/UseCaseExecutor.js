@@ -38,12 +38,18 @@ export default class UseCaseExecutor {
         this._releaseHandlers.push(unListenHandler);
     }
 
-    willExecute() {
+    /**
+     * @param {*[]} args arguments of the usecase
+     */
+    willExecute(args) {
         // emit event for System
-        this.dispatcher.dispatchWillExecuteUseCase(this.useCase);
+        this.dispatcher.dispatchWillExecuteUseCase(this.useCase, args);
     }
 
-    didExecute() {
+    /**
+     * @param {*} result
+     */
+    didExecute(result) {
         // emit event for Store
         this.dispatcher.dispatchDidExecuteUseCase(this.useCase);
     }
@@ -54,9 +60,10 @@ export default class UseCaseExecutor {
      * @param args
      */
     execute(...args) {
-        this.willExecute();
-        return Promise.resolve(this.useCase.execute(...args)).then(() => {
-            this.didExecute();
+        this.willExecute(args);
+        const result = this.useCase.execute(...args);
+        return Promise.resolve(result).then((result) => {
+            this.didExecute(result);
             this.release();
         }).catch(error => {
             this.useCase.throwError(error);

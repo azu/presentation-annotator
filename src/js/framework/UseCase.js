@@ -48,9 +48,10 @@ export default class UseCase extends CoreEventEmitter {
      * @param {Error} error
      */
     throwError(error) {
-        this.dispatch({
+        const payload = {
             type: `${this.useCaseName}:error`,
             error: error
-        });
+        };
+        this.dispatch(payload);
     }
 }
