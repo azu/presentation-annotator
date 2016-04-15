@@ -24,9 +24,10 @@ dispatcher.onWillExecuteEachUseCase(useCase => {
     const startTimeStamp = performance.now();
     console.groupCollapsed(useCase.name, startTimeStamp);
     logMap[useCase.name] = startTimeStamp;
+    console.log(`${useCase.name} will execute`);
 });
-dispatcher.onDispatch((key, ...args) => {
-    ContextLogger.logDispatch(key, ...args);
+dispatcher.onDispatch(payload => {
+    ContextLogger.logDispatch(payload);
 });
 appContext.onChange(() => {
     ContextLogger.logOnChange(appContext.stores);
@@ -34,6 +35,7 @@ appContext.onChange(() => {
 dispatcher.onDidExecuteEachUseCase(useCase => {
     const startTimeStamp = logMap[useCase.name];
     const takenTime = performance.now() - startTimeStamp;
+    console.log(`${useCase.name} did executed`);
     console.info("Take time(ms): " + takenTime);
     console.groupEnd(useCase.name);
 });

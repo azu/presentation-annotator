@@ -1,8 +1,8 @@
 // LICENSE : MIT
 "use strict";
 export default class ContextLogger {
-    static logDispatch(key, ...args) {
-        console.info(`Dispatch:${key}`, ...args);
+    static logDispatch(payload) {
+        console.info(`Dispatch:${payload.type}`, payload);
     }
 
     /**

@@ -13,14 +13,11 @@ export const ON_DID_EXECUTE_EACH_USECASE = "ON_DID_EXECUTE_EACH_USECASE";
  */
 /**
  * Dispatcher is the central event bus system.
- * All framework's event pass the `Dispatcher`.
- *
- * These are Core API.
  *
  * onDispatch
  * dispatch
  *
- * all event pass the (on)dispatch.
+ * Almost event pass the (on)dispatch.
  */
 export default class Dispatcher extends EventEmitter {
     /**
@@ -40,22 +37,14 @@ export default class Dispatcher extends EventEmitter {
      * @param {function(useCase: UseCase)} handler
      */
     onWillExecuteEachUseCase(handler) {
-        this.onDispatch(({type, useCase}) => {
-            if (type === ON_DID_EXECUTE_EACH_USECASE) {
-                handler(useCase);
-            }
-        });
+        this.on(ON_WILL_EXECUTE_EACH_USECASE, handler);
     }
 
     /**
      * @param {function(useCase: UseCase)} handler
      */
     onDidExecuteEachUseCase(handler) {
-        this.onDispatch(({type, useCase}) => {
-            if (type === ON_DID_EXECUTE_EACH_USECASE) {
-                handler(useCase);
-            }
-        });
+        this.on(ON_DID_EXECUTE_EACH_USECASE, handler);
     }
 
 
@@ -81,17 +70,11 @@ export default class Dispatcher extends EventEmitter {
     }
 
     dispatchWillExecuteUseCase(useCase) {
-        this.dispatch({
-            type: ON_WILL_EXECUTE_EACH_USECASE,
-            useCase
-        });
+        this.emit(ON_WILL_EXECUTE_EACH_USECASE, useCase);
 
     }
 
     dispatchDidExecuteUseCase(useCase) {
-        this.dispatch({
-            type: ON_DID_EXECUTE_EACH_USECASE,
-            useCase
-        });
+        this.emit(ON_DID_EXECUTE_EACH_USECASE, useCase);
     }
 }
