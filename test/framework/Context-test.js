@@ -20,7 +20,13 @@ class TestStore extends Store {
 
 class TestUseCase extends UseCase {
     execute() {
-
+        this.dispatch({
+            type: "update",
+            value: "value"
+        });
+        this.throwError(new Error("test"));
+        return Promise.resolve().then(() => {
+        });
     }
 }
 describe("Context", function () {
@@ -81,6 +87,7 @@ describe("Context", function () {
             });
             const useCaseExecutor = appContext.useCase(new TestUseCase());
             assert(useCaseExecutor instanceof UseCaseExecutor);
+            useCaseExecutor.execute();
         });
     });
 });

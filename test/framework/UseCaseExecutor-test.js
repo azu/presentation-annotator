@@ -5,6 +5,42 @@ import UseCaseExecutor from "../../src/js/framework/UseCaseExecutor";
 import UseCase from "../../src/js/framework/UseCase";
 import Dispatcher from "../../src/js/framework/Dispatcher";
 describe("UseCaseExecutor", function () {
+    context("when UseCase is successful completion", function () {
+        it("dispatch will -> did", function () {
+            // given
+            class SyncUseCase extends UseCase {
+                execute(value) {
+                    this.dispatch({
+                        type: SyncUseCase.name,
+                        value
+                    });
+                }
+            }
+            const callStack = [];
+            const expectedCallStack = [1, 2, 3];
+            class MockDispatcher extends Dispatcher {
+                dispatchWillExecuteUseCase() {
+                    callStack.push(1);
+                }
+
+                dispatchDidExecuteUseCase() {
+                    callStack.push(3);
+                }
+            }
+            const dispatcher = new MockDispatcher();
+            // then
+            dispatcher.onDispatch(({type, value}) => {
+                if (type === SyncUseCase.name) {
+                    callStack.push(2);
+                }
+            });
+            // when
+            const executor = new UseCaseExecutor(new SyncUseCase(), dispatcher);
+            return executor.execute().then(() => {
+                assert.deepEqual(callStack, expectedCallStack);
+            });
+        });
+    });
     describe("#execute", function () {
         context("when UseCase is sync", function () {
             it("execute is called", function (done) {

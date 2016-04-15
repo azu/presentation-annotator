@@ -4,7 +4,7 @@ const assert = require("assert");
 const EventEmitter = require("events");
 export const ON_DISPATCH = "__DISPATCH_ACTION__";
 export const ON_WILL_EXECUTE_EACH_USECASE = "ON_WILL_EXECUTE_EACH_USECASE";
-export const ON_DID_EXECUTE_EACH_USECASE = "DISPATCH_DID_EXECUTE_USECASE";
+export const ON_DID_EXECUTE_EACH_USECASE = "ON_DID_EXECUTE_EACH_USECASE";
 
 /**
  * payload The payload object that must have `type` property.

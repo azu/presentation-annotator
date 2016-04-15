@@ -60,6 +60,7 @@ export default class UseCaseExecutor {
             this.release();
         }).catch(error => {
             this.useCase.throwError(error);
+            this.didExecute();
             this.release();
             return Promise.reject(error);
         });
