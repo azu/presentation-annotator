@@ -54,7 +54,7 @@ export default class Store extends CoreEventEmitter {
     }
 
     /**
-     *
+     * onDispatch
      * @param {function(payload: DispatcherPayload)} handler
      * @returns {function} un-listen event function
      */

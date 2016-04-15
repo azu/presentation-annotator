@@ -16,7 +16,7 @@ export default class UseCase extends CoreEventEmitter {
     }
 
     execute() {
-        throw new Error(`should be overwrite ${this.constructor.name}#execute()`);
+        throw new TypeError(`should be overwrite ${this.constructor.name}#execute()`);
     }
 
 
