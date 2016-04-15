@@ -9,7 +9,7 @@ export const ON_DID_EXECUTE_EACH_USECASE = "DISPATCH_DID_EXECUTE_USECASE";
 /**
  * payload The payload object that must have `type` property.
  * @typedef {Object} DispatcherPayload
- * @param {String} type The event type to dispatch.
+ * @property {String} type The event type to dispatch.
  */
 /**
  * Dispatcher is the central event bus system.

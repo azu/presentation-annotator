@@ -72,8 +72,8 @@ export default class Store extends CoreEventEmitter {
      * @param {Function} handler
      * @returns {Function} return un-listen function
      */
-    onError(useCase, handler) {
-        assert(useCase instanceof useCase, "useCase should be instance of UseCase: " + useCase);
+    onUseCaseError(useCase, handler) {
+        assert(useCase instanceof UseCase, "useCase should be instance of UseCase: " + useCase);
         this.onDispatch(({type, error}) => {
             if (type === `${this.useCaseName}:error`) {
                 handler(error);
