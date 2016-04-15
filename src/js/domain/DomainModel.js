@@ -2,15 +2,7 @@
 "use strict";
 import {EventEmitter} from "events";
 const STATE_CHANGE_EVENT = "STATE_CHANGE_EVENT";
-import eventAggregator from "./DomainEventAggregator";
 export default class DomainModel extends EventEmitter {
-    constructor() {
-        super();
-        /**
-         * @type {DomainEventAggregator}
-         */
-        this.eventAggregator = eventAggregator;
-    }
 
     /**
      * subscribe change event.
@@ -28,7 +20,5 @@ export default class DomainModel extends EventEmitter {
      */
     emitChange() {
         this.emit(STATE_CHANGE_EVENT);
-        const entityName = this.constructor.name;
-        this.eventAggregator.publish(entityName);
     }
 };

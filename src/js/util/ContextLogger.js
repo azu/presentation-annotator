@@ -1,16 +1,21 @@
 // LICENSE : MIT
 "use strict";
 export default class ContextLogger {
-    static logDispatch(key, ...args) {
-        console.info(`Dispatch:${key}`, ...args);
+    static logDispatch(payload) {
+        console.info(`Dispatch:${payload.type}`, payload);
     }
+
+    /**
+     * @param {Store[]} stores
+     */
     static logOnChange(stores) {
-        stores.forEach(store => {
-            if(typeof store.getState !== "function"){
+        stores.forEach(state => {
+            if (!state.isChanging) {
                 return;
             }
-            console.info(`Store:${store.constructor.name} is Changed`);
-            console.info(store.getState());
+            console.groupCollapsed(`Store:${state.name} is Changed`);
+            console.info(state.getState());
+            console.groupEnd()
         })
     }
 }

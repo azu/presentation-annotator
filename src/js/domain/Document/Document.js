@@ -9,7 +9,7 @@ let DocumentID = 1;
  * Document Entity
  */
 export default class Document extends DomainModel {
-    constructor({pdfURL} = {}) {
+    constructor({pdfURL, totalPageNumber} = {}) {
         super();
         this.id = `Document${DocumentID++}`;
         /**
@@ -22,6 +22,9 @@ export default class Document extends DomainModel {
          * @private
          */
         this.markedPages = [];
+        if (totalPageNumber > 0) {
+            this.updateTotalPageNumber(totalPageNumber);
+        }
         this.isLoaded = false;
         this.pdfURL = pdfURL;
     }
@@ -47,7 +50,6 @@ export default class Document extends DomainModel {
     isMarkedAtPage(pageNumber) {
         const page = this.getPage(pageNumber);
         return this.markedPages.indexOf(page) !== -1;
-
     }
 
     /**
@@ -60,13 +62,11 @@ export default class Document extends DomainModel {
             return new DocumentPage({pageNumber: index + 1});
         });
         this.isLoaded = true;
-        this.emitChange();
     }
 
     updateNodeAtPage(note, pageNumber) {
         const page = this.getPage(pageNumber);
         page.note = note;
-        this.emitChange();
     }
 
     markAtPage(pageNumber) {
@@ -75,6 +75,5 @@ export default class Document extends DomainModel {
         }
         const page = this.getPage(pageNumber);
         this.markedPages.push(page);
-        this.emitChange();
     }
 }

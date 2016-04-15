@@ -1,15 +1,22 @@
 // LICENSE : MIT
 "use strict";
-import StateStore from "../../flux/StateStore";
-import ShowExportDialogUseCase from "../../UseCase/ShowExportDialog/ShowExportDialogUseCase"
+import Store from "../../framework/Store";
+import {ShowExportDialogUseCase} from "../../UseCase/ShowExportDialogUseCase"
 /*
  StateStore has change condition
  */
-export default class ExportStateStore extends StateStore {
+export default class ExportStateStore extends Store {
     constructor({documentRepository}) {
         super();
         this.isShowing = false;
         this.output = "";
+        this.onDispatch(payload => {
+            if(payload.type === ShowExportDialogUseCase.name) {
+                this.output = payload.output;
+                this.isShowing = true;
+                this.emitChange();
+            }
+        });
     }
 
     getState() {
@@ -19,11 +26,5 @@ export default class ExportStateStore extends StateStore {
                 output: this.output
             }
         }
-    }
-
-    [ShowExportDialogUseCase.name](output) {
-        this.output = output;
-        this.isShowing = true;
-        this.emitChange();
     }
 }

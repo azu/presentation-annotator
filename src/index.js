@@ -7,9 +7,10 @@ import AppContextRepository from "./AppContextRepository";
 // store
 import ReadAggregate from "./js/read-store/ReadAggregate";
 // context
-import AppContext  from "./js/flux/Conext";
-import Dispatcher, {DISPATCH_ACTION_BEFORE, DISPATCH_ACTION_AFTER} from "./js/flux/Dispatcher";
+import AppContext  from "./js/framework/Context";
+import Dispatcher from "./js/framework/Dispatcher";
 import ContextLogger from "./js/util/ContextLogger";
+import UseCaseLocator from "./js/UseCase/UseCaseLocator";
 // instances
 const readAggregate = new ReadAggregate();
 const dispatcher = new Dispatcher();
@@ -20,25 +21,26 @@ const appContext = new AppContext({
 });
 // LOG
 const logMap = {};
-dispatcher.on(DISPATCH_ACTION_BEFORE, (key) => {
+dispatcher.onWillExecuteEachUseCase(useCase => {
     const startTimeStamp = performance.now();
-    console.group(key, startTimeStamp);
-    logMap[key] = startTimeStamp;
+    console.groupCollapsed(useCase.name, startTimeStamp);
+    logMap[useCase.name] = startTimeStamp;
+    console.log(`${useCase.name} will execute`);
 });
-dispatcher.onDispatch((key, ...args) => {
-    ContextLogger.logDispatch(key, ...args);
+dispatcher.onDispatch(payload => {
+    ContextLogger.logDispatch(payload);
 });
 appContext.onChange(() => {
     ContextLogger.logOnChange(appContext.stores);
 });
-dispatcher.on(DISPATCH_ACTION_AFTER, (key) => {
-    const startTimeStamp = logMap[key];
+dispatcher.onDidExecuteEachUseCase(useCase => {
+    const startTimeStamp = logMap[useCase.name];
     const takenTime = performance.now() - startTimeStamp;
+    console.log(`${useCase.name} did executed`);
     console.info("Take time(ms): " + takenTime);
-    console.groupEnd();
+    console.groupEnd(useCase.name);
 });
-
 // Singleton
 AppContextRepository.context = appContext;
 // entry point
-ReactDOM.render(<App readAggregate={readAggregate}/>, document.getElementById("js-app"));
+ReactDOM.render(<App appContext={appContext}/>, document.getElementById("js-app"));

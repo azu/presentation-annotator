@@ -7,19 +7,11 @@ export default class ReadAggregate {
     constructor() {
         /**
          * StateStore array
-         * @type {StateStore[]}
+         * @type {Store[]}
          */
         this.stores = [
             new DocumentStateStore({documentRepository}),
             new ExportStateStore({documentRepository})
         ];
-    }
-
-    /**
-     * Return collection of stores's state
-     * @returns {Object}
-     */
-    getState() {
-        return Object.assign({}, ...this.stores.map(store => store.getState()));
     }
 }

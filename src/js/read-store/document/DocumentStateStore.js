@@ -1,24 +1,21 @@
 // LICENSE : MIT
 "use strict";
-import StateStore from "../../flux/StateStore";
-import Document from "../../domain/Document/Document";
-import NewDocumentUseCase from "../../UseCase/NewDocument/NewDocumentUseCase";
-import eventAggregator from "../../domain/DomainEventAggregator";
-const initialState ={
+import Store from "../../framework/Store";
+const initialState = {
     document: null,
-    markedPageNumbers:[]
+    markedPageNumbers: []
 };
-export default class DocumentFormStateStore extends StateStore {
+export default class DocumentFormStateStore extends Store {
     constructor({documentRepository}) {
         super();
         this.documentRepository = documentRepository;
-        eventAggregator.subscribe(Document.name, () => {
+        this.documentRepository.onChange(() => {
             this.emitChange();
         });
     }
 
     getState() {
-        const document = this.documentRepository.findFirst();
+        const document = this.documentRepository.lastUsed();
         if (!document) {
             return initialState;
         }
@@ -29,9 +26,5 @@ export default class DocumentFormStateStore extends StateStore {
             document,
             markedPageNumbers
         }
-    }
-
-    [NewDocumentUseCase.name]() {
-        this.emitChange();
     }
 }

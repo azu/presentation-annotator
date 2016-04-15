@@ -1,3 +1,0 @@
-# Flux
-
-Simple Flux implementation.
