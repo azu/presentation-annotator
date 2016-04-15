@@ -11,7 +11,7 @@ export class ShowExportDialogFactory {
     }
 }
 
-export default class ShowExportDialogUseCase extends UseCase{
+export default class ShowExportDialogUseCase extends UseCase {
     constructor({documentRepository}) {
         super();
         /**
@@ -23,6 +23,9 @@ export default class ShowExportDialogUseCase extends UseCase{
     execute() {
         const document = this.documentRepository.lastUsed();
         const output = DocumentService.stringify(document);
-        this.dispatch(ShowExportDialogUseCase.name, output);
+        this.dispatch({
+            type: ShowExportDialogUseCase.name,
+            output
+        });
     }
 }

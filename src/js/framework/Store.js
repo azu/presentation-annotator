@@ -18,7 +18,6 @@ export default class Store extends CoreEventEmitter {
         this._dispatcher = function () {
             throw new Error("should be overwrite by framework. it is unreached code.");
         };
-        this.queue = Promise.resolve();
     }
 
     /**
@@ -34,45 +33,37 @@ export default class Store extends CoreEventEmitter {
      * @example
      *
      * abcUseCase
-     *  .dispatch("ABC", 42)
+     *  .dispatch({
+     *      type: "ABC",
+     *      value: "value"
+     *  })
      *
      * abcStore
-     *  .onDispatch("ABC", (value) => {
+     *  .onDispatch(({ type, value }) => {
+     *      console.log(type);  // "ABC"
      *      console.log(value); // 42
      *  });
      *
-     * @param {string} key key is specified event key. it is defined in A UseCase
-     * @param {function(...args)} handler
      */
-    onDispatch(key, handler) {
-        assert(typeof key === "string");
-        assert(typeof handler === "function");
-        this.on(key, handler);
+    /**
+     * dispatch with payload
+     * @param {DispatcherPayload} payload
+     */
+    dispatch(payload) {
+        this.emit("INTERNAL_DISPATCH", payload);
     }
 
     /**
-     * invoke {@link handler} before will execute the {@link useCase}
-     * @param {UseCase} useCase
-     * @param {Function} handler
-     * @returns {Function} return un-listen function
+     *
+     * @param {function(payload: DispatcherPayload)} handler
+     * @returns {function} un-listen event function
      */
-    onWillExecute(useCase, handler) {
-        assert(useCase instanceof UseCase, "useCase should be instance of UseCase: " + useCase);
-        return this._dispatcher.on(`${useCase.name}:will`, handler);
-    }
-
-
-    /**
-     * invoke {@link handler} after did execute the {@link useCase}
-     * @param {UseCase} useCase
-     * @param {Function} handler
-     * @returns {Function} return un-listen function
-     */
-    onDidExecute(useCase, handler) {
-        assert(useCase instanceof useCase, "useCase should be instance of UseCase: " + useCase)
-        this.queue = this.queue.then(() => {
-            this._dispatcher.on(`${useCase.name}:did`, handler)
-        });
+    onDispatch(handler) {
+        // delegate dispatch
+        this.on("INTERNAL_DISPATCH", handler);
+        return () => {
+            this.removeListener("INTERNAL_DISPATCH", handler);
+        }
     }
 
     /**
@@ -82,9 +73,11 @@ export default class Store extends CoreEventEmitter {
      * @returns {Function} return un-listen function
      */
     onError(useCase, handler) {
-        assert(useCase instanceof useCase, "useCase should be instance of UseCase: " + useCase)
-        this.queue = this.queue.then(() => {
-            this._dispatcher.on(`${useCase.name}:error`, handler)
+        assert(useCase instanceof useCase, "useCase should be instance of UseCase: " + useCase);
+        this.onDispatch(({type, error}) => {
+            if (type === `${this.useCaseName}:error`) {
+                handler(error);
+            }
         });
     }
 

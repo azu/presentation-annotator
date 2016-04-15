@@ -11,20 +11,57 @@ describe("UseCaseExecutor", function () {
                 // given
                 class SyncUseCase extends UseCase {
                     execute(value) {
-                        this.dispatch(SyncUseCase.name, value);
+                        this.dispatch({
+                            type: SyncUseCase.name,
+                            value
+                        });
                     }
                 }
                 const dispatcher = new Dispatcher();
                 const expectedValue = "value";
                 // then
-                dispatcher.onDispatch((key, value) => {
-                    if (key === SyncUseCase.name) {
+                dispatcher.onDispatch(({type, value}) => {
+                    if (type === SyncUseCase.name) {
                         assert.equal(value, expectedValue);
                         done();
                     }
                 });
                 // when
                 const executor = new UseCaseExecutor(new SyncUseCase(), dispatcher);
+                executor.execute(expectedValue);
+            });
+        });
+        context("when UseCase is async", function () {
+            it("execute is called", function (done) {
+                // given
+                class AsyncUseCase extends UseCase {
+                    execute(value) {
+                        return Promise.resolve().then(() => {
+                            this.dispatch({
+                                type: AsyncUseCase.name,
+                                value
+                            });
+                        });
+                    }
+                }
+                const dispatcher = new Dispatcher();
+                const expectedValue = "value";
+                // then
+                let isCalledUseCase = false;
+                dispatcher.onDispatch(({type, value}) => {
+                    if (type === AsyncUseCase.name) {
+                        assert.equal(value, expectedValue);
+                        isCalledUseCase = true;
+                    }
+                });
+                dispatcher.onDidExecuteEachUseCase(useCase => {
+                    if (useCase instanceof AsyncUseCase) {
+                        assert(isCalledUseCase);
+                        done();
+                    }
+                });
+                // when
+                const executor = new UseCaseExecutor(new AsyncUseCase(), dispatcher);
                 executor.execute(expectedValue);
             });
         });

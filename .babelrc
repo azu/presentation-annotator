@@ -8,9 +8,11 @@
   ],
   "env": {
     "development": {
+      "presets": [
+        "power-assert"
+      ],
       "plugins": [
-        "jsdoc-to-assert",
-        "babel-plugin-espower"
+        "jsdoc-to-assert"
       ]
     }
   }

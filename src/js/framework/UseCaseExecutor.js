@@ -25,24 +25,27 @@ export default class UseCaseExecutor {
          * @type {Dispatcher}
          */
         this.dispatcher = dispatcher;
+        /**
+         * callable release handlers that are called in release()
+         * @type {Function[]}
+         * @private
+         */
+        this._releaseHandlers = [];
         // delegate userCase#onDispatch to central dispatcher
-        this.useCase.onDispatch((key, ...args) => {
-            this.dispatcher.dispatch(key, ...args);
+        const unListenHandler = this.useCase.onDispatch(payload => {
+            this.dispatcher.dispatch(payload);
         });
+        this._releaseHandlers.push(unListenHandler);
     }
 
     willExecute() {
         // emit event for System
-        this.dispatcher.dispatch(ON_WILL_EXECUTE_EACH_USECASE, this.useCase);
-        // emit event for Store
-        this.dispatcher.dispatch(`${this.useCaseName}:will`);
+        this.dispatcher.dispatchWillExecuteUseCase(this.useCase);
     }
 
     didExecute() {
-        // emit event for System
-        this.dispatcher.dispatch(`${this.useCaseName}:did`);
         // emit event for Store
-        this.dispatcher.dispatch(ON_DID_EXECUTE_EACH_USECASE, this.useCase);
+        this.dispatcher.dispatchDidExecuteUseCase(this.useCase);
     }
 
     /**
@@ -54,9 +57,20 @@ export default class UseCaseExecutor {
         this.willExecute();
         return Promise.resolve(this.useCase.execute(...args)).then(() => {
             this.didExecute();
+            this.release();
         }).catch(error => {
             this.useCase.throwError(error);
+            this.release();
             return Promise.reject(error);
         });
+    }
+
+    /**
+     * release all events handler.
+     * You can call this when no more call event handler
+     */
+    release() {
+        this._releaseHandlers.forEach(releaseHandler => releaseHandler());
+        this._releaseHandlers.length = 0;
     }
 }

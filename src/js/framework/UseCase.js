@@ -2,7 +2,6 @@
 "use strict";
 const assert = require("assert");
 import CoreEventEmitter from "./CoreEventEmitter";
-import {ON_WILL_EXECUTE_EACH_USECASE, ON_DID_EXECUTE_EACH_USECASE} from "./Dispatcher";
 export default class UseCase extends CoreEventEmitter {
     constructor() {
         super();
@@ -20,16 +19,26 @@ export default class UseCase extends CoreEventEmitter {
         throw new Error(`should be overwrite ${this.constructor.name}#execute()`);
     }
 
+
     /**
-     * dispatch event key with args.
-     * @param {string} key
-     * @param args
+     * dispatch with payload
+     * @param {DispatcherPayload} payload
      */
-    dispatch(key, ...args) {
-        this.emit("INTERNAL_DISPATCH", {
-            type: key,
-            args
-        });
+    dispatch(payload) {
+        this.emit("INTERNAL_DISPATCH", payload);
+    }
+
+    /**
+     *
+     * @param {function(payload: DispatcherPayload)} handler
+     * @returns {function} un listen event handler function
+     */
+    onDispatch(handler) {
+        // delegate dispatch
+        this.on("INTERNAL_DISPATCH", handler);
+        return () => {
+            this.removeListener("INTERNAL_DISPATCH", handler);
+        }
     }
 
     /**
@@ -39,14 +48,9 @@ export default class UseCase extends CoreEventEmitter {
      * @param {Error} error
      */
     throwError(error) {
-        this.dispatch(`${this.useCaseName}:error`);
-    }
-
-
-    onDispatch(handler) {
-        // delegate dispatch
-        this.on("INTERNAL_DISPATCH", ({type, args}) => {
-            handler(type, ...args);
+        this.dispatch({
+            type: `${this.useCaseName}:error`,
+            error: error
         });
     }
 }

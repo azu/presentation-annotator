@@ -1,4 +1,18 @@
-# Flux
+# Framework
 
+## Core System(public)
 
-Simple Flux implementation.
+- Context
+- Dispatcher
+- Store
+- UseCase
+
+## Sub System
+
+- StoreGroup
+- UseCaseExecutor
+
+## Dispatcher
+
+- `onDispatch(payload)`
+- `dispatch(payload)`

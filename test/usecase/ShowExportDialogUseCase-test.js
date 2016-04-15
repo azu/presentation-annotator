@@ -6,19 +6,20 @@ import Document from "../../src/js/domain/Document/Document";
 import DocumentService from "../../src/js/domain/Document/DocumentService";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
 import ExportStateStore from "../../src/js/read-store/exporting/ExportStateStore";
-import eventDelegate from "../utils/EventDelegate"
+import delegateEvents from "../utils/EventDelegate"
 describe("ShowExportDialogUseCase", function () {
     context("when execute", function () {
-        it("UseCase dispatch with output", function () {
+        it("UseCase dispatch with output", function (done) {
             // mock event emitter
             const documentRepository = new DocumentRepository();
             const document = new Document();
             const expectedOutput = DocumentService.stringify(document);
             documentRepository.save(document);
             const useCase = new ShowExportDialogUseCase({documentRepository});
-            useCase.onDispatch((key, output) => {
-                assert(ShowExportDialogUseCase.name);
+            useCase.onDispatch(({type, output}) => {
+                assert.equal(type, ShowExportDialogUseCase.name);
                 assert.equal(expectedOutput, output);
+                done();
             });
             return useCase.execute();
         });
@@ -29,16 +30,17 @@ describe("ShowExportDialogUseCase", function () {
             const expectedOutput = DocumentService.stringify(document);
             documentRepository.save(document);
             const store = new ExportStateStore({documentRepository});
-            // then
             const useCase = new ShowExportDialogUseCase({documentRepository});
-            eventDelegate(useCase, store);
+            // delegate event
+            useCase.onDispatch(store.dispatch.bind(store));
+            // then
             store.onChange(() => {
                 const state = store.getState();
                 assert.strictEqual(state.exporting.output, expectedOutput);
                 done();
             });
             // when
-            return useCase.execute();
+            useCase.execute();
         });
     });
 });
