@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 import Store from "../../framework/Store";
-import ShowExportDialogUseCase from "../../UseCase/ShowExportDialogUseCase"
+import {ShowExportDialogUseCase} from "../../UseCase/ShowExportDialogUseCase"
 /*
  StateStore has change condition
  */

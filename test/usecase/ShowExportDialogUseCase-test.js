@@ -6,7 +6,6 @@ import Document from "../../src/js/domain/Document/Document";
 import DocumentService from "../../src/js/domain/Document/DocumentService";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
 import ExportStateStore from "../../src/js/read-store/exporting/ExportStateStore";
-import delegateEvents from "../utils/EventDelegate"
 describe("ShowExportDialogUseCase", function () {
     context("when execute", function () {
         it("UseCase dispatch with output", function (done) {
