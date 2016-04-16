@@ -1,0 +1,9 @@
+.ExportContainer.is-showing {
+    width: 200px;
+    height: 100%;
+}
+
+.ExportContainer-pre.is-showing {
+    height: 100%;
+    display: block;
+}

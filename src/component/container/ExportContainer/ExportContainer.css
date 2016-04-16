@@ -1,4 +1,5 @@
 .ExportContainer {
+    width: 50px;
     position: fixed;
     top: 0;
     left: 0;
@@ -7,4 +8,5 @@
 
 .ExportContainer-pre {
     border: 1px dashed #00d4b4;
+    display: none;
 }

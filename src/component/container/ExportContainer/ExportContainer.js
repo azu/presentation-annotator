@@ -20,10 +20,8 @@ export default class ExportContainer extends React.Component {
             }
         });
         return <div className={className}>
-<ExportToolbar />
-<pre className={preClassName}>
-{this.props.output}
-</pre>
+            <ExportToolbar />
+            <textarea value={this.props.output} className={preClassName}/>
         </div>
     }
 }
