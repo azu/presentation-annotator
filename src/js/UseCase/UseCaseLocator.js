@@ -6,7 +6,7 @@ import {
 } from "./CompleteLoadingDocumentUseCase";
 import {MarkClickedPageFactory, MarkClickedPageUseCase} from "./MarkClickedPageUseCase";
 import {NewDocumentFactory, NewDocumentUseCase} from "./NewDocumentUseCase";
-import {ShowExportDialogFactory, ShowExportDialogUseCase} from "./ShowExportDialogUseCase";
+import {ToggleExportDialogFactory, ToggleExportDialogUseCase} from "./ToggleExportDialogUseCase";
 import {UpdatePageNoteFactory, UpdatePageNoteUseCase} from "./UpdatePageNoteUseCase";
 export default class UseCaseLocator {
     static getFactory(useCaseName) {
@@ -17,8 +17,8 @@ export default class UseCaseLocator {
                 return MarkClickedPageFactory;
             case NewDocumentUseCase.name:
                 return NewDocumentFactory;
-            case ShowExportDialogUseCase.name:
-                return ShowExportDialogFactory;
+            case ToggleExportDialogUseCase.name:
+                return ToggleExportDialogFactory;
             case UpdatePageNoteUseCase.name:
                 return UpdatePageNoteFactory;
         }

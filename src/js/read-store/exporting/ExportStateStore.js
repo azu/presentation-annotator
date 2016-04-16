@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 import Store from "../../framework/Store";
-import {ShowExportDialogUseCase} from "../../UseCase/ShowExportDialogUseCase"
+import {ToggleExportDialogUseCase} from "../../UseCase/ToggleExportDialogUseCase"
 import DocumentService from "../../domain/Document/DocumentService";
 /*
  StateStore has change condition
@@ -12,8 +12,8 @@ export default class ExportStateStore extends Store {
         this.isShowing = false;
         this.documentRepository = documentRepository;
         this.onDispatch(payload => {
-            if (payload.type === ShowExportDialogUseCase.name) {
-                this.isShowing = true;
+            if (payload.type === ToggleExportDialogUseCase.name) {
+                this.isShowing = !this.isShowing;
                 this.emitChange();
             }
         });
