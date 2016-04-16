@@ -19,7 +19,7 @@ export default class Context extends CoreEventEmitter {
          * @type {Store[]}
          */
         this.stores = stores;
-        this.storeGroup = new StoreGroup(this.stores);
+        this.storeGroup = new StoreGroup(this.stores, this._dispatcher);
         // Note: StoreGroup thin out change events of stores.
         // When Multiple stores are change at same time, call change handler at once.
         this.storeGroup.onChange(changingStores => {

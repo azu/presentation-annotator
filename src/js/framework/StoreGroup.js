@@ -20,11 +20,16 @@ export default class StoreGroup extends CoreEventEmitter {
     /**
      * Create StoreGroup
      * @param {Store[]} stores stores are instance of MaterialStore
+     * @param {Dispatcher} dispatcher dispatcher is the central dispatcher
      */
-    constructor(stores) {
+    constructor(stores, dispatcher) {
         super();
         stores.forEach(validateStore);
         this._onChangeQueue = Promise.resolve();
+        /**
+         * @type {Dispatcher} central dispatcher
+         */
+        this.dispatcher = dispatcher;
         /**
          * callable release handlers
          * @type {Function[]}
@@ -62,7 +67,7 @@ export default class StoreGroup extends CoreEventEmitter {
      */
     registerStore(store) {
         // if anyone store is changed, will call `emitChange()`.
-        const releaseHandler = store.onChange(() => {
+        const releaseOnChangeHandler = store.onChange(() => {
             this._isAnyOneStoreChanged = true;
             // add change store list in now
             // it is released by `StoreGroup#emitChange`
@@ -76,7 +81,9 @@ export default class StoreGroup extends CoreEventEmitter {
                 }, 0);
             });
         });
-        this._releaseHandlers.push(releaseHandler);
+        const releaseOnDispatchHandler = this.dispatcher.pipe(store);
+        // add release handler
+        this._releaseHandlers = this._releaseHandlers.concat([releaseOnChangeHandler, releaseOnDispatchHandler]);
     }
 
     /**

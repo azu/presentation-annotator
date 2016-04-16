@@ -18,29 +18,7 @@ export default class UseCase extends CoreEventEmitter {
     execute() {
         throw new TypeError(`should be overwrite ${this.constructor.name}#execute()`);
     }
-
-
-    /**
-     * dispatch with payload
-     * @param {DispatcherPayload} payload
-     */
-    dispatch(payload) {
-        this.emit("INTERNAL_DISPATCH", payload);
-    }
-
-    /**
-     *
-     * @param {function(payload: DispatcherPayload)} handler
-     * @returns {function} un listen event handler function
-     */
-    onDispatch(handler) {
-        // delegate dispatch
-        this.on("INTERNAL_DISPATCH", handler);
-        return () => {
-            this.removeListener("INTERNAL_DISPATCH", handler);
-        }
-    }
-
+    
     /**
      * throw error event
      * you can use it instead of `throw new Error()`

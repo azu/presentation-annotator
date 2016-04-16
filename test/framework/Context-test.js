@@ -18,18 +18,47 @@ class TestStore extends Store {
     }
 }
 
-class TestUseCase extends UseCase {
+class ThrowUseCase extends UseCase {
     execute() {
         this.dispatch({
             type: "update",
             value: "value"
         });
         this.throwError(new Error("test"));
-        return Promise.resolve().then(() => {
-        });
     }
 }
 describe("Context", function () {
+    describe("dispatch in UseCase", function () {
+        it("should dispatch Store", function (done) {
+            const dispatcher = new Dispatcher();
+            const DISPATCHED_EVENT = {
+                type: "update",
+                value: "value"
+            };
+            // then
+            class DispatchUseCase extends UseCase {
+                execute() {
+                    this.dispatch(DISPATCHED_EVENT);
+                }
+            }
+            class ReceiveStore extends Store {
+                constructor() {
+                    super();
+                    this.onDispatch(payload => {
+                        assert.deepEqual(payload, DISPATCHED_EVENT);
+                        done();
+                    });
+                }
+            }
+            // when
+            const stores = [new ReceiveStore()];
+            const appContext = new Context({
+                dispatcher,
+                stores: stores
+            });
+            appContext.useCase(new DispatchUseCase()).execute();
+        });
+    });
     describe("#getStates", function () {
         it("should get a single state from State", function () {
             const dispatcher = new Dispatcher();
@@ -85,7 +114,7 @@ describe("Context", function () {
                 dispatcher,
                 stores: []
             });
-            const useCaseExecutor = appContext.useCase(new TestUseCase());
+            const useCaseExecutor = appContext.useCase(new ThrowUseCase());
             assert(useCaseExecutor instanceof UseCaseExecutor);
             useCaseExecutor.execute();
         });

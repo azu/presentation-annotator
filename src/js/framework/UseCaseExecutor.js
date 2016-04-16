@@ -32,9 +32,7 @@ export default class UseCaseExecutor {
          */
         this._releaseHandlers = [];
         // delegate userCase#onDispatch to central dispatcher
-        const unListenHandler = this.useCase.onDispatch(payload => {
-            this.dispatcher.dispatch(payload);
-        });
+        const unListenHandler = this.useCase.pipe(this.dispatcher);
         this._releaseHandlers.push(unListenHandler);
     }
 
