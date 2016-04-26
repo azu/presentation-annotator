@@ -7,39 +7,18 @@ import AppContextRepository from "./AppContextRepository";
 // store
 import ReadAggregate from "./js/read-store/ReadAggregate";
 // context
-import AppContext  from "./js/framework/Context";
-import Dispatcher from "./js/framework/Dispatcher";
-import ContextLogger from "./js/util/ContextLogger";
-import UseCaseLocator from "./js/UseCase/UseCaseLocator";
+import {Context, Dispatcher}  from "almin";
+import AlminLogger from "almin-logger";
 // instances
-const readAggregate = new ReadAggregate();
+const readAggregate = ReadAggregate.create();
 const dispatcher = new Dispatcher();
 // context connect dispatch with stores
-const appContext = new AppContext({
+const appContext = new Context({
     dispatcher,
-    stores: readAggregate.stores
+    store: readAggregate
 });
-// LOG
-const logMap = {};
-dispatcher.onWillExecuteEachUseCase(useCase => {
-    const startTimeStamp = performance.now();
-    console.groupCollapsed(useCase.name, startTimeStamp);
-    logMap[useCase.name] = startTimeStamp;
-    console.log(`${useCase.name} will execute`);
-});
-dispatcher.onDispatch(payload => {
-    ContextLogger.logDispatch(payload);
-});
-appContext.onChange(() => {
-    ContextLogger.logOnChange(appContext.stores);
-});
-dispatcher.onDidExecuteEachUseCase(useCase => {
-    const startTimeStamp = logMap[useCase.name];
-    const takenTime = performance.now() - startTimeStamp;
-    console.log(`${useCase.name} did executed`);
-    console.info("Take time(ms): " + takenTime);
-    console.groupEnd(useCase.name);
-});
+const logger = new AlminLogger();
+logger.startLogging(appContext);
 // Singleton
 AppContextRepository.context = appContext;
 // entry point

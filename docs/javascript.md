@@ -2,6 +2,8 @@
 
 Presentation of the architecture: http://azu.github.io/slide/2016/bikeshedjs/javascript-read-write-stack.html
 
+:new: We've created [almin](https://github.com/almin/almin "almin/almin: Flux/CQRS patterns for JavaScript app") library.
+
 ## Store
 
 - when a repository is changed, pull data from repository and update state of store

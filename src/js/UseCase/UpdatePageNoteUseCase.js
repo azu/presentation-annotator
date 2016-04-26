@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 import documentRepository from "../infra/DocumentRepository";
-import UseCase from "../framework/UseCase";
+import {UseCase} from "almin";
 export class UpdatePageNoteFactory {
     static create() {
         return new UpdatePageNoteUseCase({
