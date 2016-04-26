@@ -2,7 +2,7 @@
 "use strict";
 import Document from "../domain/Document/Document";
 import documentRepository from "../infra/DocumentRepository";
-import UseCase from "../framework/UseCase";
+import {UseCase} from "almin";
 export class NewDocumentFactory {
     static create() {
         return new NewDocumentUseCase({

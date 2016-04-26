@@ -1,6 +1,6 @@
 // LICENSE : MIT
 "use strict";
-import Store from "../../framework/Store";
+import {Store} from "almin";
 import {ToggleExportDialogUseCase} from "../../UseCase/ToggleExportDialogUseCase"
 import DocumentService from "../../domain/Document/DocumentService";
 /*
