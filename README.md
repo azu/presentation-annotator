@@ -1,4 +1,4 @@
-# presentation-annotator
+# presentation-annotator [![Build Status](https://travis-ci.org/azu/slide.svg?branch=master)](https://travis-ci.org/azu/slide)
 
 ## Architecture
 
@@ -9,15 +9,15 @@ See [document](docs/)
 
 ## Installation
 
-- [ ] Describe the installation process
+    npm install
 
 ## Usage
 
-- [ ] Write usage instructions
+    npm start
 
 ## Tests
 
-- [ ] Write How to Tests
+    npm test
 
 ## Contributing
 
