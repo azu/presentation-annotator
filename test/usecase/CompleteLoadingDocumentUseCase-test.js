@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 const assert = require("power-assert");
-import {CompleteLoadingDocumentUseCase} from "../../src/js/UseCase/CompleteLoadingDocumentUseCase";
+import {CompleteLoadingDocumentUseCase} from "../../src/js/UseCase/document/CompleteLoadingDocumentUseCase";
 import Document from "../../src/js/domain/Document/Document";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
 describe("CompleteLoadingDocumentUseCase", function () {

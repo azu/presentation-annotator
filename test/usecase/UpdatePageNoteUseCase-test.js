@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 const assert = require("power-assert");
-import {UpdatePageNoteUseCase} from "../../src/js/UseCase/UpdatePageNoteUseCase";
+import {UpdatePageNoteUseCase} from "../../src/js/UseCase/document/UpdatePageNoteUseCase";
 import Document from "../../src/js/domain/Document/Document";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
 describe("UpdatePageNoteUseCase", function () {
