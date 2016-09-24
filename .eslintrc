@@ -74,7 +74,7 @@
     "generator-star-spacing": 2,
     "indent": [
       2,
-      2,
+      4,
       {
         "SwitchCase": 1
       }
