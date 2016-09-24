@@ -2,9 +2,9 @@
 "use strict";
 const React = require("react");
 const suitClassNames = require("suitcss-classnames");
-import AppContextRepository from "../../../AppContextRepository";
-import {UpdatePageNoteFactory} from "../../../js/UseCase/UpdatePageNoteUseCase";
-export default class PageEditorTextarea extends React.Component {
+import AppLocator from "../../../AppLocator";
+import {UpdatePageNoteFactory} from "../../../js/UseCase/document/UpdatePageNoteUseCase";
+export default class PageEditorTextarea extends React.PureComponent {
     render() {
         const savePageContent = (event) => {
             const content = event.target.value;
@@ -12,7 +12,7 @@ export default class PageEditorTextarea extends React.Component {
                 note: content,
                 pageNumber: this.props.pageNumber
             };
-            const context = AppContextRepository.context;
+            const context = AppLocator.context;
             context.useCase(UpdatePageNoteFactory.create()).execute(page);
         };
         const className = suitClassNames({

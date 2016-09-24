@@ -2,7 +2,7 @@
 "use strict";
 const React = require("react");
 const PDFController = require("pdf.js-controller");
-export default class PDFPagePreview extends React.Component {
+export default class PDFPagePreview extends React.PureComponent {
     componentDidMount() {
         const container = this.refs.PDFContainer;
         const controller = new PDFController({

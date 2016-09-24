@@ -3,9 +3,9 @@
 const React = require("react");
 const suitClassNames = require("suitcss-classnames");
 import PDFPagePreview from "../PDFPagePreview/PDFPagePreview";
-import {MarkClickedPageFactory} from "../../../js/UseCase/MarkClickedPageUseCase";
-import AppContextRepository from "../../../AppContextRepository";
-export default class PagePreview extends React.Component {
+import {MarkPageUseCaseFactory} from "../../../js/UseCase/document/MarkPageUseCase";
+import AppLocator from "../../../AppLocator";
+export default class PagePreview extends React.PureComponent {
     render() {
         const className = suitClassNames({
             component: "PagePreview",
@@ -15,8 +15,8 @@ export default class PagePreview extends React.Component {
         });
         const markPage = () => {
             const pageNumber = this.props.pageNumber;
-            const context = AppContextRepository.context;
-            context.useCase(MarkClickedPageFactory.create()).execute(pageNumber);
+            const context = AppLocator.context;
+            context.useCase(MarkPageUseCaseFactory.create()).execute(pageNumber);
         };
         return <div className={className} onClick={markPage}>
             <PDFPagePreview pdfURL={this.props.pdfURL} pageNumber={this.props.pageNumber}/>

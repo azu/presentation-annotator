@@ -52,7 +52,7 @@ export class DocumentRepository extends EventEmitter {
     save(document) {
         this._database.set(`${Document.name}.lastUsed`, document);
         this._database.set(`${Document.name}.${document.id}`, document);
-        this.emit(REPOSITORY_CHANGE);
+        this.emit(REPOSITORY_CHANGE, document);
     }
 
     /**

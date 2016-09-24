@@ -2,12 +2,12 @@
 "use strict";
 const React = require("react");
 import HoverBlock from "../../uikit/HoverBlock/HoverBlock";
-import AppContextRepository from "../../../AppContextRepository";
-import {ToggleExportDialogFactory} from "../../../js/UseCase/ToggleExportDialogUseCase";
-export default class ExportToolbar extends React.Component {
+import AppLocator from "../../../AppLocator";
+import {ToggleExportDialogFactory} from "../../../js/UseCase/exporting/ToggleExportDialogUseCase";
+export default class ExportToolbar extends React.PureComponent {
     render() {
         const ShowExportBox = () => {
-            const context = AppContextRepository.context;
+            const context = AppLocator.context;
             context.useCase(ToggleExportDialogFactory.create()).execute();
         };
         return <HoverBlock className="ExportToolbar">

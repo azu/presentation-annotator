@@ -3,7 +3,7 @@
 const assert = require("power-assert");
 import Document from "../../src/js/domain/Document/Document";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
-import DocumentStateStore from "../../src/js/read-store/document/DocumentStateStore";
+import DocumentStateStore from "../../src/js/read-store/document/DocumentStore";
 describe("DocumentStateStore", function () {
     context("when create new document", function () {
         it("emit change and return new document", function () {

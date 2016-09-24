@@ -4,15 +4,14 @@
     "react"
   ],
   "plugins": [
+    "transform-class-properties",
     "transform-runtime"
   ],
   "env": {
     "development": {
       "presets": [
+        "jsdoc-to-assert",
         "power-assert"
-      ],
-      "plugins": [
-        "jsdoc-to-assert"
       ]
     }
   }

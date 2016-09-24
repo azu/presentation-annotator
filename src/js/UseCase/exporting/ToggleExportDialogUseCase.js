@@ -8,6 +8,13 @@ export class ToggleExportDialogFactory {
 }
 
 export class ToggleExportDialogUseCase extends UseCase {
+    /**
+     * @return {string}
+     */
+    static get Event() {
+        return "ToggleExportDialogUseCase";
+    }
+
     constructor() {
         super();
     }

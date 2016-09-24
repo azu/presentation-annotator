@@ -17,11 +17,6 @@ export default class Document extends DomainModel {
          * @private
          */
         this.pages = [];
-        /**
-         * @type {number[]}
-         * @private
-         */
-        this.markedPages = [];
         if (totalPageNumber > 0) {
             this.updateTotalPageNumber(totalPageNumber);
         }
@@ -47,11 +42,6 @@ export default class Document extends DomainModel {
         return page;
     }
 
-    isMarkedAtPage(pageNumber) {
-        const page = this.getPage(pageNumber);
-        return this.markedPages.indexOf(page) !== -1;
-    }
-
     /**
      * Update pages with empty Page instances.
      * @param {Number} pageNumber number is total page number
@@ -64,16 +54,47 @@ export default class Document extends DomainModel {
         this.isLoaded = true;
     }
 
-    updateNodeAtPage(note, pageNumber) {
-        const page = this.getPage(pageNumber);
-        page.note = note;
+
+    /**
+     * return index of same pageNumber
+     * not exist, return -1
+     * @param {number} pageNumber
+     * @return {number}
+     */
+    indexOfPageNumber(pageNumber) {
+        return this.pages.findIndex(page => {
+            return page.pageNumber === pageNumber
+        });
     }
 
-    markAtPage(pageNumber) {
-        if (this.isMarkedAtPage(pageNumber)) {
-            return;
-        }
+    /**
+     * update `page` at `index`
+     * @param {DocumentPage} page
+     */
+    updatePageAtIndex(page) {
+        const index = this.indexOfPageNumber(page.pageNumber);
+        this.pages = [
+            ...this.pages.slice(0, index),
+            page,
+            ...this.pages.slice(index + 1)
+        ];
+    }
+
+    /**
+     * update note at `pageNumber`.
+     * @param {string} note
+     * @param {number} pageNumber
+     */
+    updateNodeAtPage(note, pageNumber) {
         const page = this.getPage(pageNumber);
-        this.markedPages.push(page);
+        this.updatePageAtIndex(page.updateNote(note));
+    }
+
+    /**
+     * @param {number} pageNumber
+     */
+    markAtPage(pageNumber) {
+        const page = this.getPage(pageNumber);
+        this.updatePageAtIndex(page.mark());
     }
 }
