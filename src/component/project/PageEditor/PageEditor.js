@@ -8,15 +8,15 @@ export default class PageEditor extends React.PureComponent {
         const className = suitClassNames({
             component: "PageEditor",
             states: {
-                active: this.props.isActive
+                "is-active": this.props.isActive
             }
         });
         return <div className={className}>
             <PageEditorTextarea {...this.props}/>
         </div>;
     }
-};
-PageEditorTextarea.propTypes = {
+}
+PageEditor.propTypes = {
     pageNumber: React.PropTypes.number.isRequired,
     isActive: React.PropTypes.bool
 };

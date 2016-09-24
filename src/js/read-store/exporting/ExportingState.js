@@ -1,8 +1,8 @@
 // LICENSE : MIT
 "use strict";
-import {ReduceState} from "almin-reduce-store"
+import {ReduceState} from "almin-reduce-store";
 import DocumentService from "../../domain/Document/DocumentService";
-import {ToggleExportDialogUseCase} from "../../UseCase/exporting/ToggleExportDialogUseCase"
+import {ToggleExportDialogUseCase} from "../../UseCase/exporting/ToggleExportDialogUseCase";
 export default class ExportingState extends ReduceState {
     constructor({
         output = "",

@@ -27,4 +27,4 @@ export default class DocumentState extends ReduceState {
             pages: document.pages
         }));
     }
-};
+}

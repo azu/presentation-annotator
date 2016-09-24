@@ -21,7 +21,7 @@ export default class NewDocumentForm extends React.PureComponent {
                    defaultValue={pdfURL}
                    ref="inputURL"/>
             <input className="NewDocumentForm-submitButton" type="submit" onSubmit={openNewDocument}/>
-        </form>
+        </form>;
     }
 }
 NewDocumentForm.propTypes = {

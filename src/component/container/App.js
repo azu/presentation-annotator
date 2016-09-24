@@ -13,7 +13,7 @@ import ExportingState from "../../js/read-store/exporting/ExportingState";
 export default class App extends React.Component {
     static childContextTypes = {
         document: React.PropTypes.instanceOf(DocumentState).isRequired,
-        exporting: React.PropTypes.instanceOf(ExportingState).isRequired,
+        exporting: React.PropTypes.instanceOf(ExportingState).isRequired
     };
 
     constructor(...args) {
@@ -44,12 +44,12 @@ export default class App extends React.Component {
         if (!document.exist) {
             return <div className="App">
                 <DocumentFormContainer />
-            </div>
+            </div>;
         }
         return <div className="App">
             <ExportContainer />
             <DocumentFormContainer />
             <PageListContainer />
-        </div>
+        </div>;
     }
 }

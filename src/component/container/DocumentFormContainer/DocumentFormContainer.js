@@ -15,7 +15,7 @@ export default class DocumentFormContainer extends React.Component {
             <div className="DocumentFormContainer-inner">
                 <NewDocumentForm pdfURL={document.pdfURL}/>
             </div>
-        </div>
+        </div>;
     }
 }
 DocumentFormContainer.contextTypes = {

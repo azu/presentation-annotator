@@ -48,7 +48,7 @@ export default class Document extends DomainModel {
      * start with >=1
      */
     updateTotalPageNumber(pageNumber) {
-        this.pages = Range(pageNumber).map(index => {
+        this.pages = Range(pageNumber).map((index) => {
             return new DocumentPage({pageNumber: index + 1});
         });
         this.isLoaded = true;
@@ -62,8 +62,8 @@ export default class Document extends DomainModel {
      * @return {number}
      */
     indexOfPageNumber(pageNumber) {
-        return this.pages.findIndex(page => {
-            return page.pageNumber === pageNumber
+        return this.pages.findIndex((page) => {
+            return page.pageNumber === pageNumber;
         });
     }
 

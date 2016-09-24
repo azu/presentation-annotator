@@ -18,13 +18,13 @@ export default class PageEditorTextarea extends React.PureComponent {
         const className = suitClassNames({
             component: "PageEditorTextarea",
             states: {
-                active: this.props.isActive
+                "is-active": this.props.isActive
             }
         });
         return <textarea placeholder="input annotation" className={className}
                          onChange={savePageContent}>
 
-        </textarea>
+        </textarea>;
     }
 }
 

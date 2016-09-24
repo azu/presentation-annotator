@@ -19,7 +19,7 @@ export default class DummyPagePreview extends React.PureComponent {
                 const context = AppLocator.context;
                 context.useCase(CompleteLoadingDocumentFactory.create()).execute(totalPageNumber);
             })
-            .catch(function (error) {
+            .catch((error) => {
                 console.error(error);
             });
     }
@@ -27,7 +27,7 @@ export default class DummyPagePreview extends React.PureComponent {
     render() {
         return <div className="DummyPagePreview">
             <div className="DummyPagePreview-container" ref="PDFContainer"></div>
-        </div>
+        </div>;
     }
 }
 DummyPagePreview.propTypes = {

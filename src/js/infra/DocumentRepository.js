@@ -4,13 +4,6 @@ const EventEmitter = require("events");
 const REPOSITORY_CHANGE = "REPOSITORY_CHANGE";
 import MemoryDB from "./adpter/MemoryDB";
 import Document from "../domain/Document/Document";
-import DocumentFactory from "../domain/Document/DocumentFcatory";
-const shallowClone = (model) => {
-    return model;
-    // deserialize => serialize ?
-    const cloneObject = JSON.parse(JSON.stringify(model));
-    return DocumentFactory.create(cloneObject);
-};
 export class DocumentRepository extends EventEmitter {
     constructor(database = new MemoryDB()) {
         super();
@@ -21,14 +14,11 @@ export class DocumentRepository extends EventEmitter {
     }
 
     /**
-     * データを取り出し、複製したモデルを返す
      * @param id
      * @private
      */
     _get(id) {
-        // 本当はコンテキストを先頭に
-        // Domain.<id>
-        return shallowClone(this._database.get(`${Document.name}.${id}`));
+        return this._database.get(`${Document.name}.${id}`);
     }
 
     find(document) {

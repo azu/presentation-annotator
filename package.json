@@ -75,6 +75,7 @@
     "babel-runtime": "^6.6.1",
     "classnames": "^2.2.3",
     "lodash.range": "^3.1.4",
+    "map-like": "^1.0.1",
     "pdf.js-controller": "^1.0.1",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",

@@ -21,4 +21,4 @@ export default class DomainModel extends EventEmitter {
     emitChange() {
         this.emit(STATE_CHANGE_EVENT);
     }
-};
+}

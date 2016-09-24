@@ -10,7 +10,7 @@ export default class PagePreview extends React.PureComponent {
         const className = suitClassNames({
             component: "PagePreview",
             states: {
-                active: this.props.isActive
+                "is-active": this.props.isActive
             }
         });
         const markPage = () => {
@@ -20,7 +20,7 @@ export default class PagePreview extends React.PureComponent {
         };
         return <div className={className} onClick={markPage}>
             <PDFPagePreview pdfURL={this.props.pdfURL} pageNumber={this.props.pageNumber}/>
-        </div>
+        </div>;
     }
 }
 PagePreview.propTypes = {

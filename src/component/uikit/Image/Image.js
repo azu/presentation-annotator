@@ -21,6 +21,7 @@ export default class Image extends React.Component {
     }
 }
 Image.propTypes = {
+    className: React.PropTypes.string,
     src: React.PropTypes.string.isRequired,
     alt: React.PropTypes.string
 };

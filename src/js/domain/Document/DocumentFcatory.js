@@ -13,7 +13,7 @@ export default class DocumentFactory {
         document.markedPages = object.markedPages;
         document.isLoaded = object.isLoaded;
         document.pdfURL = object.pdfURL;
-        document.pages = object.pages.map(item => new DocumentPage(item));
+        document.pages = object.pages.map((item) => new DocumentPage(item));
         return document;
     }
 }

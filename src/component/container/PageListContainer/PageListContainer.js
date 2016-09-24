@@ -16,18 +16,18 @@ export default class PageListContainer extends React.Component {
             return null;
         }
         if (!document.isLoaded) {
-            return <DummyPagePreview pdfURL={document.pdfURL}/>
+            return <DummyPagePreview pdfURL={document.pdfURL}/>;
         }
         const pages = document.pages.map((page, index) => {
             return <PageContainer
                 key={index}
                 page={page}
                 pdfURL={document.pdfURL}
-            />
+            />;
         });
         return <div className="PageListContainer">
             {pages}
-        </div>
+        </div>;
     }
 }
 PageListContainer.contextTypes = {

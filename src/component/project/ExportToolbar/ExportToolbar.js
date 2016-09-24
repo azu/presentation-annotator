@@ -18,6 +18,6 @@ export default class ExportToolbar extends React.PureComponent {
                     </buttom>
                 </li>
             </ul>
-        </HoverBlock>
+        </HoverBlock>;
     }
 }

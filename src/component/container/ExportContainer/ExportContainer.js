@@ -28,7 +28,7 @@ export default class ExportContainer extends React.Component {
         return <div className={className}>
             <ExportToolbar />
             <textarea value={exporting.output} className={preClassName}/>
-        </div>
+        </div>;
     }
 }
 

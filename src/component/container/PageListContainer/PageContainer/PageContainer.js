@@ -4,7 +4,7 @@ const React = require("react");
 const suitClassNames = require("suitcss-classnames");
 import PageEditor from "../../../project/PageEditor/PageEditor";
 import PagePreview from "../../../project/PagePreview/PagePreview";
-import {Grid, GridCell} from "../../../uikit/Grid/Grid"
+import {Grid, GridCell} from "../../../uikit/Grid/Grid";
 // type
 import DocumentPage from "../.././../../js/domain/Document/DocumentPage";
 export default class PageContainer extends React.Component {
@@ -16,7 +16,7 @@ export default class PageContainer extends React.Component {
         const className = suitClassNames({
             component: "PageContainer",
             states: {
-                marked: page.marked
+                "is-marked": page.marked
             }
         });
         return <div className={className}>
@@ -31,7 +31,7 @@ export default class PageContainer extends React.Component {
                     />
                 </GridCell>
             </Grid>
-        </div>
+        </div>;
     }
 }
 PageContainer.propTypes = {

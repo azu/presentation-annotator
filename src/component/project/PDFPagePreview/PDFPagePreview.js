@@ -13,7 +13,7 @@ export default class PDFPagePreview extends React.PureComponent {
         });
         const PDFURL = this.props.pdfURL;
         controller.loadDocument(PDFURL)
-            .catch(function (error) {
+            .catch((error) => {
                 console.error(error);
             });
     }
@@ -21,7 +21,7 @@ export default class PDFPagePreview extends React.PureComponent {
     render() {
         return <div className="PDFPagePreview">
             <div className="PDFPagePreview-container" ref="PDFContainer"></div>
-        </div>
+        </div>;
     }
 }
 PDFPagePreview.propTypes = {
