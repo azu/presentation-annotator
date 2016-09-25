@@ -5,8 +5,16 @@ const PDFController = require("pdf.js-controller");
 import AppLocator from "../../../AppLocator";
 import {CompleteLoadingDocumentFactory} from "../../../js/UseCase/document/CompleteLoadingDocumentUseCase";
 export default class DummyPagePreview extends React.PureComponent {
+    constructor() {
+        super();
+        this.PDFContainer = null;
+    }
+
     componentDidMount() {
-        const container = this.refs.PDFContainer;
+        const container = this.PDFContainer;
+        if (!container) {
+            return;
+        }
         const controller = new PDFController({
             container: container,
             // path to dir of pdfjs-dist
@@ -26,7 +34,7 @@ export default class DummyPagePreview extends React.PureComponent {
 
     render() {
         return <div className="DummyPagePreview">
-            <div className="DummyPagePreview-container" ref="PDFContainer"></div>
+            <div className="DummyPagePreview-container" ref={(c) => this.PDFContainer = c}></div>
         </div>;
     }
 }

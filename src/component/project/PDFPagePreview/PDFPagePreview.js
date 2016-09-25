@@ -3,8 +3,16 @@
 const React = require("react");
 const PDFController = require("pdf.js-controller");
 export default class PDFPagePreview extends React.PureComponent {
+    constructor() {
+        super();
+        this.PDFContainer = null;
+    }
+
     componentDidMount() {
-        const container = this.refs.PDFContainer;
+        const container = this.PDFContainer;
+        if (!container) {
+            return;
+        }
         const controller = new PDFController({
             container: container,
             pageNumber: this.props.pageNumber,
@@ -20,7 +28,7 @@ export default class PDFPagePreview extends React.PureComponent {
 
     render() {
         return <div className="PDFPagePreview">
-            <div className="PDFPagePreview-container" ref="PDFContainer"></div>
+            <div className="PDFPagePreview-container" ref={(c) => this.PDFContainer = c}></div>
         </div>;
     }
 }

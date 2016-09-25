@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 import {ReduceState} from "almin-reduce-store";
-import Document from "../../domain/document/Document";
+import EmptyDocument from "../../domain/document/EmptyDocument";
 export default class DocumentState extends ReduceState {
     constructor({
         isLoaded = false,
@@ -22,8 +22,9 @@ export default class DocumentState extends ReduceState {
     }
 
     update({document}) {
+        const isEmpty = document instanceof EmptyDocument;
         return new DocumentState(Object.assign({}, this, {
-            isLoaded: document instanceof Document,
+            isLoaded: !isEmpty,
             pdfURL: document.pdfURL,
             pages: document.getAllPages()
         }));
