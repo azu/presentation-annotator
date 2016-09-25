@@ -3,7 +3,7 @@
 const EventEmitter = require("events");
 const REPOSITORY_CHANGE = "REPOSITORY_CHANGE";
 import MemoryDB from "./adpter/MemoryDB";
-import Document from "../domain/Document/Document";
+import Document from "../domain/document/Document";
 export class DocumentRepository extends EventEmitter {
     constructor(database = new MemoryDB()) {
         super();

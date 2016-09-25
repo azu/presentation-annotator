@@ -1,6 +1,6 @@
 // LICENSE : MIT
 "use strict";
-import EmptyDocument from "../../domain/Document/EmptyDocument";
+import EmptyDocument from "../../domain/document/EmptyDocument";
 import documentRepository from "../../infra/DocumentRepository";
 import {UseCase} from "almin";
 export class NewDocumentFactory {
