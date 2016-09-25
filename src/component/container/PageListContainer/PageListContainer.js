@@ -15,7 +15,6 @@ export default class PageListContainer extends React.Component {
         if(!document.pdfURL) {
             return null;
         }
-        console.log(document);
         if (!document.isLoaded) {
             return <DummyPagePreview pdfURL={document.pdfURL}/>;
         }
