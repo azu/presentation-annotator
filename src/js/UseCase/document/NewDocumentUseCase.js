@@ -1,6 +1,6 @@
 // LICENSE : MIT
 "use strict";
-import Document from "../../domain/Document/Document";
+import EmptyDocument from "../../domain/Document/EmptyDocument";
 import documentRepository from "../../infra/DocumentRepository";
 import {UseCase} from "almin";
 export class NewDocumentFactory {
@@ -27,7 +27,7 @@ export class NewDocumentUseCase extends UseCase {
      * @returns {function()}
      */
     execute(pdfURL) {
-        const document = new Document({pdfURL});
-        this.documentRepository.save(document);
+        const emptyDocument = new EmptyDocument({pdfURL});
+        this.documentRepository.save(emptyDocument);
     }
 }

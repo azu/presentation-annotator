@@ -32,7 +32,7 @@ export default class App extends React.Component {
             this.setState(context.getState());
         };
         context.onChange(onChangeHandler);
-        const defaultPdfURL = "./resources/example/jser.info.pdf";
+        const defaultPdfURL = "./resources/example/javascript-discussion.pdf";
         context.useCase(NewDocumentFactory.create()).execute(defaultPdfURL);
     }
 

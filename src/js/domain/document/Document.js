@@ -2,25 +2,27 @@
 "use strict";
 const assert = require("assert");
 import DocumentPage from "./DocumentPage";
-import Range from "lodash.range";
-import DomainModel from "../DomainModel";
 let DocumentID = 1;
 /**
  * Document Entity
+ * @alias DocumentModel
+ * avoid to conflict DOM document
  */
-export default class Document extends DomainModel {
-    constructor({pdfURL, totalPageNumber} = {}) {
-        super();
+export default class Document {
+    /**
+     * @param {string} pdfURL
+     * @param {DocumentPage[]} pages
+     */
+    constructor({pdfURL, pages} = {}) {
         this.id = `Document${DocumentID++}`;
         /**
          * @type {DocumentPage[]}
          * @private
          */
-        this.pages = [];
-        if (totalPageNumber > 0) {
-            this.updateTotalPageNumber(totalPageNumber);
-        }
-        this.isLoaded = false;
+        this.pages = pages;
+        /**
+         * @type {string}
+         */
         this.pdfURL = pdfURL;
     }
 
@@ -41,19 +43,6 @@ export default class Document extends DomainModel {
         assert(page, "page should exist");
         return page;
     }
-
-    /**
-     * Update pages with empty Page instances.
-     * @param {Number} pageNumber number is total page number
-     * start with >=1
-     */
-    updateTotalPageNumber(pageNumber) {
-        this.pages = Range(pageNumber).map((index) => {
-            return new DocumentPage({pageNumber: index + 1});
-        });
-        this.isLoaded = true;
-    }
-
 
     /**
      * return index of same pageNumber

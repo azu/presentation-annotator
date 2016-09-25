@@ -6,7 +6,7 @@ import PageEditor from "../../../project/PageEditor/PageEditor";
 import PagePreview from "../../../project/PagePreview/PagePreview";
 import {Grid, GridCell} from "../../../uikit/Grid/Grid";
 // type
-import DocumentPage from "../.././../../js/domain/Document/DocumentPage";
+import DocumentPage from "../../../../js/domain/document/DocumentPage";
 export default class PageContainer extends React.Component {
     render() {
         /**

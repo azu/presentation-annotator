@@ -37,7 +37,7 @@ export class DocumentRepository extends EventEmitter {
     }
 
     /**
-     * @param {Document} document
+     * @param {DocumentModel} document
      */
     save(document) {
         this._database.set(`${Document.name}.lastUsed`, document);
@@ -46,7 +46,7 @@ export class DocumentRepository extends EventEmitter {
     }
 
     /**
-     * @param {Document} document
+     * @param {DocumentModel} document
      */
     remove(document) {
         this._database.delete(`${Document.name}.${document.id}`);
