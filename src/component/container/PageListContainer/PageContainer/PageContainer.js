@@ -1,10 +1,12 @@
 // LICENSE : MIT
 "use strict";
 const React = require("react");
+const suitClassNames = require("suitcss-classnames");
 import PageEditor from "../../../project/PageEditor/PageEditor";
 import PagePreview from "../../../project/PagePreview/PagePreview";
-import {Grid, GridCell} from "../../../uikit/Grid/Grid"
-const suitClassNames = require("suitcss-classnames");
+import {Grid, GridCell} from "../../../uikit/Grid/Grid";
+// type
+import DocumentPage from "../../../../js/domain/document/DocumentPage";
 export default class PageContainer extends React.Component {
     render() {
         /**
@@ -14,7 +16,7 @@ export default class PageContainer extends React.Component {
         const className = suitClassNames({
             component: "PageContainer",
             states: {
-                marked: this.props.isMarked
+                "is-marked": page.marked
             }
         });
         return <div className={className}>
@@ -22,18 +24,17 @@ export default class PageContainer extends React.Component {
                 <GridCell col="6of12" className="PageContainer-item">
                     <PagePreview
                         pdfURL={this.props.pdfURL}
-                        pageNumber={page.pageNumber} />
+                        pageNumber={page.pageNumber}/>
                 </GridCell>
                 <GridCell col="6of12" className="PageContainer-item">
                     <PageEditor pageNumber={page.pageNumber}
                     />
                 </GridCell>
             </Grid>
-        </div>
+        </div>;
     }
 }
 PageContainer.propTypes = {
-    isMarked: React.PropTypes.bool,
     pdfURL: React.PropTypes.string.isRequired,
-    page: React.PropTypes.any.isRequired
+    page: React.PropTypes.instanceOf(DocumentPage).isRequired
 };

@@ -1,6 +1,7 @@
 // LICENSE : MIT
 "use strict";
-import documentRepository from "../infra/DocumentRepository";
+import documentRepository from "../../infra/DocumentRepository";
+import DocumentFactory from "../../domain/document/DocumentFactory";
 import {UseCase} from "almin";
 export class CompleteLoadingDocumentFactory {
     static create() {
@@ -26,7 +27,10 @@ export class CompleteLoadingDocumentUseCase extends UseCase {
         if (!currentDocument) {
             return new Error("currentDocument is not found");
         }
-        currentDocument.updateTotalPageNumber(totalPageNumber);
-        this.documentRepository.save(currentDocument);
+        const document = DocumentFactory.create({
+            pdfURL: currentDocument.pdfURL,
+            totalPageNumber: totalPageNumber
+        });
+        this.documentRepository.save(document);
     }
 }

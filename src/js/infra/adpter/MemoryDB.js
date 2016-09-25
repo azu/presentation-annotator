@@ -1,6 +1,6 @@
 // LICENSE : MIT
 "use strict";
-import MapLike from "./MapLike";
+const MapLike = require("map-like");
 export default class MemoryDB extends MapLike {
 
 }

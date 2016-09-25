@@ -3,29 +3,35 @@
 const React = require("react");
 const suitClassNames = require("suitcss-classnames");
 import ExportToolbar from "../../project/ExportToolbar/ExportToolbar";
+// state
+import ExportingState from "../../../js/read-store/exporting/ExportingState";
 export default class ExportContainer extends React.Component {
     render() {
-        const isShowing = this.props.isShowing;
+        /**
+         * @type {ExportingState}
+         */
+        const exporting = this.context.exporting;
+        const isShowing = exporting.isShowing;
         const className = suitClassNames({
             component: "ExportContainer",
             states: {
-                showing: isShowing
+                "is-showing": isShowing
             }
         });
         const preClassName = suitClassNames({
             component: "ExportContainer",
             descendant: "pre",
             states: {
-                showing: isShowing
+                "is-showing": isShowing
             }
         });
         return <div className={className}>
             <ExportToolbar />
-            <textarea value={this.props.output} className={preClassName}/>
-        </div>
+            <textarea value={exporting.output} className={preClassName}/>
+        </div>;
     }
 }
-ExportContainer.propTypes = {
-    isShowing: React.PropTypes.bool,
-    output: React.PropTypes.string
+
+ExportContainer.contextTypes = {
+    exporting: React.PropTypes.instanceOf(ExportingState).isRequired
 };

@@ -1,14 +1,17 @@
 // LICENSE : MIT
 "use strict";
 const assert = require("power-assert");
-import {UpdatePageNoteUseCase} from "../../src/js/UseCase/UpdatePageNoteUseCase";
-import Document from "../../src/js/domain/Document/Document";
+import {UpdatePageNoteUseCase} from "../../src/js/UseCase/document/UpdatePageNoteUseCase";
+import Document from "../../src/js/domain/document/Document";
+import DocumentFactory from "../../src/js/domain/document/DocumentFactory";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
-describe("UpdatePageNoteUseCase", function () {
-    it("should update page at pageNumber of document", function () {
+describe("UpdatePageNoteUseCase", function() {
+    it("should update page at pageNumber of document", function() {
         const documentRepository = new DocumentRepository();
-        const document = new Document();
-        document.updateTotalPageNumber(10);
+        const document = DocumentFactory.create({
+            pdfURL: "test.pdf",
+            totalPageNumber: 10
+        });
         const input = {note: "description of page", pageNumber: 1};
         documentRepository.save(document);
         documentRepository.onChange(() => {
@@ -18,11 +21,13 @@ describe("UpdatePageNoteUseCase", function () {
         const useCase = new UpdatePageNoteUseCase({documentRepository});
         return useCase.execute(input);
     });
-    context("when that page is out of range", function () {
-        it("should throw error", function () {
+    context("when that page is out of range", function() {
+        it("should throw error", function() {
             const documentRepository = new DocumentRepository();
-            const document = new Document();
-            document.updateTotalPageNumber(10);
+            const document = DocumentFactory.create({
+                pdfURL: "test.pdf",
+                totalPageNumber: 10
+            });
             const outOfRange = 20;
             const input = {note: "description of page", pageNumber: outOfRange};
             documentRepository.save(document);

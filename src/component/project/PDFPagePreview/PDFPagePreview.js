@@ -2,7 +2,7 @@
 "use strict";
 const React = require("react");
 const PDFController = require("pdf.js-controller");
-export default class PDFPagePreview extends React.Component {
+export default class PDFPagePreview extends React.PureComponent {
     componentDidMount() {
         const container = this.refs.PDFContainer;
         const controller = new PDFController({
@@ -13,7 +13,7 @@ export default class PDFPagePreview extends React.Component {
         });
         const PDFURL = this.props.pdfURL;
         controller.loadDocument(PDFURL)
-            .catch(function (error) {
+            .catch((error) => {
                 console.error(error);
             });
     }
@@ -21,7 +21,7 @@ export default class PDFPagePreview extends React.Component {
     render() {
         return <div className="PDFPagePreview">
             <div className="PDFPagePreview-container" ref="PDFContainer"></div>
-        </div>
+        </div>;
     }
 }
 PDFPagePreview.propTypes = {
