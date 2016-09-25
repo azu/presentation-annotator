@@ -21,7 +21,7 @@ export class ToggleExportDialogUseCase extends UseCase {
 
     execute() {
         this.dispatch({
-            type: ToggleExportDialogUseCase.name
+            type: ToggleExportDialogUseCase.Event
         });
     }
 }

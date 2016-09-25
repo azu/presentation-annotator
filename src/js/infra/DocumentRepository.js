@@ -18,7 +18,7 @@ export class DocumentRepository extends EventEmitter {
      * @private
      */
     _get(id) {
-        return this._database.get(`${Document.name}.${id}`);
+        return this._database.get(`document.${id}`);
     }
 
     find(document) {
@@ -29,7 +29,7 @@ export class DocumentRepository extends EventEmitter {
      * @returns {Document|undefined}
      */
     lastUsed() {
-        const document = this._database.get(`${Document.name}.lastUsed`);
+        const document = this._database.get(`document.lastUsed`);
         if (!document) {
             return;
         }
@@ -40,8 +40,8 @@ export class DocumentRepository extends EventEmitter {
      * @param {DocumentModel} document
      */
     save(document) {
-        this._database.set(`${Document.name}.lastUsed`, document);
-        this._database.set(`${Document.name}.${document.id}`, document);
+        this._database.set(`document.lastUsed`, document);
+        this._database.set(`document.${document.id}`, document);
         this.emit(REPOSITORY_CHANGE, document);
     }
 
@@ -49,7 +49,7 @@ export class DocumentRepository extends EventEmitter {
      * @param {DocumentModel} document
      */
     remove(document) {
-        this._database.delete(`${Document.name}.${document.id}`);
+        this._database.delete(`document.${document.id}`);
         this.emit(REPOSITORY_CHANGE);
     }
 
