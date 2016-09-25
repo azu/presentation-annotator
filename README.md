@@ -1,4 +1,4 @@
-# presentation-annotator [![Build Status](https://travis-ci.org/azu/slide.svg?branch=master)](https://travis-ci.org/azu/slide)
+# presentation-annotator [![Build Status](https://travis-ci.org/azu/presentation-annotator.svg?branch=master)](https://travis-ci.org/azu/presentation-annotator)
 
 ## Architecture
 
