@@ -2,8 +2,8 @@
 "use strict";
 const assert = require("power-assert");
 import {UpdatePageNoteUseCase} from "../../src/js/UseCase/document/UpdatePageNoteUseCase";
-import Document from "../../src/js/domain/Document/Document";
-import DocumentFactory from "../../src/js/domain/Document/DocumentFactory";
+import Document from "../../src/js/domain/document/Document";
+import DocumentFactory from "../../src/js/domain/document/DocumentFactory";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
 describe("UpdatePageNoteUseCase", function() {
     it("should update page at pageNumber of document", function() {

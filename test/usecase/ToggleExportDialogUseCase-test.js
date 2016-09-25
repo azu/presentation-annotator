@@ -2,9 +2,9 @@
 "use strict";
 const assert = require("power-assert");
 import {ToggleExportDialogUseCase} from "../../src/js/UseCase/exporting/ToggleExportDialogUseCase";
-import Document from "../../src/js/domain/Document/Document";
-import EmptyDocument from "../../src/js/domain/Document/EmptyDocument";
-import DocumentService from "../../src/js/domain/Document/DocumentService";
+import Document from "../../src/js/domain/document/Document";
+import EmptyDocument from "../../src/js/domain/document/EmptyDocument";
+import DocumentService from "../../src/js/domain/document/DocumentService";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
 import ExportingStore from "../../src/js/read-store/exporting/ExportingStore";
 describe("ToggleExportDialogUseCase", function() {

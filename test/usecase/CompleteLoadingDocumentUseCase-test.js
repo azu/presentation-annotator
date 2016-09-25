@@ -2,9 +2,9 @@
 "use strict";
 const assert = require("power-assert");
 import {CompleteLoadingDocumentUseCase} from "../../src/js/UseCase/document/CompleteLoadingDocumentUseCase";
-import Document from "../../src/js/domain/Document/Document";
-import EmptyDocument from "../../src/js/domain/Document/EmptyDocument";
-import DocumentFactory from "../../src/js/domain/Document/DocumentFactory";
+import Document from "../../src/js/domain/document/Document";
+import EmptyDocument from "../../src/js/domain/document/EmptyDocument";
+import DocumentFactory from "../../src/js/domain/document/DocumentFactory";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
 describe("CompleteLoadingDocumentUseCase", function() {
     context("when exist document filled total page", function() {

@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 const assert = require("power-assert");
-import DocumentFactory from "../../src/js/domain/Document/DocumentFactory";
+import DocumentFactory from "../../src/js/domain/document/DocumentFactory";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
 import DocumentStateStore from "../../src/js/read-store/document/DocumentStore";
 describe("DocumentStateStore", function() {

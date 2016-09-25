@@ -2,7 +2,7 @@
 "use strict";
 const assert = require("power-assert");
 import {NewDocumentUseCase} from "../../src/js/UseCase/document/NewDocumentUseCase";
-import Document from "../../src/js/domain/Document/Document";
+import Document from "../../src/js/domain/document/Document";
 import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
 describe("NewDocumentUseCase", function () {
     context("when execute", function () {

@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 const assert = require("assert");
-import DocumentFactory from "../../src/js/domain/Document/DocumentFactory";
+import DocumentFactory from "../../src/js/domain/document/DocumentFactory";
 describe("Document", () => {
     context("when mark a page", function() {
         it("return markedPageNumbers", function() {
