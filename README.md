@@ -7,13 +7,21 @@ See [document](docs/)
 - React architecture
 - CSS architecture
 
+See [azu/large-scale-javascript](https://github.com/azu/large-scale-javascript "azu/large-scale-javascript") for more details.
+
+This project is proof of concept for [large-scale-javascript](https://github.com/azu/large-scale-javascript) architecture.
+
+## Demo
+
+Web: [https://azu.github.io/presentation-annotator/](https://azu.github.io/presentation-annotator/)
+
 ## Installation
 
     npm install
 
 ## Usage
 
-    npm start
+    npm run watch
 
 ## Tests
 
