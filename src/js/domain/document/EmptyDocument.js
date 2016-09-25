@@ -1,6 +1,6 @@
 // LICENSE : MIT
 "use strict";
-import Document from "./Document"
+import Document from "./Document";
 export default class EmptyDocument extends Document {
     constructor({pdfURL}) {
         super({
