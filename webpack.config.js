@@ -16,7 +16,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: "babel"
+                loader: "babel-loader"
             }
         ],
         // to avoid warning by power-assert-formatter
