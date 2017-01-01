@@ -11,15 +11,17 @@ module.exports = {
         filename: "bundle.js"
     },
     module: {
-        loaders: [
-            {test: /\.json$/, loader: "json-loader"},
+        // to avoid warning by power-assert-formatter
+        exprContextCritical: false,
+        rules: [
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: "babel-loader"
+                loader: "babel-loader",
+                options: {
+                    cacheDirectory: true
+                }
             }
-        ],
-        // to avoid warning by power-assert-formatter
-        exprContextCritical: false
+        ]
     }
 };
