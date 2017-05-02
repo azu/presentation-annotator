@@ -18,7 +18,7 @@ describe("DocumentStateStore", function() {
             const store = new DocumentStateStore({documentRepository});
             // then
             store.onChange(() => {
-                assert.deepEqual(store.getState().document.pdfURL, document.pdfURL);
+                assert.deepEqual(store.getState().pdfURL, document.pdfURL);
             });
             // when
             documentRepository.save(document);
