@@ -13,9 +13,7 @@ export default class ExportingStateStore extends ReduceStore {
     }
 
     getState() {
-        return {
-            exporting: this.state
-        };
+        return this.state;
     }
 
     _onChange(document) {
