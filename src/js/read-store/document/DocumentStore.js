@@ -11,9 +11,7 @@ export default class DocumentStore extends ReduceStore {
     }
 
     getState() {
-        return {
-            document: this.state
-        };
+        return this.state;
     }
 
     _onChange(document) {

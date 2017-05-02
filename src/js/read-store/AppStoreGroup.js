@@ -3,16 +3,16 @@
 import documentRepository from "../infra/DocumentRepository";
 import DocumentStore from "./document/DocumentStore";
 import ExportingStore from "./exporting/ExportingStore";
-import {QueuedStoreGroup} from "almin";
+import {StoreGroup} from "almin";
 export default class AppStoreGroup {
     /**
      * return a StoreGroup
-     * @returns {QueuedStoreGroup}
+     * @returns {StoreGroup}
      */
     static create() {
-        return new QueuedStoreGroup([
-            new DocumentStore({documentRepository}),
-            new ExportingStore({documentRepository})
-        ]);
+        return new StoreGroup({
+            "document": new DocumentStore({documentRepository}),
+            "exporting": new ExportingStore({documentRepository})
+        });
     }
 }

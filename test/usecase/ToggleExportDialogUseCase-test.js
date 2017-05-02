@@ -31,11 +31,10 @@ describe("ToggleExportDialogUseCase", function() {
             // delegate event
             useCase.pipe(store);
             // then
-            const previousState = store.getState();
-            assert.equal(previousState.exporting.isShowing, false);
+            assert.equal(store.getState().isShowing, false);
             store.onChange(() => {
-                const state = store.getState();
-                assert.strictEqual(state.exporting.isShowing, true);
+                const exporting = store.getState();
+                assert.strictEqual(exporting.isShowing, true);
                 done();
             });
             // when
