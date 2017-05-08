@@ -2,7 +2,7 @@
 "use strict";
 const React = require("react");
 import AppLocator from "../../../AppLocator";
-import {NewDocumentFactory} from "../../../js/UseCase/document/NewDocumentUseCase";
+import { NewDocumentFactory } from "../../../js/UseCase/document/NewDocumentUseCase";
 export default class NewDocumentForm extends React.PureComponent {
     render() {
         const openNewDocument = (event) => {
@@ -20,7 +20,7 @@ export default class NewDocumentForm extends React.PureComponent {
                    placeholder="Please input PDF URL"
                    defaultValue={pdfURL}
                    ref="inputURL"/>
-            <input className="NewDocumentForm-submitButton" type="submit" onSubmit={openNewDocument}/>
+            <input className="NewDocumentForm-submitButton" type="submit" onSubmit={openNewDocument} value="Load"/>
         </form>;
     }
 }
