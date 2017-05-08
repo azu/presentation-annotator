@@ -3,11 +3,6 @@
     --PageContainer-width: 960px;
 }
 
-html, body, #js-app {
-    height: 100%;
-
-}
-
 .App {
     width: var(--PageContainer-width);
     height: 100%;
