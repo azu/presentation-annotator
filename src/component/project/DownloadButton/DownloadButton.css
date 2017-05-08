@@ -1,0 +1,9 @@
+.DownloadButton {
+    background-color: #4974af;
+    border: none;
+    color: white;
+    padding: 0.5em 1em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}

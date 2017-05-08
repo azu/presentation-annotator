@@ -34,7 +34,7 @@ export default class PDFPagePreview extends React.Component {
                 "is-modified": this.props.isMarked,
             }
         });
-        return <div className="PDFPagePreview">
+        return <div className="PDFPagePreview" data-page={this.props.pageNumber}>
             <PDF className={pdfClassName}
                  file={this.props.pdfURL}
                  page={this.props.pageNumber}
