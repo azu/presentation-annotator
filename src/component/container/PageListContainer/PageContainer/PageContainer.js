@@ -24,7 +24,10 @@ export default class PageContainer extends React.Component {
                 <GridCell col="6of12" className="PageContainer-item">
                     <PagePreview
                         pdfURL={this.props.pdfURL}
-                        pageNumber={page.pageNumber}/>
+                        pageNumber={page.pageNumber}
+                        isMarked={page.marked}
+                        isModified={page.isModified}
+                    />
                 </GridCell>
                 <GridCell col="6of12" className="PageContainer-item">
                     <PageEditor pageNumber={page.pageNumber}

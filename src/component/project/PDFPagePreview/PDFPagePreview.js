@@ -1,6 +1,7 @@
 // LICENSE : MIT
 "use strict";
 const React = require("react");
+const suitClassNames = require("suitcss-classnames");
 import PDF from "react-pdf-js";
 // hack for non-ascii pdf content
 // dynamic loading cMap files
@@ -26,8 +27,15 @@ export default class PDFPagePreview extends React.Component {
     }
 
     render() {
+        const pdfClassName = suitClassNames({
+            component: "PDFPagePreview-canvas",
+            states: {
+                "is-marked": this.props.isMarked,
+                "is-modified": this.props.isMarked,
+            }
+        });
         return <div className="PDFPagePreview">
-            <PDF className="pdf-canvas"
+            <PDF className={pdfClassName}
                  file={this.props.pdfURL}
                  page={this.props.pageNumber}
                  onDocumentComplete={this.onDocumentComplete}
@@ -37,6 +45,8 @@ export default class PDFPagePreview extends React.Component {
     }
 }
 PDFPagePreview.propTypes = {
+    isModified: React.PropTypes.bool,
+    isMarked: React.PropTypes.bool,
     pdfURL: React.PropTypes.string.isRequired,
     pageNumber: React.PropTypes.number.isRequired,
     onDocumentComplete: React.PropTypes.func,
