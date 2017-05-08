@@ -26,7 +26,7 @@ export default class DocumentService {
         const createTable = (pageNumber, left, right) => {
             return `Page ${pageNumber} | Annotation
 ------------ | -------------
-${left} |${right.replace(/\n/g, "")}`;
+${left} | ${right.replace(/\n/g, "")}`;
         };
         const createImage = (pageNumber) => {
             return `![Page ${pageNumber}](./images/${pageNumber}.png)`

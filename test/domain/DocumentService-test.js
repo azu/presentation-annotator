@@ -1,6 +1,10 @@
 // MIT © 2017 azu
-import DocumentFactory from "../../src/js/domain/document/DocumentFactory";
 "use strict";
+import DocumentFactory from "../../src/js/domain/document/DocumentFactory";
+import DocumentService from "../../src/js/domain/document/DocumentService";
+const path = require("path");
+const assert = require("assert");
+const fs = require("fs");
 describe("DocumentService", () => {
     describe("toMarkdown", function() {
         it("should return Markdown", () => {
@@ -8,22 +12,12 @@ describe("DocumentService", () => {
                 pdfURL: "test.pdf",
                 totalPageNumber: 10
             });
-            const actual = [
-                {
-                    pageNumber: 1,
-                    note: "Text 1"
-                },
-                {
-                    pageNumber: 2,
-                    note: "Text 2"
-                },
-                {
-                    pageNumber: 10,
-                    note: "Text 10"
-                }
-            ];
-            const expected = ``
-            document.updateNodeAtPage(note, pageNumber);
+            const actual = require("./fixtures/download-format/actual.json");
+            actual.forEach(({ pageNumber, note }) => {
+                document.updateNodeAtPage(note, pageNumber);
+            });
+            const expected = fs.readFileSync(path.join(__dirname, "fixtures/download-format/expected.md"), "utf-8");
+            assert.equal(DocumentService.toMarkdown(document), expected);
         });
     });
 });
