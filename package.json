@@ -40,7 +40,7 @@
   ],
   "devDependencies": {
     "@alrra/travis-scripts": "^3.0.1",
-    "autoprefixer": "^6.3.6",
+    "autoprefixer": "^7.0.1",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-class-properties": "^6.11.5",
@@ -53,7 +53,7 @@
     "chokidar-cli": "^1.2.0",
     "eslint": "^3.6.0",
     "eslint-plugin-no-allow-react-context": "^1.0.1",
-    "eslint-plugin-react": "^6.3.0",
+    "eslint-plugin-react": "^7.0.0",
     "eslint-plugin-suitcss-classnames": "^1.0.3",
     "gh-pages": "^0.12.0",
     "json-loader": "^0.5.4",
@@ -68,7 +68,7 @@
     "postcss-reporter": "^3.0.0",
     "power-assert": "^1.3.1",
     "rimraf": "^2.5.2",
-    "webpack": "^2.2.0",
+    "webpack": "^2.5.1",
     "webpack-dev-server": "^2.0.0"
   },
   "dependencies": {
@@ -77,11 +77,16 @@
     "almin-reduce-store": "^1.0.1",
     "babel-runtime": "^6.6.1",
     "classnames": "^2.2.3",
+    "file-saver": "^1.3.3",
+    "jszip": "^3.1.3",
     "lodash.range": "^3.1.4",
     "map-like": "^1.0.1",
     "pdf.js-controller": "^1.0.1",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
+    "react-pdf-js": "^1.0.35",
+    "react-simple-file-input": "^1.0.0",
+    "react-virtualized": "^9.7.5",
     "suitcss-base": "^3.0.0",
     "suitcss-classnames": "^1.1.0",
     "uuid": "^3.0.1"

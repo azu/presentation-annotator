@@ -6,5 +6,3 @@
 @import "./css/var/**/*.css";
 /* Component */
 @import "./component/**/*.css";
-/* Library */
-@import "../node_modules/pdf.js-controller/css/pdf-slide.css";

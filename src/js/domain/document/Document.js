@@ -13,7 +13,7 @@ export default class Document {
      * @param {string} pdfURL
      * @param {DocumentPage[]} pages
      */
-    constructor({pdfURL, pages} = {}) {
+    constructor({ pdfURL, pages } = {}) {
         this.id = `Document${DocumentID++}`;
         /**
          * @type {DocumentPage[]}
@@ -42,6 +42,14 @@ export default class Document {
         const page = this.pages[pageNumber - 1];
         assert(page, "page should exist");
         return page;
+    }
+
+    /**
+     * return modified pages
+     * @returns {DocumentPage[]}
+     */
+    getModifiedPages() {
+        return this.getAllPages().filter(page => page.isModified);
     }
 
     /**

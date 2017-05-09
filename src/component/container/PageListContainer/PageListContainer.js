@@ -5,14 +5,13 @@ import PageContainer from "./PageContainer/PageContainer";
 import DummyPagePreview from "../../project/DummyPagePreview/DummyPagePreview";
 // state
 import DocumentState from "../../../js/read-store/document/DocumentState";
-
 export default class PageListContainer extends React.Component {
     render() {
         /**
          * @type {DocumentState}
          */
         const document = this.context.document;
-        if(!document.pdfURL) {
+        if (!document.pdfURL) {
             return null;
         }
         if (!document.isLoaded) {

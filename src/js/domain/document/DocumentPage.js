@@ -8,13 +8,28 @@ export default class DocumentPage {
      * @param {boolean} [marked]
      */
     constructor({
-        pageNumber,
-        note,
-        marked
-    } = {}) {
+                    pageNumber,
+                    note,
+                    marked
+                } = {}) {
         this.pageNumber = pageNumber;
         this.note = note || "";
         this.marked = marked !== undefined ? marked : false;
+    }
+
+    /**
+     * Return true if
+     * - added some note
+     * - or marked this page
+     * @returns {boolean}
+     */
+    get isModified() {
+        if (this.marked) {
+            return true;
+        }
+        if (this.note.length > 0) {
+            return true;
+        }
     }
 
     /**

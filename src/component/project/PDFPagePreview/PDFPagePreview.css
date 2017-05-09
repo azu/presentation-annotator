@@ -12,7 +12,7 @@
     display: none !important;
 }
 
-.pdf-canvas {
+.PDFPagePreview-canvas {
     height: auto !important;
     max-width: 100%;
     max-height: 100%;
