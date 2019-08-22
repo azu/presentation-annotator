@@ -27,10 +27,10 @@ export default class DownloadNotesUseCase extends UseCase {
         }
         const zip = new Zip();
         zip.addContent("index.md", DocumentService.toMarkdown(document));
-        document.getModifiedPages().forEach(page => {
+        document.getAllPages().forEach(page => {
             const base64Image = DocumentPageCapture.createCapture(page);
             zip.addImage(`${page.pageNumber}.png`, base64Image);
         });
-        return DownloadAPI.download(zip, "example.zip");
+        return DownloadAPI.download(zip, "slide.zip");
     }
 }

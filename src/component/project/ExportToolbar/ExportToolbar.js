@@ -14,9 +14,9 @@ export default class ExportToolbar extends React.PureComponent {
             <HoverBlock className="ExportToolbar">
                 <ul className="ExportToolbar-list">
                     <li className="ExportToolbar-listItem">
-                        <buttom className="ExportToolbar-exportButton" onClick={this.showExportBox}>
+                        <button className="ExportToolbar-exportButton" onClick={this.showExportBox}>
                             Output JSON
-                        </buttom>
+                        </button>
                     </li>
                 </ul>
             </HoverBlock>

@@ -2,32 +2,36 @@
 const React = require("react");
 const suitClassNames = require("suitcss-classnames");
 
-// LICENSE : MIT
+import {Document, Page} from "react-pdf";
 import PropTypes from "prop-types";
-
-import PDF from "react-pdf-js";
 // hack for non-ascii pdf content
 // dynamic loading cMap files
 // https://github.com/mikecousins/react-pdf-js/issues/16
-window.PDFJS.cMapUrl = `/resources/pdfjs-dist/cmaps/`;
-window.PDFJS.cMapPacked = true;
 
 export default class PDFPagePreview extends React.Component {
-    onDocumentComplete = pages => {
+    state = {
+        text: ""
+    };
+    onDocumentComplete = (outline) => {
         if (typeof this.props.onDocumentComplete === "function") {
-            this.props.onDocumentComplete(pages);
+            this.props.onDocumentComplete(outline.numPages);
         }
     };
 
-    onPageComplete = page => {
+    onPageComplete = (page) => {
         if (typeof this.props.onPageComplete === "function") {
-            this.props.onPageComplete(page);
+            this.props.onPageComplete(page.pageNumber);
         }
     };
 
-    constructor() {
-        super();
-    }
+    onGetTextSuccess = (items) => {
+        const text = items.map((item) => {
+            return item.str;
+        }).join("\n");
+        this.setState({
+            text
+        });
+    };
 
     render() {
         const pdfClassName = suitClassNames({
@@ -38,14 +42,23 @@ export default class PDFPagePreview extends React.Component {
             }
         });
         return (
-            <div className="PDFPagePreview" data-page={this.props.pageNumber}>
-                <PDF
+            <div className="PDFPagePreview" data-page={this.props.pageNumber} data-page-text={this.state.text}>
+                <Document
                     className={pdfClassName}
                     file={this.props.pdfURL}
-                    page={this.props.pageNumber}
-                    onDocumentComplete={this.onDocumentComplete}
-                    onPageComplete={this.onPageComplete}
-                />
+                    onLoadSuccess={this.onDocumentComplete}
+                    options={{
+                        cMapUrl: "/resources/pdfjs-dist/cmaps/",
+                        cMapPacked: true
+                    }}
+                >
+                    <Page
+                        width={480}
+                        pageNumber={this.props.pageNumber}
+                        onLoadSuccess={this.onPageComplete}
+                        onGetTextSuccess={this.onGetTextSuccess}
+                    />
+                </Document>
             </div>
         );
     }

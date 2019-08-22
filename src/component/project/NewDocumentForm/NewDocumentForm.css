@@ -21,12 +21,11 @@
     display: inline-block;
     text-align: center;
     color: #ffffff;
-    background-color: #248;
-    border: 2px solid #248;
+    background-color: #4974af;
+    border: 1px solid #4974af;
     text-decoration: none;
     font-weight: bold;
     padding: 10px 24px;
-    border-radius: 4px;
     position: relative;
 }
 
@@ -34,12 +33,11 @@
     display: inline-block;
     text-align: center;
     color: #ffffff;
-    background-color: #9ec34b;
-    border: 2px solid #9ec34b;
+    background-color: #4caf50;
+    border: 1px solid #4caf50;
     font-size: var(--NewDocumentForm_font-size);
     text-decoration: none;
     font-weight: bold;
     padding: 10px 24px;
-    border-radius: 4px;
     position: relative;
 }

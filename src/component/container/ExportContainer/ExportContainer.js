@@ -36,7 +36,7 @@ export default class ExportContainer extends React.Component {
         return (
             <div className={className}>
                 <ExportToolbar />
-                <textarea value={exporting.output} className={preClassName} />
+                <textarea defaultValue={exporting.output} className={preClassName} />
                 <DownloadButton onClick={this.onClickDownload} />
             </div>
         );

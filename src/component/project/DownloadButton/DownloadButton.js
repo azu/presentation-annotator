@@ -9,9 +9,9 @@ export default class DownloadButton extends React.PureComponent {
 
     render() {
         return (
-            <buttom className="DownloadButton" onClick={this.props.onClick}>
+            <button className="DownloadButton" onClick={this.props.onClick}>
                 Download notes
-            </buttom>
+            </button>
         );
     }
 }

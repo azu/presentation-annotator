@@ -1,6 +1,19 @@
 // MIT © 2017 azu
 "use strict";
+
 export class DocumentPageCapture {
+    /**
+     * @param {DocumentPage} page
+     * @return {string| null}
+     */
+    static captureText(page) {
+        const pageElement = document.querySelector(`[data-page="${page.pageNumber}"]`);
+        if (!pageElement) {
+            return null;
+        }
+        return pageElement.dataset.pageText || "";
+    }
+
     /**
      * @param {DocumentPage} page
      * @return {string| null}
