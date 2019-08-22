@@ -3,7 +3,7 @@
 const assert = require("assert");
 export const ZipFileType = {
     Text: "Text",
-    Image: "Image",
+    Image: "Image"
 };
 export class ZipFile {
     /**

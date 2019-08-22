@@ -1,13 +1,10 @@
 // LICENSE : MIT
 "use strict";
-import {ReduceState} from "almin-reduce-store";
+import { ReduceState } from "almin-reduce-store";
 import DocumentService from "../../domain/document/DocumentService";
-import {ToggleExportDialogUseCase} from "../../UseCase/exporting/ToggleExportDialogUseCase";
+import { ToggleExportDialogUseCase } from "../../UseCase/exporting/ToggleExportDialogUseCase";
 export default class ExportingState extends ReduceState {
-    constructor({
-        output = "",
-        isShowing = false
-    } = {}) {
+    constructor({ output = "", isShowing = false } = {}) {
         super();
         this.output = output;
         this.isShowing = isShowing;
@@ -17,18 +14,22 @@ export default class ExportingState extends ReduceState {
      * @param {*} document
      * @returns {ExportingState}
      */
-    update({document}) {
-        return new ExportingState(Object.assign({}, this, {
-            output: DocumentService.stringify(document)
-        }));
+    update({ document }) {
+        return new ExportingState(
+            Object.assign({}, this, {
+                output: DocumentService.stringify(document)
+            })
+        );
     }
 
     reduce(payload) {
         switch (payload.type) {
             case ToggleExportDialogUseCase.Event:
-                return new ExportingState(Object.assign({}, this, {
-                    isShowing: !this.isShowing
-                }));
+                return new ExportingState(
+                    Object.assign({}, this, {
+                        isShowing: !this.isShowing
+                    })
+                );
             default:
                 return this;
         }

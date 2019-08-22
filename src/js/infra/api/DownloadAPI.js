@@ -1,7 +1,7 @@
 // MIT © 2017 azu
 "use strict";
 const JSZip = require("jszip");
-const FileSaver = require('file-saver');
+const FileSaver = require("file-saver");
 import { ZipFileType } from "../../domain/zip/ZipFile";
 export class DownloadAPI {
     /**
@@ -20,8 +20,7 @@ export class DownloadAPI {
                 }
             });
         });
-        return zip.generateAsync({ type: "blob" })
-        .then(function(content) {
+        return zip.generateAsync({ type: "blob" }).then(function(content) {
             // see FileSaver.js
             FileSaver.saveAs(content, zipName);
         });

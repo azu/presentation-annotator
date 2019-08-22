@@ -7,7 +7,7 @@ import AppLocator from "./AppLocator";
 // store
 import AppStoreGroup from "./js/read-store/AppStoreGroup";
 // context
-import {Context, Dispatcher}  from "almin";
+import { Context, Dispatcher } from "almin";
 import AlminLogger from "almin-logger";
 // instances
 const appStore = AppStoreGroup.create();
@@ -22,4 +22,4 @@ logger.startLogging(appContext);
 // Singleton
 AppLocator.context = appContext;
 // entry point
-ReactDOM.render(<App appContext={appContext}/>, document.getElementById("js-app"));
+ReactDOM.render(<App appContext={appContext} />, document.getElementById("js-app"));

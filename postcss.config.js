@@ -1,11 +1,11 @@
 module.exports = {
-    "plugins": {
+    plugins: {
         "postcss-easy-import": {},
         "postcss-custom-properties": {},
         "postcss-calc": {},
         "postcss-custom-media": {},
-        "autoprefixer": {
-            "browsers": "> 5%"
+        autoprefixer: {
+            browsers: "> 5%"
         },
         "postcss-reporter": {}
     }

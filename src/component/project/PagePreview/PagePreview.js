@@ -1,5 +1,6 @@
 // LICENSE : MIT
 "use strict";
+const PropTypes = require("prop-types");
 const React = require("react");
 const suitClassNames = require("suitcss-classnames");
 import PDFPagePreview from "../PDFPagePreview/PDFPagePreview";
@@ -19,20 +20,22 @@ export default class PagePreview extends React.PureComponent {
             const context = AppLocator.context;
             context.useCase(MarkPageUseCaseFactory.create()).execute(pageNumber);
         };
-        return <div className={className} onClick={markPage}>
-            <PDFPagePreview
-                pdfURL={this.props.pdfURL}
-                pageNumber={this.props.pageNumber}
-                isMarked={this.props.isMarked}
-                isModified={this.props.isModified}
-            />
-        </div>;
+        return (
+            <div className={className} onClick={markPage}>
+                <PDFPagePreview
+                    pdfURL={this.props.pdfURL}
+                    pageNumber={this.props.pageNumber}
+                    isMarked={this.props.isMarked}
+                    isModified={this.props.isModified}
+                />
+            </div>
+        );
     }
 }
 PagePreview.propTypes = {
-    isModified: React.PropTypes.bool,
-    isMarked: React.PropTypes.bool,
-    pdfURL: React.PropTypes.string.isRequired,
+    isModified: PropTypes.bool,
+    isMarked: PropTypes.bool,
+    pdfURL: PropTypes.string.isRequired,
     // page image url
-    pageNumber: React.PropTypes.number.isRequired
+    pageNumber: PropTypes.number.isRequired
 };

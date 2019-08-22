@@ -1,15 +1,16 @@
 // LICENSE : MIT
 "use strict";
+const PropTypes = require("prop-types");
 const React = require("react");
 const suitClassNames = require("suitcss-classnames");
 import ExportToolbar from "../../project/ExportToolbar/ExportToolbar";
 import { DownloadNotesUseCaseFactory } from "../../../js/UseCase/exporting/DownloadNotesUseCase";
-import  AppLocator from "../../../AppLocator";
+import AppLocator from "../../../AppLocator";
 import DownloadButton from "../../project/DownloadButton/DownloadButton";
 // state
 import ExportingState from "../../../js/read-store/exporting/ExportingState";
 export default class ExportContainer extends React.Component {
-    onClickDownload = (event) => {
+    onClickDownload = event => {
         AppLocator.context.useCase(DownloadNotesUseCaseFactory.create()).execute();
     };
 
@@ -32,14 +33,16 @@ export default class ExportContainer extends React.Component {
                 "is-showing": isShowing
             }
         });
-        return <div className={className}>
-            <ExportToolbar />
-            <textarea value={exporting.output} className={preClassName}/>
-            <DownloadButton onClick={this.onClickDownload}/>
-        </div>;
+        return (
+            <div className={className}>
+                <ExportToolbar />
+                <textarea value={exporting.output} className={preClassName} />
+                <DownloadButton onClick={this.onClickDownload} />
+            </div>
+        );
     }
 }
 
 ExportContainer.contextTypes = {
-    exporting: React.PropTypes.instanceOf(ExportingState).isRequired
+    exporting: PropTypes.instanceOf(ExportingState).isRequired
 };

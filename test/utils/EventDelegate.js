@@ -17,7 +17,7 @@ export default function delegateEvents(fromEmitter, toEmitter) {
      * @param {DispatcherPayload} payload
      */
     const eventDelegateHookEmit = function eventDelegateHookEmit(payload) {
-        const {type} = payload;
+        const { type } = payload;
         this.displayName = delegateName;
         toEmitter.emit(type, ...args);
         oldEmit.apply(fromEmitter, originalArgs);

@@ -1,4 +1,5 @@
 "use strict";
+import PropTypes from "prop-types";
 import React from "react";
 import classNames from "classnames";
 /*
@@ -9,14 +10,10 @@ import classNames from "classnames";
  */
 export default class Link extends React.Component {
     render() {
-        return (
-            <a {...this.props}
-                className={classNames("Link", this.props.className)}
-            />
-        );
+        return <a {...this.props} className={classNames("Link", this.props.className)} />;
     }
 }
 Link.propTypes = {
-    className: React.PropTypes.string,
-    href: React.PropTypes.string.isRequired
+    className: PropTypes.string,
+    href: PropTypes.string.isRequired
 };

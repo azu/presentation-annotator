@@ -1,9 +1,9 @@
 // LICENSE : MIT
 "use strict";
-import {ReduceStore} from "almin-reduce-store";
+import { ReduceStore } from "almin-reduce-store";
 import DocumentState from "./DocumentState";
 export default class DocumentStore extends ReduceStore {
-    constructor({documentRepository}) {
+    constructor({ documentRepository }) {
         super();
         this.state = new DocumentState();
         this.documentRepository = documentRepository;
@@ -15,6 +15,6 @@ export default class DocumentStore extends ReduceStore {
     }
 
     _onChange(document) {
-        this.setState(this.state.update({document}));
+        this.setState(this.state.update({ document }));
     }
 }

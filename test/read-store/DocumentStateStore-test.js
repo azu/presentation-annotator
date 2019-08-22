@@ -2,7 +2,7 @@
 "use strict";
 const assert = require("power-assert");
 import DocumentFactory from "../../src/js/domain/document/DocumentFactory";
-import {DocumentRepository} from "../../src/js/infra/DocumentRepository";
+import { DocumentRepository } from "../../src/js/infra/DocumentRepository";
 import DocumentStateStore from "../../src/js/read-store/document/DocumentStore";
 describe("DocumentStateStore", function() {
     context("when create new document", function() {
@@ -15,7 +15,7 @@ describe("DocumentStateStore", function() {
             // add document to repository
             const documentRepository = new DocumentRepository();
             // create store
-            const store = new DocumentStateStore({documentRepository});
+            const store = new DocumentStateStore({ documentRepository });
             // then
             store.onChange(() => {
                 assert.deepEqual(store.getState().pdfURL, document.pdfURL);

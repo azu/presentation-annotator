@@ -28,8 +28,8 @@ export default class DocumentService {
 ------------ | -------------
 ${left} | ${right.replace(/\n/g, "")}`;
         };
-        const createImage = (pageNumber) => {
-            return `![Page ${pageNumber}](./images/${pageNumber}.png)`
+        const createImage = pageNumber => {
+            return `![Page ${pageNumber}](./images/${pageNumber}.png)`;
         };
         const pageNotes = document.getModifiedPages().map(page => {
             return createTable(page.pageNumber, createImage(page.pageNumber), page.note);

@@ -2,7 +2,7 @@
 "use strict";
 import Document from "./Document";
 export default class EmptyDocument extends Document {
-    constructor({pdfURL}) {
+    constructor({ pdfURL }) {
         super({
             pdfURL,
             pages: []

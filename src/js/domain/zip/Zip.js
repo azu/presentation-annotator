@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 "use strict";
-import { ZipDirectory } from "./ZipDirectory"
+import { ZipDirectory } from "./ZipDirectory";
 import { ZipFile, ZipFileType } from "./ZipFile";
 export class Zip {
     name;
@@ -40,5 +40,4 @@ export class Zip {
         });
         this.imageDirectory.addFile(file);
     }
-
 }

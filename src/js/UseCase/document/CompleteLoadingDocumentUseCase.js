@@ -2,7 +2,7 @@
 "use strict";
 import documentRepository from "../../infra/DocumentRepository";
 import DocumentFactory from "../../domain/document/DocumentFactory";
-import {UseCase} from "almin";
+import { UseCase } from "almin";
 export class CompleteLoadingDocumentFactory {
     static create() {
         return new CompleteLoadingDocumentUseCase({
@@ -17,7 +17,7 @@ export class CompleteLoadingDocumentUseCase extends UseCase {
      * Not directly use from View/Component
      * Call via UseCaseController
      */
-    constructor({documentRepository}) {
+    constructor({ documentRepository }) {
         super();
         this.documentRepository = documentRepository;
     }
