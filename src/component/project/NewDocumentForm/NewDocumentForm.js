@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import FileInput from "react-simple-file-input";
 
 const allowedFileTypes = ["application/pdf"];
+
 function fileIsIncorrectFiletype(file) {
     return allowedFileTypes.indexOf(file.type) === -1;
 }
@@ -17,7 +18,7 @@ export default class NewDocumentForm extends React.PureComponent {
     };
 
     resetCancelButtonClicked = () => {
-        this.setState({ cancelButtonClicked: false });
+        this.setState({cancelButtonClicked: false});
     };
 
     showInvalidFileTypeMessage = file => {
@@ -25,7 +26,7 @@ export default class NewDocumentForm extends React.PureComponent {
     };
 
     showProgressBar = () => {
-        this.setState({ progressBarVisible: true });
+        this.setState({progressBarVisible: true});
     };
 
     updateProgressBar = event => {
@@ -65,34 +66,35 @@ export default class NewDocumentForm extends React.PureComponent {
         return (
             <form className="NewDocumentForm" onSubmit={this.onSubmitNewDocument}>
                 <span>{this.state.progressBarVisible ? `${this.state.progressPercent}%` : ""}</span>
-                To upload a pdd file:
-                <label>
-                    <FileInput
-                        readAs="buffer"
-                        style={{ display: "none" }}
-                        onLoadStart={this.showProgressBar}
-                        onLoad={this.onLoadFile}
-                        onProgress={this.updateProgressBar}
-                        cancelIf={fileIsIncorrectFiletype}
-                        abortIf={this.cancelButtonClicked}
-                        onCancel={this.showInvalidFileTypeMessage}
-                        onAbort={this.resetCancelButtonClicked}
+                <div className={"NewDocumentForm-inputs"}>
+                    <input
+                        className="NewDocumentForm-inputURL"
+                        type="text"
+                        placeholder="Input pdf url"
+                        defaultValue={pdfURL}
+                        ref="inputURL"
                     />
-                    <span>Click Here</span>
-                </label>
-                <input
-                    className="NewDocumentForm-inputURL"
-                    type="text"
-                    placeholder="Please input PDF URL"
-                    defaultValue={pdfURL}
-                    ref="inputURL"
-                />
-                <input
-                    className="NewDocumentForm-submitButton"
-                    type="submit"
-                    onSubmit={this.onSubmitNewDocument}
-                    value="Load"
-                />
+                    <input
+                        className="NewDocumentForm-submitButton"
+                        type="submit"
+                        onSubmit={this.onSubmitNewDocument}
+                        value="Load"
+                    />
+                    <label>
+                        <FileInput
+                            readAs="buffer"
+                            style={{display: "none"}}
+                            onLoadStart={this.showProgressBar}
+                            onLoad={this.onLoadFile}
+                            onProgress={this.updateProgressBar}
+                            cancelIf={fileIsIncorrectFiletype}
+                            abortIf={this.cancelButtonClicked}
+                            onCancel={this.showInvalidFileTypeMessage}
+                            onAbort={this.resetCancelButtonClicked}
+                        />
+                        <span className={"NewDocumentForm-uploadButton"}>Upload</span>
+                    </label>
+                </div>
             </form>
         );
     }

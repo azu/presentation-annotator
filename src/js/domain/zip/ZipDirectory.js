@@ -1,6 +1,6 @@
 // MIT © 2017 azu
 "use strict";
-import ZipFile from "./ZipFile";
+import {ZipFile} from "./ZipFile";
 export class ZipDirectory {
     /**
      *

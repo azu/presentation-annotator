@@ -4,9 +4,7 @@ module.exports = {
         "postcss-custom-properties": {},
         "postcss-calc": {},
         "postcss-custom-media": {},
-        autoprefixer: {
-            browsers: "> 5%"
-        },
+        autoprefixer: {},
         "postcss-reporter": {}
     }
 };

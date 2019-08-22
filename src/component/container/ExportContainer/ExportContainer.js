@@ -10,7 +10,7 @@ import DownloadButton from "../../project/DownloadButton/DownloadButton";
 // state
 import ExportingState from "../../../js/read-store/exporting/ExportingState";
 export default class ExportContainer extends React.Component {
-    onClickDownload = event => {
+    onClickDownload = () => {
         AppLocator.context.useCase(DownloadNotesUseCaseFactory.create()).execute();
     };
 

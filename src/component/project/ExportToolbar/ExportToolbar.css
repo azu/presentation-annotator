@@ -1,6 +1,5 @@
 .ExportToolbar {
     width: 100%;
-    min-height: 50px;
 }
 
 .ExportToolbar-exportButton {
@@ -11,6 +10,7 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    width: 100%;
 }
 
 .ExportToolbar-list {
