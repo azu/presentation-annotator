@@ -41,6 +41,7 @@ export default class PDFPagePreview extends React.Component {
                 "is-modified": this.props.isMarked
             }
         });
+        console.log("this.props.isZipping", this.props.isZipping);
         return (
             <div className="PDFPagePreview" data-page={this.props.pageNumber} data-page-text={this.state.text}>
                 <Document
@@ -53,7 +54,7 @@ export default class PDFPagePreview extends React.Component {
                     }}
                 >
                     <Page
-                        width={480}
+                        width={this.props.isZipping ? undefined : 480}
                         pageNumber={this.props.pageNumber}
                         onLoadSuccess={this.onPageComplete}
                         onGetTextSuccess={this.onGetTextSuccess}
@@ -66,6 +67,7 @@ export default class PDFPagePreview extends React.Component {
 PDFPagePreview.propTypes = {
     isModified: PropTypes.bool,
     isMarked: PropTypes.bool,
+    isZipping: PropTypes.bool,
     pdfURL: PropTypes.string.isRequired,
     pageNumber: PropTypes.number.isRequired,
     onDocumentComplete: PropTypes.func,

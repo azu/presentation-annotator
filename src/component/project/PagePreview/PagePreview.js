@@ -27,6 +27,7 @@ export default class PagePreview extends React.PureComponent {
                     pageNumber={this.props.pageNumber}
                     isMarked={this.props.isMarked}
                     isModified={this.props.isModified}
+                    isZipping={this.props.isZipping}
                 />
             </div>
         );
@@ -35,6 +36,7 @@ export default class PagePreview extends React.PureComponent {
 PagePreview.propTypes = {
     isModified: PropTypes.bool,
     isMarked: PropTypes.bool,
+    isZipping: PropTypes.bool,
     pdfURL: PropTypes.string.isRequired,
     // page image url
     pageNumber: PropTypes.number.isRequired

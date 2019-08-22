@@ -29,6 +29,7 @@ export default class PageContainer extends React.Component {
                             pageNumber={page.pageNumber}
                             isMarked={page.marked}
                             isModified={page.isModified}
+                            isZipping={this.props.isZipping}
                         />
                     </GridCell>
                     <GridCell col="6of12" className="PageContainer-item">
@@ -41,5 +42,6 @@ export default class PageContainer extends React.Component {
 }
 PageContainer.propTypes = {
     pdfURL: PropTypes.string.isRequired,
-    page: PropTypes.instanceOf(DocumentPage).isRequired
+    page: PropTypes.instanceOf(DocumentPage).isRequired,
+    isZipping: PropTypes.bool
 };
