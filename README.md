@@ -13,7 +13,7 @@ This project is proof of concept for [large-scale-javascript](https://github.com
 
 ## Demo
 
-Web: [https://azu.github.io/presentation-annotator/](https://azu.github.io/presentation-annotator/)
+Visit <https://presentation-annotator.netlify.com/>
 
 ## Installation
 
