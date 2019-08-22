@@ -1,20 +1,17 @@
 "use strict";
+import PropTypes from "prop-types";
 import React from "react";
 import classNames from "classnames";
 export default class GridCell extends React.Component {
     render() {
         const col = `col-${this.props.col}`;
-        return (
-            <div className={classNames("GridCell", [col], this.props.className)}>
-                {this.props.children}
-            </div>
-        );
+        return <div className={classNames("GridCell", [col], this.props.className)}>{this.props.children}</div>;
     }
 }
 GridCell.propTypes = {
-    className: React.PropTypes.string,
-    children: React.PropTypes.node,
-    col: React.PropTypes.oneOf([
+    className: PropTypes.string,
+    children: PropTypes.node,
+    col: PropTypes.oneOf([
         "fill",
         "1of12",
         "2of12",

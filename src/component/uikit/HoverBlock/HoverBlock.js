@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 const suitClassNames = require("suitcss-classnames");
 const classNames = require("classnames");
@@ -7,21 +8,21 @@ const classNames = require("classnames");
 export default class HoverBlock extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {hover: false};
+        this.state = { hover: false };
     }
 
     render() {
-        const mouseEnter = (event) => {
+        const mouseEnter = event => {
             if (!this.state.hover && typeof this.props.onMouseEnter === "function") {
                 this.props.onMouseEnter(event);
             }
-            this.setState({hover: true});
+            this.setState({ hover: true });
         };
-        const mouseLeave = (event) => {
+        const mouseLeave = event => {
             if (this.state.hover && typeof this.props.onMouseLeave === "function") {
                 this.props.onMouseLeave(event);
             }
-            this.setState({hover: false});
+            this.setState({ hover: false });
         };
         const className = suitClassNames({
             component: "HoverBlock",
@@ -29,16 +30,21 @@ export default class HoverBlock extends React.Component {
                 "is-hovering": this.state.hover
             }
         });
-        return <div className={classNames(className, this.props.className)}
-                    onMouseEnter={mouseEnter}
-                    onMouseLeave={mouseLeave}
-        >{this.props.children}</div>;
+        return (
+            <div
+                className={classNames(className, this.props.className)}
+                onMouseEnter={mouseEnter}
+                onMouseLeave={mouseLeave}
+            >
+                {this.props.children}
+            </div>
+        );
     }
 }
 
 HoverBlock.propTypes = {
-    children: React.PropTypes.node.isRequired,
-    className: React.PropTypes.string,
-    onMouseEnter: React.PropTypes.func,
-    onMouseLeave: React.PropTypes.func
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func
 };

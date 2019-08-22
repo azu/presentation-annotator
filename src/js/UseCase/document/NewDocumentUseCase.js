@@ -2,7 +2,7 @@
 "use strict";
 import EmptyDocument from "../../domain/document/EmptyDocument";
 import documentRepository from "../../infra/DocumentRepository";
-import {UseCase} from "almin";
+import { UseCase } from "almin";
 export class NewDocumentFactory {
     static create() {
         return new NewDocumentUseCase({
@@ -17,17 +17,17 @@ export class NewDocumentUseCase extends UseCase {
      * Not directly use from View/Component
      * Call via UseCaseController
      */
-    constructor({documentRepository}) {
+    constructor({ documentRepository }) {
         super();
         this.documentRepository = documentRepository;
     }
 
     /**
      * @param {string} pdfURL
-     * @returns {function()}
+     * @returns {void}
      */
     execute(pdfURL) {
-        const emptyDocument = new EmptyDocument({pdfURL});
+        const emptyDocument = new EmptyDocument({ pdfURL });
         this.documentRepository.save(emptyDocument);
     }
 }

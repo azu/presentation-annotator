@@ -7,11 +7,7 @@ export default class DocumentPage {
      * @param {string} [note]
      * @param {boolean} [marked]
      */
-    constructor({
-                    pageNumber,
-                    note,
-                    marked
-                } = {}) {
+    constructor({ pageNumber, note, marked } = {}) {
         this.pageNumber = pageNumber;
         this.note = note || "";
         this.marked = marked !== undefined ? marked : false;
@@ -37,26 +33,32 @@ export default class DocumentPage {
      * @returns {DocumentPage}
      */
     updateNote(note) {
-        return new DocumentPage(Object.assign({}, this, {
-            note
-        }));
+        return new DocumentPage(
+            Object.assign({}, this, {
+                note
+            })
+        );
     }
 
     /**
      * @returns {DocumentPage}
      */
     mark() {
-        return new DocumentPage(Object.assign({}, this, {
-            marked: true
-        }));
+        return new DocumentPage(
+            Object.assign({}, this, {
+                marked: true
+            })
+        );
     }
 
     /**
      * @returns {DocumentPage}
      */
     unMark() {
-        return new DocumentPage(Object.assign({}, this, {
-            marked: false
-        }));
+        return new DocumentPage(
+            Object.assign({}, this, {
+                marked: false
+            })
+        );
     }
 }

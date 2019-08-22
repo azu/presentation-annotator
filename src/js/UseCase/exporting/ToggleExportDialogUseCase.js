@@ -1,6 +1,6 @@
 // LICENSE : MIT
 "use strict";
-import {UseCase} from "almin";
+import { UseCase } from "almin";
 export class ToggleExportDialogFactory {
     static create() {
         return new ToggleExportDialogUseCase();

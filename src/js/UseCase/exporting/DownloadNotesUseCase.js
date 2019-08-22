@@ -17,7 +17,7 @@ export class DownloadNotesUseCaseFactory {
 export default class DownloadNotesUseCase extends UseCase {
     constructor({ documentRepository }) {
         super();
-        this.documentRepository = documentRepository
+        this.documentRepository = documentRepository;
     }
 
     execute() {

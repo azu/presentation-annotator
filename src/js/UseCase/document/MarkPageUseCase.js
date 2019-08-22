@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 import documentRepository from "../../infra/DocumentRepository";
-import {UseCase} from "almin";
+import { UseCase } from "almin";
 export class MarkPageUseCaseFactory {
     static create() {
         return new MarkPageUseCase({
@@ -11,7 +11,7 @@ export class MarkPageUseCaseFactory {
 }
 
 export class MarkPageUseCase extends UseCase {
-    constructor({documentRepository}) {
+    constructor({ documentRepository }) {
         super();
         this.documentRepository = documentRepository;
     }

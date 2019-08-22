@@ -1,4 +1,5 @@
 "use strict";
+import PropTypes from "prop-types";
 import React from "react";
 import classNames from "classnames";
 import suitClassNames from "suitcss-classnames";
@@ -15,7 +16,7 @@ import GridCell from "./GridCell";
  </GridCell>
  </Grid>
  */
-export {GridCell};
+export { GridCell };
 export class Grid extends React.Component {
     render() {
         // <Component>--modifier
@@ -27,20 +28,16 @@ export class Grid extends React.Component {
                 gutter: this.props.gutter
             }
         });
-        return (
-            <div className={classNames(names, this.props.className)}>
-                {this.props.children}
-            </div>
-        );
+        return <div className={classNames(names, this.props.className)}>{this.props.children}</div>;
     }
 }
 
 Grid.propTypes = {
-    children: React.PropTypes.node.isRequired,
-    className: React.PropTypes.string,
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
     // e.g.) alignLeft
-    align: React.PropTypes.oneOf(["Left", "Center", "Right"]),
+    align: PropTypes.oneOf(["Left", "Center", "Right"]),
     // e.g.) verticalAlignTop
-    verticalAlign: React.PropTypes.oneOf(["Top", "Middle", "Bottom"]),
-    gutter: React.PropTypes.oneOf(["4", "8", "12", "16", "20", "24", "40"])
+    verticalAlign: PropTypes.oneOf(["Top", "Middle", "Bottom"]),
+    gutter: PropTypes.oneOf(["4", "8", "12", "16", "20", "24", "40"])
 };

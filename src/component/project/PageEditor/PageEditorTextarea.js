@@ -1,12 +1,13 @@
 // LICENSE : MIT
 "use strict";
+const PropTypes = require("prop-types");
 const React = require("react");
 const suitClassNames = require("suitcss-classnames");
 import AppLocator from "../../../AppLocator";
-import {UpdatePageNoteFactory} from "../../../js/UseCase/document/UpdatePageNoteUseCase";
+import { UpdatePageNoteFactory } from "../../../js/UseCase/document/UpdatePageNoteUseCase";
 export default class PageEditorTextarea extends React.PureComponent {
     render() {
-        const savePageContent = (event) => {
+        const savePageContent = event => {
             const content = event.target.value;
             const page = {
                 note: content,
@@ -21,14 +22,11 @@ export default class PageEditorTextarea extends React.PureComponent {
                 "is-active": this.props.isActive
             }
         });
-        return <textarea placeholder="input annotation" className={className}
-                         onChange={savePageContent}>
-
-        </textarea>;
+        return <textarea placeholder="input annotation" className={className} onChange={savePageContent}></textarea>;
     }
 }
 
 PageEditorTextarea.propTypes = {
-    pageNumber: React.PropTypes.number.isRequired,
-    isActive: React.PropTypes.bool
+    pageNumber: PropTypes.number.isRequired,
+    isActive: PropTypes.bool
 };

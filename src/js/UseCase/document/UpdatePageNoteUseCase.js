@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 import documentRepository from "../../infra/DocumentRepository";
-import {UseCase} from "almin";
+import { UseCase } from "almin";
 export class UpdatePageNoteFactory {
     static create() {
         return new UpdatePageNoteUseCase({
@@ -11,7 +11,7 @@ export class UpdatePageNoteFactory {
 }
 
 export class UpdatePageNoteUseCase extends UseCase {
-    constructor({documentRepository}) {
+    constructor({ documentRepository }) {
         super();
         this.documentRepository = documentRepository;
     }
@@ -21,7 +21,7 @@ export class UpdatePageNoteUseCase extends UseCase {
      * @param pageNumber
      * @returns {function()}
      */
-    execute({note, pageNumber}) {
+    execute({ note, pageNumber }) {
         const document = this.documentRepository.lastUsed();
         document.updateNodeAtPage(note, pageNumber);
         this.documentRepository.save(document);

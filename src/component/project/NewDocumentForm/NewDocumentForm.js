@@ -1,9 +1,13 @@
-// LICENSE : MIT
 "use strict";
 const React = require("react");
+
+// LICENSE : MIT
+import PropTypes from "prop-types";
+
 import FileInput from "react-simple-file-input";
 
 const allowedFileTypes = ["application/pdf"];
+
 function fileIsIncorrectFiletype(file) {
     return allowedFileTypes.indexOf(file.type) === -1;
 }
@@ -14,18 +18,18 @@ export default class NewDocumentForm extends React.PureComponent {
     };
 
     resetCancelButtonClicked = () => {
-        this.setState({ cancelButtonClicked: false });
+        this.setState({cancelButtonClicked: false});
     };
 
-    showInvalidFileTypeMessage = (file) => {
+    showInvalidFileTypeMessage = file => {
         window.alert("Tried to upload invalid filetype " + file.type);
     };
 
     showProgressBar = () => {
-        this.setState({ progressBarVisible: true });
+        this.setState({progressBarVisible: true});
     };
 
-    updateProgressBar = (event) => {
+    updateProgressBar = event => {
         this.setState({
             progressPercent: (event.loaded / event.total) * 100
         });
@@ -37,10 +41,10 @@ export default class NewDocumentForm extends React.PureComponent {
         this.setState({
             progressPercent: 0,
             progressBarVisible: false
-        })
+        });
     };
 
-    onSubmitNewDocument = (event) => {
+    onSubmitNewDocument = event => {
         event.preventDefault();
         const pdfURL = this.refs.inputURL.value;
         if (!pdfURL) {
@@ -59,35 +63,43 @@ export default class NewDocumentForm extends React.PureComponent {
 
     render() {
         const pdfURL = this.props.pdfURL || "";
-        return <form className="NewDocumentForm" onSubmit={this.onSubmitNewDocument}>
-            <span>{ this.state.progressBarVisible ? `${this.state.progressPercent}%` : ""}</span>
-            To upload a pdd file:
-            <label >
-                <FileInput
-                    readAs='buffer'
-                    style={ { display: 'none' } }
-                    onLoadStart={this.showProgressBar}
-                    onLoad={this.onLoadFile}
-                    onProgress={this.updateProgressBar}
-
-                    cancelIf={fileIsIncorrectFiletype}
-                    abortIf={this.cancelButtonClicked}
-
-                    onCancel={this.showInvalidFileTypeMessage}
-                    onAbort={this.resetCancelButtonClicked}
-                />
-                <span>Click Here</span>
-            </label>
-            <input className="NewDocumentForm-inputURL" type="text"
-                   placeholder="Please input PDF URL"
-                   defaultValue={pdfURL}
-                   ref="inputURL"/>
-            <input className="NewDocumentForm-submitButton" type="submit" onSubmit={this.onSubmitNewDocument}
-                   value="Load"/>
-        </form>;
+        return (
+            <form className="NewDocumentForm" onSubmit={this.onSubmitNewDocument}>
+                <span>{this.state.progressBarVisible ? `${this.state.progressPercent}%` : ""}</span>
+                <div className={"NewDocumentForm-inputs"}>
+                    <input
+                        className="NewDocumentForm-inputURL"
+                        type="text"
+                        placeholder="Input pdf url"
+                        defaultValue={pdfURL}
+                        ref="inputURL"
+                    />
+                    <input
+                        className="NewDocumentForm-submitButton"
+                        type="submit"
+                        onSubmit={this.onSubmitNewDocument}
+                        value="Load"
+                    />
+                    <label>
+                        <FileInput
+                            readAs="buffer"
+                            style={{display: "none"}}
+                            onLoadStart={this.showProgressBar}
+                            onLoad={this.onLoadFile}
+                            onProgress={this.updateProgressBar}
+                            cancelIf={fileIsIncorrectFiletype}
+                            abortIf={this.cancelButtonClicked}
+                            onCancel={this.showInvalidFileTypeMessage}
+                            onAbort={this.resetCancelButtonClicked}
+                        />
+                        <span className={"NewDocumentForm-uploadButton"}>Upload</span>
+                    </label>
+                </div>
+            </form>
+        );
     }
 }
 NewDocumentForm.propTypes = {
-    pdfURL: React.PropTypes.string,
-    onOpenDocument: React.PropTypes.func.isRequired
+    pdfURL: PropTypes.string,
+    onOpenDocument: PropTypes.func.isRequired
 };

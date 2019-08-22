@@ -59,7 +59,7 @@ export default class Document {
      * @return {number}
      */
     indexOfPageNumber(pageNumber) {
-        return this.pages.findIndex((page) => {
+        return this.pages.findIndex(page => {
             return page.pageNumber === pageNumber;
         });
     }
@@ -70,11 +70,7 @@ export default class Document {
      */
     updatePageAtIndex(page) {
         const index = this.indexOfPageNumber(page.pageNumber);
-        this.pages = [
-            ...this.pages.slice(0, index),
-            page,
-            ...this.pages.slice(index + 1)
-        ];
+        this.pages = [...this.pages.slice(0, index), page, ...this.pages.slice(index + 1)];
     }
 
     /**

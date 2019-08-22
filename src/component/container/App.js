@@ -1,8 +1,9 @@
 // LICENSE : MIT
 "use strict";
+const PropTypes = require("prop-types");
 const React = require("react");
 import AppLocator from "../../AppLocator";
-import {NewDocumentFactory} from "../../js/UseCase/document/NewDocumentUseCase";
+import { NewDocumentFactory } from "../../js/UseCase/document/NewDocumentUseCase";
 // Container
 import DocumentFormContainer from "./DocumentFormContainer/DocumentFormContainer";
 import PageListContainer from "./PageListContainer/PageListContainer";
@@ -12,8 +13,8 @@ import DocumentState from "../../js/read-store/document/DocumentState";
 import ExportingState from "../../js/read-store/exporting/ExportingState";
 export default class App extends React.Component {
     static childContextTypes = {
-        document: React.PropTypes.instanceOf(DocumentState).isRequired,
-        exporting: React.PropTypes.instanceOf(ExportingState).isRequired
+        document: PropTypes.instanceOf(DocumentState).isRequired,
+        exporting: PropTypes.instanceOf(ExportingState).isRequired
     };
 
     constructor(...args) {
@@ -42,14 +43,18 @@ export default class App extends React.Component {
          */
         const document = this.state.document;
         if (!document.exist) {
-            return <div className="App">
-                <DocumentFormContainer />
-            </div>;
+            return (
+                <div className="App">
+                    <DocumentFormContainer />
+                </div>
+            );
         }
-        return <div className="App">
-            <ExportContainer />
-            <DocumentFormContainer />
-            <PageListContainer />
-        </div>;
+        return (
+            <div className="App">
+                <ExportContainer />
+                <DocumentFormContainer />
+                <PageListContainer />
+            </div>
+        );
     }
 }

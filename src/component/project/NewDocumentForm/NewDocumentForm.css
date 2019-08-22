@@ -1,11 +1,14 @@
 :root {
-    --NewDocumentForm_font-size: 30px;
-    --NewDocumentForm_leftRadio: 80%;
-    --NewDocumentForm_rightRadio: 20%;
+    --NewDocumentForm_font-size: 24px;
+    --NewDocumentForm_leftRadio: 75%;
 }
 
 .NewDocumentForm {
     font-size: var(--NewDocumentForm_font-size);
+}
+
+.NewDocumentForm-inputs {
+    display: flex;
 }
 
 .NewDocumentForm-inputURL {
@@ -14,9 +17,29 @@
 }
 
 .NewDocumentForm-submitButton {
-    width: var(--NewDocumentForm_rightRadio, 20%);
     font-size: var(--NewDocumentForm_font-size);
+    display: inline-block;
+    text-align: center;
+    color: #ffffff;
     background-color: #248;
-    color: #fff;
-    border-style: none;
+    border: 2px solid #248;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 24px;
+    border-radius: 4px;
+    position: relative;
+}
+
+.NewDocumentForm-uploadButton {
+    display: inline-block;
+    text-align: center;
+    color: #ffffff;
+    background-color: #9ec34b;
+    border: 2px solid #9ec34b;
+    font-size: var(--NewDocumentForm_font-size);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 24px;
+    border-radius: 4px;
+    position: relative;
 }

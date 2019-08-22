@@ -1,9 +1,7 @@
 const path = require("path");
 
 module.exports = {
-    entry: [
-        "./src/index.js"
-    ],
+    entry: ["./src/index.js"],
     devtool: process.env.WEBPACK_DEVTOOL || "source-map",
     output: {
         path: path.join(__dirname, "public", "build"),
@@ -17,9 +15,8 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: "babel-loader",
-                options: {
-                    cacheDirectory: true
+                use: {
+                    loader: "babel-loader"
                 }
             }
         ]
