@@ -13,6 +13,9 @@ function fileIsIncorrectFiletype(file) {
 }
 
 export default class NewDocumentForm extends React.PureComponent {
+
+    inputURL = React.createRef();
+
     cancelButtonClicked = () => {
         return this.state.cancelButtonClicked;
     };
@@ -46,7 +49,7 @@ export default class NewDocumentForm extends React.PureComponent {
 
     onSubmitNewDocument = event => {
         event.preventDefault();
-        const pdfURL = this.refs.inputURL.value;
+        const pdfURL = this.inputURL.current.value;
         if (!pdfURL) {
             return;
         }
@@ -72,7 +75,7 @@ export default class NewDocumentForm extends React.PureComponent {
                         type="text"
                         placeholder="Input pdf url"
                         defaultValue={pdfURL}
-                        ref="inputURL"
+                        ref={this.inputURL}
                     />
                     <input
                         className="NewDocumentForm-submitButton"

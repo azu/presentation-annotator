@@ -7,6 +7,9 @@ export class DocumentPageCapture {
      * @return {string| null}
      */
     static captureText(page) {
+        if (typeof document === "undefined") {
+            return "";
+        }
         const pageElement = document.querySelector(`[data-page="${page.pageNumber}"]`);
         if (!pageElement) {
             return null;
