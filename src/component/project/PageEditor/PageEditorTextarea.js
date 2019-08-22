@@ -22,7 +22,11 @@ export default class PageEditorTextarea extends React.PureComponent {
                 "is-active": this.props.isActive
             }
         });
-        return <textarea placeholder="input annotation" className={className} onChange={savePageContent}></textarea>;
+        return <textarea
+            tabIndex={this.props.pageNumber}
+            placeholder="input annotation"
+            className={className}
+            onChange={savePageContent}/>;
     }
 }
 
